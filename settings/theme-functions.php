@@ -712,8 +712,7 @@ if( in_array( $taxonomy, $taxonomy_to_exclude ) ) return true;
 
 
 
-include(get_template_directory()."/settings/widget-areas/header.php");
-include(get_template_directory()."/settings/widget-areas/footer.php");
+
 
 // Disable REST API link tag
 remove_action( 'wp_head','rest_output_link_wp_head');

@@ -1,66 +1,66 @@
 <?php
 
 /***    add  panels   ***/
-   
+
    Kirki::add_panel( 'site_settings', array(
     'priority'    => 20,
     'title'       => esc_html__( 'Site Settings', 'kirki' ),
     'description' => esc_html__( '', 'kirki' ),
 ) );
-   
-   
+
+
    /***** add section ******/
-   
+
      Kirki::add_section( 'general_settings', array(
     'title'          => esc_html__( 'General', 'kirki' ),
     'description'    => esc_html__( '', 'kirki' ),
     'panel'          => 'site_settings',
     'priority'       => 1,
 ) );
-     
-     
-   
+
+
+
      Kirki::add_section( 'social_media', array(
     'title'          => esc_html__( 'Social Media', 'kirki' ),
     'description'    => esc_html__( '', 'kirki' ),
     'panel'          => 'site_settings',
     'priority'       => 1,
 ) );
-     
 
-     
+
+
  Kirki::add_section( 'location', array(
     'title'          => esc_html__( 'Location', 'kirki' ),
     'description'    => esc_html__( '', 'kirki' ),
     'panel'          => 'site_settings',
     'priority'       => 1,
 ) );
-     
-     
+
+
  Kirki::add_section( 'working_hours', array(
     'title'          => esc_html__( 'Working Hours', 'kirki' ),
     'description'    => esc_html__( '', 'kirki' ),
     'panel'          => 'site_settings',
     'priority'       => 1,
 ) );
- 
+
 Kirki::add_section( 'popup_settings', array(
     'title'          => esc_html__( 'Popup Settings', 'kirki' ),
     'description'    => esc_html__( '', 'kirki' ),
     'panel'          => 'site_settings',
     'priority'       => 1,
 ) );
- 
+
   Kirki::add_section( 'inner_pages', array(
     'title'          => esc_html__( 'Inner pages Settings', 'kirki' ),
     'description'    => esc_html__( '', 'kirki' ),
     'panel'          => 'site_settings',
     'priority'       => 1,
 ) );
-     
- /*############################ GENERAL SECTION FIELDS ###########################*/    
-     
-     
+
+ /*############################ GENERAL SECTION FIELDS ###########################*/
+
+
 Kirki::add_field( 'theme_config_id', [
 	'type'     => 'text',
 	'settings' => 'client_name',
@@ -191,12 +191,12 @@ Kirki::add_field( 'theme_config_id', [
 ] );
 
 
- /*############################ SOCIAL MEDIA SECTION FIELDS ###########################*/   
+ /*############################ SOCIAL MEDIA SECTION FIELDS ###########################*/
 
- 
 
- 
- 
+
+
+
  Kirki::add_field( 'theme_config_id', [
 	'type'        => 'repeater',
 	'label'       => esc_html__( 'Social Media Links ', 'kirki' ),
@@ -233,14 +233,14 @@ Kirki::add_field( 'theme_config_id', [
             'description' => esc_html__( '', 'kirki' ),
             'default'     => '',
         ],
-		        
+
 	],
-    
+
 ] );
- 
+
   /*############################ LOCATION  SECTION FIELDS ###########################*/
-  
-  
+
+
   Kirki::add_field( 'theme_config_id', [
 	'type'        => 'select',
 	'settings'    => 'country',
@@ -258,10 +258,10 @@ Kirki::add_field( 'theme_config_id', [
         'Online Based' => esc_html__( 'Online Based', 'kirki' ),
 	],
 ] );
-  
-  
-  
- 
+
+
+
+
  Kirki::add_field( 'theme_config_id', [
 	'type'        => 'repeater',
 	'label'       => esc_html__( 'Locations ', 'kirki' ),
@@ -304,44 +304,44 @@ Kirki::add_field( 'theme_config_id', [
             'description' => esc_html__( '', 'kirki' ),
             'default'     => '',
         ],
-        
+
         'state' => [
             'type'        => 'text',
             'label'       => esc_html__( 'State', 'kirki' ),
             'description' => esc_html__( '', 'kirki' ),
             'default'     => '',
         ],
-        
+
         'zip' => [
             'type'        => 'text',
             'label'       => esc_html__( 'Zip', 'kirki' ),
             'description' => esc_html__( '', 'kirki' ),
             'default'     => '',
         ],
-        
+
         'latitude' => [
             'type'        => 'text',
             'label'       => esc_html__( 'Latitude', 'kirki' ),
             'description' => esc_html__( '', 'kirki' ),
             'default'     => '',
         ],
-        
+
         'longitude' => [
             'type'        => 'text',
             'label'       => esc_html__( 'Longitude', 'kirki' ),
             'description' => esc_html__( '', 'kirki' ),
             'default'     => '',
         ],
-		        
+
 	],
-    
+
 ] );
 
 
 
   /*############################ WORKING HOURS  SECTION FIELDS ###########################*/
-  
-  
+
+
   Kirki::add_field( 'theme_config_id', [
 	'type'        => 'repeater',
 	'label'       => esc_html__( 'Working hours ', 'kirki' ),
@@ -370,42 +370,42 @@ Kirki::add_field( 'theme_config_id', [
                 'Sunday' => esc_html__( 'Sunday', 'kirki' ),
             ],
         ],
-        
+
         'closed' => [
             'type'        => 'checkbox',
             'label'       => esc_html__( 'Closed ?', 'kirki' ),
             'description' => esc_html__( '', 'kirki' ),
             'default'     => false,
         ],
-        
+
         'opening' => [
             'type'        => 'text',
             'label'       => esc_html__( 'Opening', 'kirki' ),
             'description' => esc_html__( '', 'kirki' ),
             'default'     => '',
         ],
-        
+
         'closing' => [
             'type'        => 'text',
             'label'       => esc_html__( 'Closing', 'kirki' ),
             'description' => '',
             'default'     => '',
         ],
-        
+
         'extra_text' => [
             'type'        => 'text',
             'label'       => esc_html__( 'Extra text', 'kirki' ),
             'description' => '',
             'default'     => '',
         ],
-        
-		        
-	],
-    
-] );
- 
 
- 
+
+	],
+
+] );
+
+
+
 /*###################################  Popup Seetings #################################*/
 
 
@@ -431,8 +431,8 @@ Kirki::add_field( 'theme_config_id', [
                     array(
                         'numberposts' => -1,
                         'post_type'   => 'popup',
-                      ) 
-    
+                      )
+
     ),
 ] );
 
@@ -449,7 +449,7 @@ Kirki::add_field( 'theme_config_id', [
                     array(
                         'numberposts' => -1,
                         'post_type'   => 'popup_mobile',
-                      ) 
-    
+                      )
+
     ),
 ] );
