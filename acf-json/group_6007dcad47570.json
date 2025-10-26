@@ -1,0 +1,51 @@
+{
+    "key": "group_6007dcad47570",
+    "title": "Policy pages",
+    "fields": [
+        {
+            "key": "field_6007dcb2e5906",
+            "label": "Select Policy Page",
+            "name": "select-policy-page",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "199": "Accessibility Statement",
+                "priv_policy": "Privacy Policy",
+                "cookie_policy": "Cookie Policy",
+                "48": "Hipaa Policy"
+            },
+            "default_value": 64,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/policy-pages"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1625821019
+}

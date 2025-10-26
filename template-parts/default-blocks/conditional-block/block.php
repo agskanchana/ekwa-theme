@@ -1,0 +1,9 @@
+<?php 
+if(is_admin()){
+    include('content.php');
+}else{
+    if(!is_page(get_field('pages_to_hide'))){
+        include('content.php');
+    }
+}
+?>

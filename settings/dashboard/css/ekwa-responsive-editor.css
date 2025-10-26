@@ -1,0 +1,28 @@
+.edit-post-visual-editor__content-area.ekwa-desktop-view{
+    max-width: 100%;
+}
+.edit-post-visual-editor__content-area.ekwa-tablet-view{
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.edit-post-visual-editor__content-area.ekwa-mobile-view{
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.block-editor-page .acf-fields > .acf-tab-wrap .acf-tab-group li a{
+    padding: 0 !important;
+}
+.block-editor-page .acf-fields > .acf-tab-wrap .acf-tab-group li a span{
+   display: flex;
+   width: 42px !important;
+   height: 32px !important;
+    justify-content: center;
+    align-items: center;
+}
+

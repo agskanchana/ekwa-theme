@@ -1,0 +1,52 @@
+{
+    "key": "group_600e4abcc8843",
+    "title": "Mobile Menu",
+    "fields": [
+        {
+            "key": "field_600e4ae441915",
+            "label": "Icon",
+            "name": "icon",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "nav_menu_item",
+                "operator": "==",
+                "value": "location\/mobile-menu"
+            }
+        ],
+        [
+            {
+                "param": "nav_menu_item",
+                "operator": "==",
+                "value": "location\/mobile-menu-services"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1759401702
+}
