@@ -123,7 +123,7 @@
 
     function addWorkingHoursButton($field) {
         console.log('Location Working Hours: addWorkingHoursButton called');
-        console.log('Location Working Hours: Field classes:', $field.attr('class'));
+        console.log('Location Working Hours: Field HTML:', $field.html().substring(0, 200));
 
         // Check if button already exists
         if ($field.find('.ekwa-hours-btn').length) {
@@ -131,20 +131,29 @@
             return;
         }
 
-        // Find the field description to insert button after it
-        var $description = $field.find('.description, .customize-control-description');
-        console.log('Location Working Hours: Description found:', $description.length);
+        // Create button with wrapper div
+        var $buttonWrapper = $('<div class="ekwa-hours-button-wrapper" style="margin: 10px 0; width: 100%;"></div>');
+        var $button = $('<button type="button" class="button button-secondary ekwa-hours-btn" style="display: block; width: 100%;">📅 Edit Working Hours</button>');
+        $buttonWrapper.append($button);
 
-        // Create button
-        var $button = $('<button type="button" class="button button-secondary ekwa-hours-btn" style="margin: 10px 0; display: block; width: 100%;">📅 Edit Working Hours</button>');
+        // Find the label element (most likely place for the button)
+        var $label = $field.find('label');
+        console.log('Location Working Hours: Label found:', $label.length);
 
-        // Insert button after description or at the end of field
-        if ($description.length) {
-            $description.after($button);
-            console.log('Location Working Hours: Button added after description');
+        if ($label.length) {
+            // Add button after label
+            $label.after($buttonWrapper);
+            console.log('Location Working Hours: Button added after label');
         } else {
-            $field.append($button);
-            console.log('Location Working Hours: Button added to end of field');
+            // Try to find any container div
+            var $container = $field.find('> div').first();
+            if ($container.length) {
+                $container.prepend($buttonWrapper);
+                console.log('Location Working Hours: Button prepended to container');
+            } else {
+                $field.prepend($buttonWrapper);
+                console.log('Location Working Hours: Button prepended to field');
+            }
         }
 
         // Hide the CodeMirror editor
@@ -168,18 +177,9 @@
                 $textarea.on('change', function() {
                     updateHoursCount($textarea, $button);
                 });
+            } else {
+                console.warn('Location Working Hours: No textarea found! Field might not be a code field.');
             }
-
-            // Attach click handler
-            $button.off('click').on('click', function(e) {
-                e.preventDefault();
-                console.log('Location Working Hours: Button clicked!');
-                if ($textarea.length) {
-                    openWorkingHoursModal($textarea, $button);
-                } else {
-                    alert('Working hours field not ready. Please try again.');
-                }
-            });
         }, 600);
     }
 
