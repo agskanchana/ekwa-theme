@@ -24,6 +24,24 @@
         setTimeout(initWorkingHoursManager, 1000);
         setTimeout(initWorkingHoursManager, 3000);
         setTimeout(initWorkingHoursManager, 5000);
+
+        // Watch for DOM changes in the location control
+        if (window.MutationObserver) {
+            var observer = new MutationObserver(function(mutations) {
+                initWorkingHoursManager();
+            });
+
+            setTimeout(function() {
+                var $locationControl = $('#customize-control-location_info');
+                if ($locationControl.length) {
+                    observer.observe($locationControl[0], {
+                        childList: true,
+                        subtree: true
+                    });
+                    console.log('Location Working Hours: Mutation observer attached');
+                }
+            }, 2000);
+        }
     });
 
     function initWorkingHoursManager() {
@@ -39,28 +57,58 @@
             }
         });
 
-        // Find and process all working hours fields
-        var $fields = $('[id*="working_hours_data"]');
-        console.log('Location Working Hours: Found ' + $fields.length + ' fields');
+        // Try multiple approaches to find the fields
+
+        // Approach 1: Find by textarea ID
+        var $fields = $('textarea[id*="working_hours_data"]');
+        console.log('Location Working Hours: Approach 1 (textarea[id*=...]) found:', $fields.length);
+
+        // Approach 2: Find CodeMirror instances in location repeater
+        if ($fields.length === 0) {
+            $('#customize-control-location_info .repeater-row').each(function() {
+                var $row = $(this);
+                // Look for any textarea or CodeMirror in this row that might be the working hours field
+                $row.find('.repeater-field').each(function() {
+                    var $field = $(this);
+                    var $label = $field.find('label');
+                    if ($label.text().indexOf('Working Hours') !== -1) {
+                        var $textarea = $field.find('textarea');
+                        if ($textarea.length) {
+                            $fields = $fields.add($textarea);
+                            console.log('Location Working Hours: Found field by label');
+                        }
+                    }
+                });
+            });
+        }
+
+        // Approach 3: Find by looking at the last field in each repeater row (working_hours_data is the last field)
+        if ($fields.length === 0) {
+            $('#customize-control-location_info .repeater-row').each(function() {
+                var $lastField = $(this).find('.repeater-field').last();
+                var $textarea = $lastField.find('textarea');
+                if ($textarea.length) {
+                    // Check if this textarea's ID or name contains working_hours
+                    var id = $textarea.attr('id') || '';
+                    var name = $textarea.attr('name') || '';
+                    if (id.indexOf('working_hours') !== -1 || name.indexOf('working_hours') !== -1) {
+                        $fields = $fields.add($textarea);
+                        console.log('Location Working Hours: Found field as last in repeater');
+                    }
+                }
+            });
+        }
+
+        console.log('Location Working Hours: Total fields found:', $fields.length);
 
         $fields.each(function() {
-            var fieldId = $(this).attr('id');
-            if (fieldId && !processedFields.has(fieldId)) {
+            var fieldId = $(this).attr('id') || 'field-' + Math.random();
+            if (!processedFields.has(fieldId)) {
                 processedFields.add(fieldId);
+                console.log('Location Working Hours: Adding button to field:', fieldId);
                 addWorkingHoursButton($(this));
             }
         });
-
-        // Monitor for new fields
-        setTimeout(function() {
-            $('[id*="working_hours_data"]').each(function() {
-                var fieldId = $(this).attr('id');
-                if (fieldId && !processedFields.has(fieldId)) {
-                    processedFields.add(fieldId);
-                    addWorkingHoursButton($(this));
-                }
-            });
-        }, 2000);
     }
 
     function addWorkingHoursButton($field) {
