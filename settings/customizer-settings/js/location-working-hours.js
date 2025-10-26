@@ -71,11 +71,16 @@
             var settingValue = control.setting.get();
             console.log('Location Working Hours: Setting type:', typeof settingValue);
 
-            // Parse if it's a JSON string
+            // Decode URL-encoded string and parse JSON
             var allLocations = settingValue;
             if (typeof settingValue === 'string') {
                 try {
-                    allLocations = JSON.parse(settingValue);
+                    // First, decode the URL-encoded string
+                    var decodedValue = decodeURIComponent(settingValue);
+                    console.log('Location Working Hours: Decoded value (first 100 chars):', decodedValue.substring(0, 100));
+
+                    // Then parse the JSON
+                    allLocations = JSON.parse(decodedValue);
                     console.log('Location Working Hours: Parsed locations array:', allLocations.length);
                 } catch(e) {
                     console.log('Location Working Hours: Parse error:', e);
@@ -107,8 +112,13 @@
                 locationData.working_hours_data = JSON.stringify(newHours);
                 allLocations[rowIndex] = locationData;
 
-                // Save back to Kirki (as string if it was originally a string)
-                var newValue = typeof settingValue === 'string' ? JSON.stringify(allLocations) : allLocations;
+                // Save back to Kirki (encode if it was originally URL-encoded)
+                var newValue = allLocations;
+                if (typeof settingValue === 'string') {
+                    // Convert to JSON string and URL-encode it
+                    newValue = encodeURIComponent(JSON.stringify(allLocations));
+                    console.log('Location Working Hours: Encoded value (first 100 chars):', newValue.substring(0, 100));
+                }
                 control.setting.set(newValue);
 
                 // Update button text
