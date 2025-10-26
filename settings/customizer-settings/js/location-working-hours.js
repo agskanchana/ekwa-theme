@@ -123,7 +123,6 @@
 
     function addWorkingHoursButton($field) {
         console.log('Location Working Hours: addWorkingHoursButton called');
-        console.log('Location Working Hours: Field HTML:', $field.html().substring(0, 200));
 
         // Check if button already exists
         if ($field.find('.ekwa-hours-btn').length) {
@@ -131,59 +130,64 @@
             return;
         }
 
-        // Create button with wrapper div
-        var $buttonWrapper = $('<div class="ekwa-hours-button-wrapper" style="margin: 10px 0; width: 100%;"></div>');
-        var $button = $('<button type="button" class="button button-secondary ekwa-hours-btn" style="display: block; width: 100%;">📅 Edit Working Hours</button>');
-        $buttonWrapper.append($button);
-
-        // Find the label element (most likely place for the button)
-        var $label = $field.find('label');
-        console.log('Location Working Hours: Label found:', $label.length);
-
-        if ($label.length) {
-            // Add button after label
-            $label.after($buttonWrapper);
-            console.log('Location Working Hours: Button added after label');
-        } else {
-            // Try to find any container div
-            var $container = $field.find('> div').first();
-            if ($container.length) {
-                $container.prepend($buttonWrapper);
-                console.log('Location Working Hours: Button prepended to container');
-            } else {
-                $field.prepend($buttonWrapper);
-                console.log('Location Working Hours: Button prepended to field');
-            }
-        }
-
-        // Hide the CodeMirror editor
-        setTimeout(function() {
+        // Wait for Kirki to render the CodeMirror field
+        var attempts = 0;
+        var maxAttempts = 20; // Try for 4 seconds (20 x 200ms)
+        
+        var checkInterval = setInterval(function() {
+            attempts++;
+            
+            // Look for CodeMirror editor (sign that field is rendered)
             var $codeMirror = $field.find('.CodeMirror');
-            if ($codeMirror.length) {
-                $codeMirror.hide();
-                console.log('Location Working Hours: CodeMirror hidden');
-            }
-
-            // Find textarea (might be created by CodeMirror now)
             var $textarea = $field.find('textarea');
-            console.log('Location Working Hours: Textarea found after delay:', $textarea.length);
-
-            if ($textarea.length) {
-                // Store reference
-                $button.data('textarea', $textarea);
-                updateHoursCount($textarea, $button);
-
-                // Watch for changes
-                $textarea.on('change', function() {
+            
+            console.log('Location Working Hours: Attempt ' + attempts + ' - CodeMirror: ' + $codeMirror.length + ', Textarea: ' + $textarea.length);
+            
+            if ($codeMirror.length > 0 || $textarea.length > 0 || attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+                
+                if ($codeMirror.length === 0 && $textarea.length === 0) {
+                    console.warn('Location Working Hours: Field not rendered after ' + maxAttempts + ' attempts');
+                    return;
+                }
+                
+                console.log('Location Working Hours: Field is ready! Adding button...');
+                
+                // Create button with wrapper
+                var $buttonWrapper = $('<div class="ekwa-hours-button-wrapper" style="margin: 10px 0; padding: 5px; background: #f0f0f1; border: 1px solid #c3c4c7; border-radius: 2px;"></div>');
+                var $button = $('<button type="button" class="button button-secondary ekwa-hours-btn" style="display: block; width: 100%; font-size: 13px; line-height: 2; padding: 0 10px;">📅 Edit Working Hours</button>');
+                $buttonWrapper.append($button);
+                
+                // Hide CodeMirror
+                if ($codeMirror.length) {
+                    $codeMirror.css({
+                        'display': 'none',
+                        'height': '0',
+                        'opacity': '0',
+                        'overflow': 'hidden'
+                    });
+                    console.log('Location Working Hours: CodeMirror hidden');
+                }
+                
+                // Add button to field - place it at the beginning of the field
+                $field.prepend($buttonWrapper);
+                console.log('Location Working Hours: Button added to field');
+                
+                // Store reference to textarea
+                if ($textarea.length) {
+                    $button.data('textarea', $textarea);
                     updateHoursCount($textarea, $button);
-                });
-            } else {
-                console.warn('Location Working Hours: No textarea found! Field might not be a code field.');
+                    
+                    // Watch for changes
+                    $textarea.on('change', function() {
+                        updateHoursCount($textarea, $button);
+                    });
+                    
+                    console.log('Location Working Hours: Button linked to textarea');
+                }
             }
-        }, 600);
-    }
-
-    function updateHoursCount($textarea, $button) {
+        }, 200); // Check every 200ms
+    }    function updateHoursCount($textarea, $button) {
         try {
             var data = JSON.parse($textarea.val() || '[]');
             var count = data.length;
