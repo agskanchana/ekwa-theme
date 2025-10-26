@@ -196,14 +196,36 @@ require get_template_directory() . '/settings/theme-functions.php';
 require get_template_directory() . '/settings/customizer.php';
 require get_template_directory() . '/settings/acf.php';
 
+/**
+ * ACF JSON Save Point - Save to parent theme
+ */
 add_filter('acf/settings/save_json', 'ekwa_acf_json_save_point');
-
 function ekwa_acf_json_save_point( $path ) {
-
-    // update path
-    $path = get_stylesheet_directory() . '/acf-json';
-    // return
+    // Always save to parent theme
+    $path = get_template_directory() . '/acf-json';
     return $path;
+}
+
+/**
+ * ACF JSON Load Point - Load from parent theme (works with child themes)
+ */
+add_filter('acf/settings/load_json', 'ekwa_acf_json_load_point');
+function ekwa_acf_json_load_point( $paths ) {
+    // Remove original path
+    unset($paths[0]);
+
+    // Add parent theme path
+    $paths[] = get_template_directory() . '/acf-json';
+
+    // If using child theme, also check child theme folder (optional)
+    if ( get_stylesheet_directory() !== get_template_directory() ) {
+        $child_path = get_stylesheet_directory() . '/acf-json';
+        if ( is_dir( $child_path ) ) {
+            $paths[] = $child_path;
+        }
+    }
+
+    return $paths;
 }
 
 

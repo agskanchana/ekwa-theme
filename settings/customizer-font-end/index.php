@@ -2,7 +2,6 @@
 
 require get_template_directory() . '/settings/customizer-font-end/colors-variables.php';
 require get_template_directory() . '/settings/customizer-font-end/font-variables.php';
-require get_template_directory() . '/settings/customizer-font-end/buttons.php';
 
 ?>
 <style>

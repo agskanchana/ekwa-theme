@@ -91,7 +91,7 @@
        min-width: var(--two_cols-menu-width);
     }
 
-    
+
     .main-menu-wrapper  ul  li  ul  li  a{
         display: flex;
         flex-grow: 1;

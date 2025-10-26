@@ -19,8 +19,6 @@
 	<?php endif;?>
      <script type="text/javascript">
         var TEMPDIR = '<?php echo get_template_directory_uri(); ?>';
-		var contactBlock = false;
-		var appForm  = false;
 		<?php if(is_mobile()):?>
 		var mobileDevice = true;
 		<?php else:?>

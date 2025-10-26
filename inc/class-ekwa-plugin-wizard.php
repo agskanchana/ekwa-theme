@@ -87,35 +87,37 @@ if ( ! class_exists( 'EKWA_Plugin_Wizard' ) ) {
 				),
 			) );
 
-			// Define bundled plugins
-			$this->bundled_plugins = apply_filters( 'ekwa_bundled_plugins', array(
-				array(
-					'name'     => 'Advanced Custom Fields PRO',
-					'slug'     => 'advanced-custom-fields-pro',
-					'file'     => 'advanced-custom-fields-pro.zip',
-					'required' => true,
-				),
-				array(
-					'name'     => 'Wufoo Form Builder',
-					'slug'     => 'wufoo-form-builder-main',
-					'file'     => 'wufoo-form-builder-main.zip',
-					'required' => true,
-				),
-				array(
-					'name'     => 'Load Scripts from SW',
-					'slug'     => 'load-scripts-from-sw-master',
-					'file'     => 'load-scripts-from-sw-master.zip',
-					'required' => true,
-				),
-				array(
-					'name'     => 'EKWA Related Articles',
-					'slug'     => 'ekwa-related-articles-main',
-					'file'     => 'ekwa-related-articles-main.zip',
-					'required' => false,
-				),
-			) );
-
-			// Admin hooks
+		// Define bundled plugins
+		$this->bundled_plugins = apply_filters( 'ekwa_bundled_plugins', array(
+			array(
+				'name'     => 'Advanced Custom Fields PRO',
+				'slug'     => 'advanced-custom-fields-pro',
+				'file'     => 'advanced-custom-fields-pro.zip',
+				'source'   => 'local',
+				'required' => true,
+			),
+			array(
+				'name'     => 'Wufoo Form Builder',
+				'slug'     => 'wufoo-form-builder-main',
+				'source'   => 'github',
+				'github_url' => 'https://github.com/agskanchana/wufoo-form-builder/archive/refs/heads/main.zip',
+				'required' => true,
+			),
+			array(
+				'name'     => 'Load Scripts from SW',
+				'slug'     => 'load-scripts-from-sw-master',
+				'source'   => 'github',
+				'github_url' => 'https://github.com/agskanchana/load-scripts-from-sw/archive/refs/heads/master.zip',
+				'required' => true,
+			),
+			array(
+				'name'     => 'EKWA Related Articles',
+				'slug'     => 'ekwa-related-articles-main',
+				'source'   => 'github',
+				'github_url' => 'https://github.com/agskanchana/ekwa-related-articles/archive/refs/heads/main.zip',
+				'required' => false,
+			),
+		) );			// Admin hooks
 			add_action( 'admin_menu', array( $this, 'add_wizard_page' ) );
 			add_action( 'admin_init', array( $this, 'wizard_redirect' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -521,51 +523,57 @@ if ( ! class_exists( 'EKWA_Plugin_Wizard' ) ) {
 			wp_send_json_success( array( 'message' => __( 'Plugin installed successfully.', 'ekwa' ) ) );
 		}
 
-		/**
-		 * AJAX: Install bundled plugin
-		 */
-		public function ajax_install_bundled_plugin() {
-			check_ajax_referer( 'ekwa_wizard_nonce', 'nonce' );
+	/**
+	 * AJAX: Install bundled plugin
+	 */
+	public function ajax_install_bundled_plugin() {
+		check_ajax_referer( 'ekwa_wizard_nonce', 'nonce' );
 
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				wp_send_json_error( array( 'message' => __( 'You do not have permission to install plugins.', 'ekwa' ) ) );
-			}
-
-			$slug = sanitize_text_field( $_POST['slug'] );
-
-			// Find plugin info
-			$plugin_info = null;
-			foreach ( $this->bundled_plugins as $plugin ) {
-				if ( $plugin['slug'] === $slug ) {
-					$plugin_info = $plugin;
-					break;
-				}
-			}
-
-			if ( ! $plugin_info ) {
-				wp_send_json_error( array( 'message' => __( 'Plugin not found.', 'ekwa' ) ) );
-			}
-
-			$zip_file = get_template_directory() . '/mu-plugins/' . $plugin_info['file'];
-
-			if ( ! file_exists( $zip_file ) ) {
-				wp_send_json_error( array( 'message' => __( 'Plugin file not found.', 'ekwa' ) ) );
-			}
-
-			require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-
-			$upgrader = new Plugin_Upgrader( new WP_Ajax_Upgrader_Skin() );
-			$result   = $upgrader->install( $zip_file );
-
-			if ( is_wp_error( $result ) ) {
-				wp_send_json_error( array( 'message' => $result->get_error_message() ) );
-			}
-
-			wp_send_json_success( array( 'message' => __( 'Plugin installed successfully.', 'ekwa' ) ) );
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to install plugins.', 'ekwa' ) ) );
 		}
 
-		/**
+		$slug = sanitize_text_field( $_POST['slug'] );
+
+		// Find plugin info
+		$plugin_info = null;
+		foreach ( $this->bundled_plugins as $plugin ) {
+			if ( $plugin['slug'] === $slug ) {
+				$plugin_info = $plugin;
+				break;
+			}
+		}
+
+		if ( ! $plugin_info ) {
+			wp_send_json_error( array( 'message' => __( 'Plugin not found.', 'ekwa' ) ) );
+		}
+
+		// Determine source and get zip file location
+		if ( isset( $plugin_info['source'] ) && $plugin_info['source'] === 'github' ) {
+			// Download from GitHub
+			$download_url = $plugin_info['github_url'];
+		} else {
+			// Use local zip file
+			$download_url = get_template_directory() . '/mu-plugins/' . $plugin_info['file'];
+
+			if ( ! file_exists( $download_url ) ) {
+				wp_send_json_error( array( 'message' => __( 'Plugin file not found.', 'ekwa' ) ) );
+			}
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+
+		$upgrader = new Plugin_Upgrader( new WP_Ajax_Upgrader_Skin() );
+		$result   = $upgrader->install( $download_url );
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+		}
+
+		wp_send_json_success( array( 'message' => __( 'Plugin installed successfully.', 'ekwa' ) ) );
+	}		/**
 		 * AJAX: Activate plugin
 		 */
 		public function ajax_activate_plugin() {
