@@ -83,43 +83,33 @@
                 $row.find('.repeater-field').each(function(fieldIndex) {
                     var $field = $(this);
                     var $label = $field.find('label');
-                    var labelText = $label.text();
-                    console.log('  Field', fieldIndex, 'label:', labelText);
+                    var labelText = $label.text().trim();
+                    console.log('  Field', fieldIndex, 'label:', labelText || '(empty)');
 
-                    if (labelText.indexOf('Working Hours') !== -1) {
-                        console.log('  Found Working Hours field!');
-                        var $textarea = $field.find('textarea');
-                        console.log('  Textarea found:', $textarea.length);
-                        if ($textarea.length) {
-                            $fields = $fields.add($textarea);
-                            console.log('Location Working Hours: Found field by label');
-                        }
+                    // Check if this is the last field (working_hours_data)
+                    // Or if description mentions "Working Hours"
+                    var $description = $field.find('.description, .customize-control-description');
+                    var descText = $description.text();
+
+                    if (descText.indexOf('Working Hours') !== -1 || descText.indexOf('Edit Working Hours') !== -1) {
+                        console.log('  Found Working Hours field by description!');
+                        // This is our field! Add button here
+                        // The code field creates a CodeMirror editor, let's just add the button to the field wrapper
+                        $fields = $fields.add($field);
                     }
                 });
             });
         }
 
-        // Approach 3: Find by looking at the last field in each repeater row (working_hours_data is the last field)
+        // Approach 3: If still nothing found, just target the last field in each row (it's working_hours_data)
         if ($fields.length === 0 && $locationControl.length) {
-            console.log('Location Working Hours: Trying Approach 3 (last field)...');
+            console.log('Location Working Hours: Trying Approach 3 (by position - last field)...');
             $locationControl.find('.repeater-row').each(function() {
                 var $lastField = $(this).find('.repeater-field').last();
-                console.log('Location Working Hours: Last field has textarea:', $lastField.find('textarea').length);
-                var $textarea = $lastField.find('textarea');
-                if ($textarea.length) {
-                    // Check if this textarea's ID or name contains working_hours
-                    var id = $textarea.attr('id') || '';
-                    var name = $textarea.attr('name') || '';
-                    console.log('Location Working Hours: Last field ID:', id, 'Name:', name);
-                    if (id.indexOf('working_hours') !== -1 || name.indexOf('working_hours') !== -1) {
-                        $fields = $fields.add($textarea);
-                        console.log('Location Working Hours: Found field as last in repeater');
-                    }
-                }
+                console.log('Location Working Hours: Using last field as working hours field');
+                $fields = $fields.add($lastField);
             });
-        }
-
-        console.log('Location Working Hours: Total fields found:', $fields.length);
+        }        console.log('Location Working Hours: Total fields found:', $fields.length);
 
         $fields.each(function() {
             var fieldId = $(this).attr('id') || 'field-' + Math.random();
@@ -132,57 +122,67 @@
     }
 
     function addWorkingHoursButton($field) {
+        console.log('Location Working Hours: addWorkingHoursButton called');
+
         // Check if button already exists
-        if ($field.siblings('.ekwa-hours-btn').length || $field.parent().find('.ekwa-hours-btn').length) {
+        if ($field.find('.ekwa-hours-btn').length) {
+            console.log('Location Working Hours: Button already exists');
             return;
         }
 
-        var $textarea = $field;
-        if (!$textarea.is('textarea')) {
-            $textarea = $field.find('textarea');
+        // Find or create the textarea
+        var $textarea = $field.find('textarea');
+
+        // If no textarea, CodeMirror might create it later, so let's find the CodeMirror wrapper
+        var $container = $field.find('.CodeMirror').parent();
+        if (!$container.length) {
+            $container = $field.find('.customize-control-content');
+        }
+        if (!$container.length) {
+            $container = $field;
         }
 
-        if (!$textarea.length) {
-            return;
-        }
-
-        // Find the parent container
-        var $container = $textarea.parent();
+        console.log('Location Working Hours: Container found:', $container.length);
+        console.log('Location Working Hours: Textarea found:', $textarea.length);
 
         // Create button
         var $button = $('<button type="button" class="button button-secondary ekwa-hours-btn" style="margin-top: 10px; display: block; width: 100%;">📅 Edit Working Hours</button>');
 
-        // Store reference to textarea
-        $button.data('textarea', $textarea);
+        // If textarea doesn't exist yet, we need to wait for CodeMirror to create it
+        if (!$textarea.length) {
+            // Try to find it after a delay
+            setTimeout(function() {
+                $textarea = $field.find('textarea');
+                console.log('Location Working Hours: Textarea found after delay:', $textarea.length);
+                if ($textarea.length) {
+                    $button.data('textarea', $textarea);
+                    updateHoursCount($textarea, $button);
+                }
+            }, 500);
+        } else {
+            // Store reference to textarea
+            $button.data('textarea', $textarea);
+            updateHoursCount($textarea, $button);
+        }
 
         // Add button to container
         $container.append($button);
+        console.log('Location Working Hours: Button added to container');
 
-        // Hide the textarea/code editor
-        $textarea.css({
-            'height': '0',
-            'min-height': '0',
-            'border': 'none',
-            'padding': '0',
-            'overflow': 'hidden',
-            'opacity': '0'
-        });
-
-        // Hide CodeMirror editor if present
-        $container.find('.CodeMirror').css({
+        // Hide the CodeMirror editor if present
+        $field.find('.CodeMirror').css({
             'height': '0',
             'min-height': '0',
             'overflow': 'hidden',
             'opacity': '0'
         });
 
-        // Update count
-        updateHoursCount($textarea, $button);
-
-        // Watch for changes to update count
-        $textarea.on('change', function() {
-            updateHoursCount($textarea, $button);
-        });
+        // Watch for textarea changes to update count
+        if ($textarea.length) {
+            $textarea.on('change', function() {
+                updateHoursCount($textarea, $button);
+            });
+        }
     }
 
     function updateHoursCount($textarea, $button) {
