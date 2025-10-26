@@ -123,6 +123,7 @@
 
     function addWorkingHoursButton($field) {
         console.log('Location Working Hours: addWorkingHoursButton called');
+        console.log('Location Working Hours: Field classes:', $field.attr('class'));
 
         // Check if button already exists
         if ($field.find('.ekwa-hours-btn').length) {
@@ -130,59 +131,56 @@
             return;
         }
 
-        // Find or create the textarea
-        var $textarea = $field.find('textarea');
-
-        // If no textarea, CodeMirror might create it later, so let's find the CodeMirror wrapper
-        var $container = $field.find('.CodeMirror').parent();
-        if (!$container.length) {
-            $container = $field.find('.customize-control-content');
-        }
-        if (!$container.length) {
-            $container = $field;
-        }
-
-        console.log('Location Working Hours: Container found:', $container.length);
-        console.log('Location Working Hours: Textarea found:', $textarea.length);
+        // Find the field description to insert button after it
+        var $description = $field.find('.description, .customize-control-description');
+        console.log('Location Working Hours: Description found:', $description.length);
 
         // Create button
-        var $button = $('<button type="button" class="button button-secondary ekwa-hours-btn" style="margin-top: 10px; display: block; width: 100%;">📅 Edit Working Hours</button>');
+        var $button = $('<button type="button" class="button button-secondary ekwa-hours-btn" style="margin: 10px 0; display: block; width: 100%;">📅 Edit Working Hours</button>');
 
-        // If textarea doesn't exist yet, we need to wait for CodeMirror to create it
-        if (!$textarea.length) {
-            // Try to find it after a delay
-            setTimeout(function() {
-                $textarea = $field.find('textarea');
-                console.log('Location Working Hours: Textarea found after delay:', $textarea.length);
-                if ($textarea.length) {
-                    $button.data('textarea', $textarea);
-                    updateHoursCount($textarea, $button);
-                }
-            }, 500);
+        // Insert button after description or at the end of field
+        if ($description.length) {
+            $description.after($button);
+            console.log('Location Working Hours: Button added after description');
         } else {
-            // Store reference to textarea
-            $button.data('textarea', $textarea);
-            updateHoursCount($textarea, $button);
+            $field.append($button);
+            console.log('Location Working Hours: Button added to end of field');
         }
 
-        // Add button to container
-        $container.append($button);
-        console.log('Location Working Hours: Button added to container');
+        // Hide the CodeMirror editor
+        setTimeout(function() {
+            var $codeMirror = $field.find('.CodeMirror');
+            if ($codeMirror.length) {
+                $codeMirror.hide();
+                console.log('Location Working Hours: CodeMirror hidden');
+            }
 
-        // Hide the CodeMirror editor if present
-        $field.find('.CodeMirror').css({
-            'height': '0',
-            'min-height': '0',
-            'overflow': 'hidden',
-            'opacity': '0'
-        });
+            // Find textarea (might be created by CodeMirror now)
+            var $textarea = $field.find('textarea');
+            console.log('Location Working Hours: Textarea found after delay:', $textarea.length);
 
-        // Watch for textarea changes to update count
-        if ($textarea.length) {
-            $textarea.on('change', function() {
+            if ($textarea.length) {
+                // Store reference
+                $button.data('textarea', $textarea);
                 updateHoursCount($textarea, $button);
+
+                // Watch for changes
+                $textarea.on('change', function() {
+                    updateHoursCount($textarea, $button);
+                });
+            }
+
+            // Attach click handler
+            $button.off('click').on('click', function(e) {
+                e.preventDefault();
+                console.log('Location Working Hours: Button clicked!');
+                if ($textarea.length) {
+                    openWorkingHoursModal($textarea, $button);
+                } else {
+                    alert('Working hours field not ready. Please try again.');
+                }
             });
-        }
+        }, 600);
     }
 
     function updateHoursCount($textarea, $button) {
