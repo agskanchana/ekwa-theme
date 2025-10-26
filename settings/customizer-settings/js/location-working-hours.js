@@ -53,54 +53,56 @@
             console.log('Location Working Hours: Button clicked');
             var $button = $(this);
             var $row = $button.closest('.repeater-row');
-            var fieldId = $button.data('field-id');
 
-            // Get all repeater fields in this row
-            var $fields = $row.find('.repeater-field');
-            console.log('Location Working Hours: Total fields in row:', $fields.length);
+            // Get the row index
+            var $allRows = $('#customize-control-location_info .repeater-row');
+            var rowIndex = $allRows.index($row);
+            console.log('Location Working Hours: Row index:', rowIndex);
 
-            // working_hours_data is the last field (index 10)
-            var $field = $fields.eq($fields.length - 1);
-            console.log('Location Working Hours: Last field HTML:', $field.html());
+            // Get the Kirki control value (contains all location data)
+            var control = wp.customize.control('location_info');
+            console.log('Location Working Hours: Control found:', !!control);
 
-            // Try multiple selectors to find the input
-            var $input = $field.find('input[name*="working_hours_data"]');
-            console.log('Location Working Hours: Input by name found:', $input.length);
-
-            if (!$input.length) {
-                // Try finding ANY input in this field
-                $input = $field.find('input');
-                console.log('Location Working Hours: Any input found:', $input.length);
-                if ($input.length) {
-                    $input.each(function(i) {
-                        console.log('  Input', i, '- name:', $(this).attr('name'), 'type:', $(this).attr('type'), 'value:', $(this).val().substring(0, 50));
-                    });
-                }
+            if (!control) {
+                alert('Could not access location data. Please refresh the page.');
+                return;
             }
 
-            if (!$input.length) {
-                // Try textarea
-                $input = $field.find('textarea');
-                console.log('Location Working Hours: Textarea found:', $input.length);
+            var allLocations = control.setting.get();
+            console.log('Location Working Hours: All locations:', allLocations.length);
+
+            if (!allLocations[rowIndex]) {
+                alert('Could not find location data for this row.');
+                return;
             }
 
-            if (!$input.length) {
-                // Last resort - try to find the Kirki value element
-                $input = $field.find('[data-field="working_hours_data"]');
-                console.log('Location Working Hours: Data-field found:', $input.length);
+            var locationData = allLocations[rowIndex];
+            console.log('Location Working Hours: Current working hours data:', locationData.working_hours_data);
+
+            // Parse the working hours data
+            var currentHours = [];
+            try {
+                currentHours = JSON.parse(locationData.working_hours_data || '[]');
+            } catch(e) {
+                console.log('Location Working Hours: Parse error, using empty array');
+                currentHours = [];
             }
 
-            if ($input && $input.length) {
-                console.log('Location Working Hours: Opening modal with input:', $input.attr('name') || $input.attr('id') || 'unknown');
-                openWorkingHoursModal($input, $button);
-            } else {
-                console.log('Location Working Hours: Could not find input field');
-                console.log('Location Working Hours: Field classes:', $field.attr('class'));
-                alert('Could not find working hours field. Please check console for debug info.');
-            }
-        });
+            // Open modal with callback to save
+            openWorkingHoursModal(currentHours, function(newHours) {
+                // Update the location data
+                locationData.working_hours_data = JSON.stringify(newHours);
+                allLocations[rowIndex] = locationData;
 
-        // Try multiple approaches to find the fields
+                // Save back to Kirki
+                control.setting.set(allLocations);
+
+                // Update button text
+                updateHoursCount(newHours, $button);
+
+                console.log('Location Working Hours: Saved new hours');
+            }, $button);
+        });        // Try multiple approaches to find the fields
 
         // First, let's see if the location control exists
         var $locationControl = $('#customize-control-location_info');
@@ -187,29 +189,23 @@
         // Add to the ROW (not the field) - append to end of row
         $row.append($buttonWrapper);
         console.log('Location Working Hours: Button added successfully to row');
-    }    function updateHoursCount($textarea, $button) {
+    }
+
+    function updateHoursCount(data, $button) {
         try {
-            var data = JSON.parse($textarea.val() || '[]');
             var count = data.length;
             var countText = count === 0 ? ' (No hours set)' : ' (' + count + ' days configured)';
-            $button.text('📅 Edit Working Hours' + countText);
+            $button.text('⏰ Edit Working Hours' + countText);
         } catch(e) {
-            $button.text('📅 Edit Working Hours');
+            $button.text('⏰ Edit Working Hours');
         }
     }
 
-    function openWorkingHoursModal($textarea, $button) {
-        var currentData = [];
-        try {
-            currentData = JSON.parse($textarea.val() || '[]');
-        } catch(e) {
-            currentData = [];
-        }
-
+    function openWorkingHoursModal(currentData, onSave, $button) {
         // Create modal
         var modal = createModal(currentData, function(newData) {
-            $textarea.val(JSON.stringify(newData)).trigger('change');
-            updateHoursCount($textarea, $button);
+            onSave(newData);
+            updateHoursCount(newData, $button);
         });
 
         $('body').append(modal);
