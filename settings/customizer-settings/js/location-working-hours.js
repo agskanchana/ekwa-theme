@@ -55,18 +55,34 @@
             var $row = $button.closest('.repeater-row');
             var fieldId = $button.data('field-id');
 
-            // Find the textarea in this row
-            var $textarea = $row.find('textarea[name*="working_hours_data"]');
-            if (!$textarea.length) {
-                // Try finding by proximity - any textarea near the button
-                $textarea = $button.closest('.repeater-field').find('textarea');
+            // Kirki code fields don't create textarea elements in repeaters
+            // Instead, they store the value in a hidden input
+            // Find the working_hours_data input in this row (it's the last field)
+            var $field = null;
+
+            // Try to find by name attribute
+            var $input = $row.find('input[name*="working_hours_data"]');
+            console.log('Location Working Hours: Input by name found:', $input.length);
+
+            if (!$input.length) {
+                // Get all repeater fields in this row
+                var $fields = $row.find('.repeater-field');
+                console.log('Location Working Hours: Total fields in row:', $fields.length);
+
+                // working_hours_data is the last field (index 10)
+                if ($fields.length >= 10) {
+                    $field = $fields.eq($fields.length - 1);
+                    // Look for any input in this field
+                    $input = $field.find('input[type="hidden"], input[type="text"], textarea');
+                    console.log('Location Working Hours: Input in last field found:', $input.length);
+                }
             }
 
-            console.log('Location Working Hours: Textarea found:', $textarea.length);
-
-            if ($textarea && $textarea.length) {
-                openWorkingHoursModal($textarea, $button);
+            if ($input && $input.length) {
+                console.log('Location Working Hours: Opening modal with input element');
+                openWorkingHoursModal($input, $button);
             } else {
+                console.log('Location Working Hours: Could not find input field');
                 alert('Could not find working hours field. Please refresh the page.');
             }
         });
