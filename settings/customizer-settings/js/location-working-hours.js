@@ -112,13 +112,9 @@
                 locationData.working_hours_data = JSON.stringify(newHours);
                 allLocations[rowIndex] = locationData;
 
-                // Save back to Kirki (encode if it was originally URL-encoded)
-                var newValue = allLocations;
-                if (typeof settingValue === 'string') {
-                    // Convert to JSON string and URL-encode it
-                    newValue = encodeURIComponent(JSON.stringify(allLocations));
-                    console.log('Location Working Hours: Encoded value (first 100 chars):', newValue.substring(0, 100));
-                }
+                // Save back to Kirki as JSON string (Kirki will handle encoding internally)
+                var newValue = JSON.stringify(allLocations);
+                console.log('Location Working Hours: Saving value (first 100 chars):', newValue.substring(0, 100));
                 control.setting.set(newValue);
 
                 // Update button text
