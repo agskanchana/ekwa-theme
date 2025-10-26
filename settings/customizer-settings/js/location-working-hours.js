@@ -59,20 +59,37 @@
 
         // Try multiple approaches to find the fields
 
+        // First, let's see if the location control exists
+        var $locationControl = $('#customize-control-location_info');
+        console.log('Location Working Hours: Location control exists:', $locationControl.length);
+
+        if ($locationControl.length) {
+            console.log('Location Working Hours: Repeater rows found:', $locationControl.find('.repeater-row').length);
+            console.log('Location Working Hours: Repeater fields found:', $locationControl.find('.repeater-field').length);
+        }
+
         // Approach 1: Find by textarea ID
         var $fields = $('textarea[id*="working_hours_data"]');
         console.log('Location Working Hours: Approach 1 (textarea[id*=...]) found:', $fields.length);
 
         // Approach 2: Find CodeMirror instances in location repeater
-        if ($fields.length === 0) {
-            $('#customize-control-location_info .repeater-row').each(function() {
+        if ($fields.length === 0 && $locationControl.length) {
+            console.log('Location Working Hours: Trying Approach 2 (by label)...');
+            $locationControl.find('.repeater-row').each(function(rowIndex) {
                 var $row = $(this);
+                console.log('Location Working Hours: Processing row', rowIndex, '- fields:', $row.find('.repeater-field').length);
+
                 // Look for any textarea or CodeMirror in this row that might be the working hours field
-                $row.find('.repeater-field').each(function() {
+                $row.find('.repeater-field').each(function(fieldIndex) {
                     var $field = $(this);
                     var $label = $field.find('label');
-                    if ($label.text().indexOf('Working Hours') !== -1) {
+                    var labelText = $label.text();
+                    console.log('  Field', fieldIndex, 'label:', labelText);
+
+                    if (labelText.indexOf('Working Hours') !== -1) {
+                        console.log('  Found Working Hours field!');
                         var $textarea = $field.find('textarea');
+                        console.log('  Textarea found:', $textarea.length);
                         if ($textarea.length) {
                             $fields = $fields.add($textarea);
                             console.log('Location Working Hours: Found field by label');
@@ -83,14 +100,17 @@
         }
 
         // Approach 3: Find by looking at the last field in each repeater row (working_hours_data is the last field)
-        if ($fields.length === 0) {
-            $('#customize-control-location_info .repeater-row').each(function() {
+        if ($fields.length === 0 && $locationControl.length) {
+            console.log('Location Working Hours: Trying Approach 3 (last field)...');
+            $locationControl.find('.repeater-row').each(function() {
                 var $lastField = $(this).find('.repeater-field').last();
+                console.log('Location Working Hours: Last field has textarea:', $lastField.find('textarea').length);
                 var $textarea = $lastField.find('textarea');
                 if ($textarea.length) {
                     // Check if this textarea's ID or name contains working_hours
                     var id = $textarea.attr('id') || '';
                     var name = $textarea.attr('name') || '';
+                    console.log('Location Working Hours: Last field ID:', id, 'Name:', name);
                     if (id.indexOf('working_hours') !== -1 || name.indexOf('working_hours') !== -1) {
                         $fields = $fields.add($textarea);
                         console.log('Location Working Hours: Found field as last in repeater');
