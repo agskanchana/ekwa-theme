@@ -55,35 +55,48 @@
             var $row = $button.closest('.repeater-row');
             var fieldId = $button.data('field-id');
 
-            // Kirki code fields don't create textarea elements in repeaters
-            // Instead, they store the value in a hidden input
-            // Find the working_hours_data input in this row (it's the last field)
-            var $field = null;
+            // Get all repeater fields in this row
+            var $fields = $row.find('.repeater-field');
+            console.log('Location Working Hours: Total fields in row:', $fields.length);
 
-            // Try to find by name attribute
-            var $input = $row.find('input[name*="working_hours_data"]');
+            // working_hours_data is the last field (index 10)
+            var $field = $fields.eq($fields.length - 1);
+            console.log('Location Working Hours: Last field HTML:', $field.html());
+
+            // Try multiple selectors to find the input
+            var $input = $field.find('input[name*="working_hours_data"]');
             console.log('Location Working Hours: Input by name found:', $input.length);
 
             if (!$input.length) {
-                // Get all repeater fields in this row
-                var $fields = $row.find('.repeater-field');
-                console.log('Location Working Hours: Total fields in row:', $fields.length);
-
-                // working_hours_data is the last field (index 10)
-                if ($fields.length >= 10) {
-                    $field = $fields.eq($fields.length - 1);
-                    // Look for any input in this field
-                    $input = $field.find('input[type="hidden"], input[type="text"], textarea');
-                    console.log('Location Working Hours: Input in last field found:', $input.length);
+                // Try finding ANY input in this field
+                $input = $field.find('input');
+                console.log('Location Working Hours: Any input found:', $input.length);
+                if ($input.length) {
+                    $input.each(function(i) {
+                        console.log('  Input', i, '- name:', $(this).attr('name'), 'type:', $(this).attr('type'), 'value:', $(this).val().substring(0, 50));
+                    });
                 }
             }
 
+            if (!$input.length) {
+                // Try textarea
+                $input = $field.find('textarea');
+                console.log('Location Working Hours: Textarea found:', $input.length);
+            }
+
+            if (!$input.length) {
+                // Last resort - try to find the Kirki value element
+                $input = $field.find('[data-field="working_hours_data"]');
+                console.log('Location Working Hours: Data-field found:', $input.length);
+            }
+
             if ($input && $input.length) {
-                console.log('Location Working Hours: Opening modal with input element');
+                console.log('Location Working Hours: Opening modal with input:', $input.attr('name') || $input.attr('id') || 'unknown');
                 openWorkingHoursModal($input, $button);
             } else {
                 console.log('Location Working Hours: Could not find input field');
-                alert('Could not find working hours field. Please refresh the page.');
+                console.log('Location Working Hours: Field classes:', $field.attr('class'));
+                alert('Could not find working hours field. Please check console for debug info.');
             }
         });
 
