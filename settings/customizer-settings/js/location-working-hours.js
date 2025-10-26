@@ -68,8 +68,21 @@
                 return;
             }
 
-            var allLocations = control.setting.get();
-            console.log('Location Working Hours: All locations:', allLocations.length);
+            var settingValue = control.setting.get();
+            console.log('Location Working Hours: Setting type:', typeof settingValue);
+
+            // Parse if it's a JSON string
+            var allLocations = settingValue;
+            if (typeof settingValue === 'string') {
+                try {
+                    allLocations = JSON.parse(settingValue);
+                    console.log('Location Working Hours: Parsed locations array:', allLocations.length);
+                } catch(e) {
+                    console.log('Location Working Hours: Parse error:', e);
+                    alert('Error parsing location data. Please refresh the page.');
+                    return;
+                }
+            }
 
             if (!allLocations[rowIndex]) {
                 alert('Could not find location data for this row.');
@@ -94,8 +107,9 @@
                 locationData.working_hours_data = JSON.stringify(newHours);
                 allLocations[rowIndex] = locationData;
 
-                // Save back to Kirki
-                control.setting.set(allLocations);
+                // Save back to Kirki (as string if it was originally a string)
+                var newValue = typeof settingValue === 'string' ? JSON.stringify(allLocations) : allLocations;
+                control.setting.set(newValue);
 
                 // Update button text
                 updateHoursCount(newHours, $button);

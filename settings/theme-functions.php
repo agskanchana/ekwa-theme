@@ -340,7 +340,7 @@ add_action( 'customize_controls_enqueue_scripts', 'ekwa_customizer_control_scrip
 
 function ekwa_customizer_control_scripts() {
 	wp_enqueue_script( 'ekwa-customizer-script', get_template_directory_uri() . '/js/customizer-script.js', array( 'customize-controls' ) );
-	wp_enqueue_script( 'ekwa-location-hours', get_template_directory_uri() . '/settings/customizer-settings/js/location-working-hours.js', array( 'jquery', 'customize-controls' ), '1.2.0', true );
+	wp_enqueue_script( 'ekwa-location-hours', get_template_directory_uri() . '/settings/customizer-settings/js/location-working-hours.js', array( 'jquery', 'customize-controls' ), '1.2.1', true );
     wp_enqueue_style('ekwa-customizer-styles',get_template_directory_uri().'/settings/customizer-settings/css/style.css',array(),'1.0.0','all');
 }
 
