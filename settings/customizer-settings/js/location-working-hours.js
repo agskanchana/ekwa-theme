@@ -3,22 +3,36 @@
  * Adds nested working hours functionality to location repeater items
  */
 
-(function($) {
+(function() {
     'use strict';
 
+    // Wait for jQuery to be available
+    if (typeof jQuery === 'undefined') {
+        console.log('Location Working Hours: jQuery not ready, waiting...');
+        setTimeout(arguments.callee, 100);
+        return;
+    }
+
+    var $ = jQuery;
     var processedFields = new Set();
+
+    console.log('Location Working Hours: jQuery loaded, initializing...');
 
     // Wait for Kirki to initialize
     $(document).ready(function() {
+        console.log('Location Working Hours: Document ready');
         setTimeout(initWorkingHoursManager, 1000);
         setTimeout(initWorkingHoursManager, 3000);
         setTimeout(initWorkingHoursManager, 5000);
     });
 
     function initWorkingHoursManager() {
+        console.log('Location Working Hours: Running init manager...');
+
         // Use event delegation for dynamically added rows
         $(document).off('click.ekwa-hours').on('click.ekwa-hours', '.ekwa-hours-btn', function(e) {
             e.preventDefault();
+            console.log('Location Working Hours: Button clicked');
             var $textarea = $(this).data('textarea');
             if ($textarea && $textarea.length) {
                 openWorkingHoursModal($textarea, $(this));
@@ -26,7 +40,10 @@
         });
 
         // Find and process all working hours fields
-        $('[id*="working_hours_data"]').each(function() {
+        var $fields = $('[id*="working_hours_data"]');
+        console.log('Location Working Hours: Found ' + $fields.length + ' fields');
+
+        $fields.each(function() {
             var fieldId = $(this).attr('id');
             if (fieldId && !processedFields.has(fieldId)) {
                 processedFields.add(fieldId);
@@ -359,4 +376,4 @@
         return parts;
     }
 
-})(jQuery);
+})();
