@@ -54,16 +54,16 @@
             var $button = $(this);
             var $row = $button.closest('.repeater-row');
             var fieldId = $button.data('field-id');
-            
+
             // Find the textarea in this row
             var $textarea = $row.find('textarea[name*="working_hours_data"]');
             if (!$textarea.length) {
                 // Try finding by proximity - any textarea near the button
                 $textarea = $button.closest('.repeater-field').find('textarea');
             }
-            
+
             console.log('Location Working Hours: Textarea found:', $textarea.length);
-            
+
             if ($textarea && $textarea.length) {
                 openWorkingHoursModal($textarea, $button);
             } else {
@@ -139,22 +139,25 @@
         var fieldId = $field.attr('id') || 'field-' + Math.random();
         console.log('Location Working Hours: addWorkingHoursButton called for', fieldId);
 
-        // Check if button already exists
-        if ($field.find('.ekwa-hours-btn').length) {
-            console.log('Location Working Hours: Button already exists');
+        // Find the parent repeater row
+        var $row = $field.closest('.repeater-row');
+
+        // Check if button already exists in this row
+        if ($row.find('.ekwa-hours-btn').length) {
+            console.log('Location Working Hours: Button already exists in row');
             return;
         }
 
-        // Create a prominent button - add it immediately, don't wait
-        var $buttonWrapper = $('<div class="ekwa-hours-button-wrapper" style="margin: 15px 5px; padding: 12px; background: #f6f7f7; border: 2px solid #2271b1; border-radius: 4px; text-align: center;"></div>');
-        var $button = $('<button type="button" class="button button-primary ekwa-hours-btn" style="font-size: 14px; padding: 8px 20px; height: auto;"><span class="dashicons dashicons-clock" style="margin-right: 5px; vertical-align: middle; margin-top: 3px;"></span>Edit Working Hours</button>');
-        
+        // Create a prominent button with forced visibility
+        var $buttonWrapper = $('<div class="ekwa-hours-button-wrapper" style="display: block !important; width: 100% !important; margin: 15px 0 !important; padding: 15px !important; background: #e7f5fe !important; border: 2px solid #0073aa !important; border-radius: 4px !important; text-align: center !important; box-sizing: border-box !important; clear: both !important;"></div>');
+        var $button = $('<button type="button" class="button button-primary ekwa-hours-btn" style="display: inline-block !important; font-size: 14px !important; padding: 10px 24px !important; height: auto !important; line-height: 1.4 !important; cursor: pointer !important;"><span class="dashicons dashicons-clock" style="margin-right: 8px !important; vertical-align: middle !important;"></span>⏰ Edit Working Hours</button>');
+
         $button.attr('data-field-id', fieldId);
         $buttonWrapper.append($button);
-        
-        // Add to field - just append it
-        $field.append($buttonWrapper);
-        console.log('Location Working Hours: Button added successfully');
+
+        // Add to the ROW (not the field) - append to end of row
+        $row.append($buttonWrapper);
+        console.log('Location Working Hours: Button added successfully to row');
     }    function updateHoursCount($textarea, $button) {
         try {
             var data = JSON.parse($textarea.val() || '[]');
