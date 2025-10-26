@@ -333,6 +333,16 @@ Kirki::add_field( 'theme_config_id', [
             'default'     => '',
         ],
 
+        'working_hours_data' => [
+            'type'        => 'code',
+            'label'       => esc_html__( 'Working Hours (JSON)', 'kirki' ),
+            'description' => esc_html__( 'Click "Edit Working Hours" button below to manage hours', 'kirki' ),
+            'default'     => '[]',
+            'choices'     => [
+                'language' => 'json',
+            ],
+        ],
+
 	],
 
 ] );

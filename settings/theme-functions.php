@@ -340,6 +340,7 @@ add_action( 'customize_controls_enqueue_scripts', 'ekwa_customizer_control_scrip
 
 function ekwa_customizer_control_scripts() {
 	wp_enqueue_script( 'ekwa-customizer-script', get_template_directory_uri() . '/js/customizer-script.js', array( 'customize-controls' ) );
+	wp_enqueue_script( 'ekwa-location-hours', get_template_directory_uri() . '/settings/customizer-settings/js/location-working-hours.js', array( 'jquery', 'customize-controls' ), '1.0.0', true );
     wp_enqueue_style('ekwa-customizer-styles',get_template_directory_uri().'/settings/customizer-settings/css/style.css',array(),'1.0.0','all');
 }
 
@@ -446,6 +447,88 @@ function get_location($sub_val, $which_location = 1){
 		return  $location_rows[$location_row][$sub_val];
 	}
 
+}
+
+/**
+ * Get working hours for a specific location
+ *
+ * @param int $which_location Location index (1-based)
+ * @return array Array of working hours data
+ */
+function get_location_working_hours($which_location = 1) {
+	$location_rows = get_theme_mod('location_info', '');
+
+	if ($location_rows) {
+		$location_row = $which_location - 1;
+		if (isset($location_rows[$location_row]['working_hours_data'])) {
+			$hours_json = $location_rows[$location_row]['working_hours_data'];
+			$hours_data = json_decode($hours_json, true);
+			return is_array($hours_data) ? $hours_data : array();
+		}
+	}
+
+	return array();
+}
+
+/**
+ * Display working hours for a specific location
+ *
+ * @param int $which_location Location index (1-based)
+ * @param string $format Format: 'list', 'table', or 'schema'
+ */
+function display_location_working_hours($which_location = 1, $format = 'list') {
+	$hours = get_location_working_hours($which_location);
+
+	if (empty($hours)) {
+		return;
+	}
+
+	if ($format === 'list') {
+		echo '<ul class="working-hours-list">';
+		foreach ($hours as $day_data) {
+			echo '<li class="day-' . strtolower($day_data['day']) . '">';
+			echo '<strong>' . esc_html($day_data['day']) . ':</strong> ';
+
+			if ($day_data['closed']) {
+				echo 'Closed';
+			} else {
+				echo esc_html($day_data['opening']) . ' - ' . esc_html($day_data['closing']);
+				if (!empty($day_data['extra_text'])) {
+					echo ' <span class="extra-text">(' . esc_html($day_data['extra_text']) . ')</span>';
+				}
+			}
+			echo '</li>';
+		}
+		echo '</ul>';
+	} elseif ($format === 'table') {
+		echo '<table class="working-hours-table">';
+		foreach ($hours as $day_data) {
+			echo '<tr>';
+			echo '<td class="day-name"><strong>' . esc_html($day_data['day']) . '</strong></td>';
+			echo '<td class="hours">';
+
+			if ($day_data['closed']) {
+				echo 'Closed';
+			} else {
+				echo esc_html($day_data['opening']) . ' - ' . esc_html($day_data['closing']);
+				if (!empty($day_data['extra_text'])) {
+					echo ' <span class="extra-text">(' . esc_html($day_data['extra_text']) . ')</span>';
+				}
+			}
+			echo '</td>';
+			echo '</tr>';
+		}
+		echo '</table>';
+	} elseif ($format === 'schema') {
+		// Return Schema.org compatible format
+		$schema_hours = array();
+		foreach ($hours as $day_data) {
+			if (!$day_data['closed']) {
+				$schema_hours[] = $day_data['day'] . ' ' . $day_data['opening'] . '-' . $day_data['closing'];
+			}
+		}
+		return $schema_hours;
+	}
 }
 
 function get_address($which_location = 1){
