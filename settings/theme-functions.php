@@ -11,6 +11,80 @@ function gen_uid($l=10){
 
 
 
+
+/*********  Header Post type *************/
+
+function ekwa_theme_headers_post_type(){
+        $labels = array(
+                'name' => 'Headers',
+                'singular_name' => 'Header',
+                'add_new' => 'Add New'
+        );
+
+        $args = array(
+                            'labels' => $labels,
+                            'supports'              => array( 'title','editor',),
+                            'hierarchical'          => false,
+                            'public'                => false,
+                            'show_ui'               => true,
+                            'show_in_menu'          => true,
+                            'menu_position'         => 5,
+                            'menu_icon'             => 'dashicons-block-default',
+                            'show_in_admin_bar'     => true,
+                            'show_in_nav_menus'     => false,
+                            'can_export'            => true,
+                            'has_archive'           => false,
+                            'exclude_from_search'   => true,
+                            'publicly_queryable'    => false,
+							'show_in_rest'          => true,
+                            'query_var'             => false,
+                            'capability_type'       => 'post'
+
+
+
+        );
+        register_post_type( 'ekwa_theme_headers', $args );
+}
+
+add_action( 'init', 'ekwa_theme_headers_post_type');
+
+/*********  Footer Post type *************/
+
+function ekwa_theme_footers_post_type(){
+        $labels = array(
+                'name' => 'Footers',
+                'singular_name' => 'Footer',
+                'add_new' => 'Add New'
+        );
+
+        $args = array(
+                            'labels' => $labels,
+                            'supports'              => array( 'title','editor',),
+                            'hierarchical'          => false,
+                            'public'                => false,
+                            'show_ui'               => true,
+                            'show_in_menu'          => true,
+                            'menu_position'         => 5,
+                            'menu_icon'             => 'dashicons-block-default',
+                            'show_in_admin_bar'     => true,
+                            'show_in_nav_menus'     => false,
+                            'can_export'            => true,
+                            'has_archive'           => false,
+                            'exclude_from_search'   => true,
+                            'publicly_queryable'    => false,
+							'show_in_rest'          => true,
+                            'query_var'             => false,
+                            'capability_type'       => 'post'
+
+
+
+        );
+        register_post_type( 'ekwa_theme_footers', $args );
+}
+
+add_action( 'init', 'ekwa_theme_footers_post_type');
+
+
 function update_admin_css(){
 
 	$path = get_template_directory().'/css/color-variables.css';

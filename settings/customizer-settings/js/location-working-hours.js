@@ -214,7 +214,7 @@
     function updateHoursCount(data, $button) {
         try {
             var count = data.length;
-            var countText = count === 0 ? ' (No hours set)' : ' (' + count + ' days configured)';
+            var countText = count === 0 ? ' (No hours set)' : ' (' + count + ' days )';
             $button.text('⏰ Edit Working Hours' + countText);
         } catch(e) {
             $button.text('⏰ Edit Working Hours');

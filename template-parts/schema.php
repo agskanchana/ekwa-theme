@@ -1,181 +1,256 @@
-<?php if ( function_exists( 'the_custom_logo' ) ) {
-		$custom_logo_id = get_theme_mod( 'custom_logo' );
-		$image_logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-		$working_hours = get_theme_mod( 'working_hrs', null );
-
- }
-
- $country =  get_theme_mod('country', "United States");
- $schema_country = '';
- if($country == 'United States'){
-	$schema_country = 'US';
- }
- if($country == 'Canada'){
-	$schema_country = 'CA';
- }
- if($country == 'Australia'){
-	$schema_country = 'AU';
- }
- if($country == 'England'){
-	$schema_country = 'GB';
- }
-
-
- ?>
-<script type="application/ld+json">
-{
-"@context": "http://schema.org",
-
-<?php $departments = get_theme_mod('location_info', null);?>
 <?php
-if(!$departments){
-    $dept_count = 1;
-}else{
-    $dept_count =  count($departments);
-}
-?>
+/**
+ * Schema.org JSON-LD Output
+ * Generates valid JSON-LD structured data for single or multiple locations
+ */
 
-<?php if($dept_count > 1): ?>
-"@type": "Organization",
-<?php endif;?>
-<?php if($dept_count == 1): ?>
-"@type": "<?php echo get_theme_mod('organization_type', null); ?>",
-<?php endif;?>
-"url": "<?php echo get_option( 'siteurl' );?>",
-<?php if($image_logo):?>
-"logo": "<?php echo $image_logo[0];?>",
-"image": "<?php echo $image_logo[0];?>",
-<?php endif;?>
-"name": " <?php echo get_theme_mod('practise_name', ''); ?>",
-<?php $departments = get_theme_mod('location_info', '');?>
-<?php
-if(!$departments){
-    $dept_count = 1;
-}else{
-    $dept_count =  count($departments);
-}
-?>
-<?php if($dept_count == 1): ?>
-    "priceRange": 0,
+// Prevent function redeclaration
+if (!function_exists('ekwa_format_schema_time')) {
+	/**
+	 * Format time for schema.org (convert 12-hour to 24-hour format)
+	 * Schema.org accepts both formats, but 24-hour is preferred
+	 */
+	function ekwa_format_schema_time($time_string) {
+		if (empty($time_string)) return '';
 
-	"hasMap": "<?php echo  get_location('direction');?>",
-	"address": {
-	"@type": "PostalAddress",
-	"addressLocality": "<?php echo  get_location('city');?>",
-	"addressRegion": "<?php echo  get_location('state');?>",
-	"postalCode":"<?php echo  get_location('zip');?>",
-	"streetAddress": "<?php echo  get_location('street_address');?>",
-	<?php if($schema_country !=''):?>
-	"addressCountry": "<?php echo $schema_country;?>"
-	<?php endif;?>
-	},
-	"telephone": "<?php echo  get_location('phone');?>",
+		$time_string = trim($time_string);
+		$parts = explode(' ', $time_string);
 
+		if (count($parts) === 2) {
+			list($time, $period) = $parts;
+			$time_parts = explode(':', $time);
+			if (count($time_parts) === 2) {
+				list($hour, $minute) = $time_parts;
+				$hour = intval($hour);
 
-	<?php
-	 if($working_hours):
-		$closed_days = 0;
-		foreach($working_hours as $wh){
-			if($wh['closed']){
-				$closed_days++;
+				if (strtoupper($period) === 'PM' && $hour !== 12) {
+					$hour += 12;
+				} elseif (strtoupper($period) === 'AM' && $hour === 12) {
+					$hour = 0;
+				}
+
+				return sprintf('%02d:%02d', $hour, $minute);
 			}
 		}
-		 $real_working_hours = count($working_hours) - $closed_days - 1;
 
-	?>
-	"openingHoursSpecification": [
-		<?php
-		$wh_counter = 0;
-		foreach($working_hours as $key=>$value):?>
-		<?php if(!$value['closed']):?>
-		{
-		     "@type": "OpeningHoursSpecification",
-		     "dayOfWeek":  "<?php echo $value['day'];?>",
-		     "opens": "<?php echo $value['opening'];?>",
-		     "closes": "<?php echo $value['closing'];?>"
-		}<?php
+		return $time_string;
+	}
+}
 
-		 if($wh_counter != $real_working_hours) { echo ", "; }
-		 ?>
-		<?php
-		 $wh_counter++;
-		 endif;?>
-		<?php endforeach;?>
-	],
-	<?php endif;?>
-	"geo": {
-	"@type": "GeoCoordinates",
-	"latitude": "<?php echo get_location('latitude');?>",
-	"longitude": "<?php echo get_location('longitude');?>"
-	},
+if (!function_exists('ekwa_get_opening_hours')) {
+	/**
+	 * Get opening hours specification for a location
+	 */
+	function ekwa_get_opening_hours($location_number) {
+		$working_hours = get_location_working_hours($location_number);
 
-<?php endif;?>
+		if (!$working_hours || !is_array($working_hours)) {
+			return array();
+		}
 
-<?php if($dept_count > 1): ?>
-"department":
-[
-	<?php foreach($departments as $key=>$value):?>
+		$hours_spec = array();
 
-	{
-            "@type": "<?php echo get_theme_mod('organization_type', null); ?>",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "<?php echo $value['city'];?>",
-                "addressRegion": "<?php echo $value['state'];?>",
-                "postalCode": "<?php echo $value['zip'];?>",
-                "streetAddress": "<?php echo $value['street_address'];?>",
-				<?php if($schema_country !=''):?>
-				"addressCountry": "<?php echo $schema_country;?>"
-				<?php endif;?>
-            },
-	     <?php  $working_hours = get_theme_mod( 'working_hrs', null );?>
-	     <?php if($working_hours):?>
-	     "openingHoursSpecification":
-	     [
+		foreach ($working_hours as $day_hours) {
+			// Skip closed days
+			if (!empty($day_hours['closed']) && ($day_hours['closed'] === true || $day_hours['closed'] === '1' || $day_hours['closed'] === 1)) {
+				continue;
+			}
 
-		<?php foreach($working_hours as $k=>$val):?>
-		{
-		     "@type": "OpeningHoursSpecification",
-		     "dayOfWeek":  "<?php echo $val['day'];?>",
-		     "opens": "<?php echo $val['opening'];?>",
-		     "closes": "<?php echo $val['closing'];?>"
-		}<?php if($k != count($working_hours)-1) { echo ", "; }?>
+			// Only add if we have valid opening/closing times
+			if (!empty($day_hours['opening']) && !empty($day_hours['closing'])) {
+				$hours_spec[] = array(
+					'@type' => 'OpeningHoursSpecification',
+					'dayOfWeek' => $day_hours['day'],
+					'opens' => ekwa_format_schema_time($day_hours['opening']),
+					'closes' => ekwa_format_schema_time($day_hours['closing'])
+				);
+			}
+		}
 
-		<?php endforeach;?>
+		return $hours_spec;
+	}
+}
 
-	    ],
-	     <?php endif;?>
-            "telephone" : "<?php echo $value['phone'];?>",
-            "name": "<?php echo get_theme_mod('practise_name', null); ?>",
-			<?php if($image_logo):?>
-            "image": "<?php echo $image_logo[0];?>",
-			<?php endif;?>
-            "priceRange": 0,
+if (!function_exists('ekwa_build_schema_location')) {
+	/**
+	 * Build schema for a single location
+	 */
+	function ekwa_build_schema_location($location_data, $location_number, $schema_country, $logo_url, $is_department = false) {
+		$schema = array();
 
-	    "hasMap": "<?php echo $value['direction'];?>",
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "<?php echo $value['latitude'];?>",
-              "longitude": "<?php echo $value['longitude'];?>"
-              }
-         }<?php if($key != count($departments)-1) { echo ", "; }?>
+		// Type and name
+		$schema['@type'] = get_theme_mod('organization_type', 'LocalBusiness');
+		$schema['name'] = get_theme_mod('practise_name', get_bloginfo('name'));
 
-	<?php endforeach;?>
-	    ],
-<?php endif;?>
+		// Add URL only for main organization (not departments)
+		if (!$is_department) {
+			$schema['url'] = get_option('siteurl');
+		}
 
-<?php $email_address =  get_theme_mod('email_address', null);
- if($email_address):
+		// Add logo/image
+		if ($logo_url) {
+			if (!$is_department) {
+				$schema['logo'] = $logo_url;
+			}
+			$schema['image'] = $logo_url;
+		}
+
+		// Price range
+		$schema['priceRange'] = '$$';
+
+		// Map link
+		if (!empty($location_data['direction'])) {
+			$schema['hasMap'] = $location_data['direction'];
+		}
+
+		// Address
+		$address = array('@type' => 'PostalAddress');
+		if (!empty($location_data['street_address'])) {
+			$address['streetAddress'] = $location_data['street_address'];
+		}
+		if (!empty($location_data['city'])) {
+			$address['addressLocality'] = $location_data['city'];
+		}
+		if (!empty($location_data['state'])) {
+			$address['addressRegion'] = $location_data['state'];
+		}
+		if (!empty($location_data['zip'])) {
+			$address['postalCode'] = $location_data['zip'];
+		}
+		if ($schema_country) {
+			$address['addressCountry'] = $schema_country;
+		}
+
+		if (count($address) > 1) {
+			$schema['address'] = $address;
+		}
+
+		// Telephone
+		if (!empty($location_data['phone'])) {
+			$schema['telephone'] = $location_data['phone'];
+		}
+
+		// Opening hours
+		$opening_hours = ekwa_get_opening_hours($location_number);
+		if (!empty($opening_hours)) {
+			$schema['openingHoursSpecification'] = $opening_hours;
+		}
+
+		// Geo coordinates
+		if (!empty($location_data['latitude']) && !empty($location_data['longitude'])) {
+			$schema['geo'] = array(
+				'@type' => 'GeoCoordinates',
+				'latitude' => $location_data['latitude'],
+				'longitude' => $location_data['longitude']
+			);
+		}
+
+		return $schema;
+	}
+}
+
+// Get logo
+$custom_logo_id = get_theme_mod('custom_logo');
+$image_logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+$logo_url = ($image_logo && isset($image_logo[0])) ? $image_logo[0] : '';
+
+// Get country code
+$country = get_theme_mod('country', 'United States');
+$country_codes = array(
+	'United States' => 'US',
+	'Canada' => 'CA',
+	'Australia' => 'AU',
+	'England' => 'GB',
+	'United Kingdom' => 'GB'
+);
+$schema_country = isset($country_codes[$country]) ? $country_codes[$country] : 'US';
+
+// Get all locations
+$departments = get_theme_mod('location_info', array());
+$dept_count = (is_array($departments) && !empty($departments)) ? count($departments) : 0;
+
+// Build the schema data structure
+$schema_data = array();
+
+// SINGLE LOCATION
+if ($dept_count <= 1) {
+	$location_data = ($dept_count === 1 && isset($departments[0])) ? $departments[0] : array();
+
+	// Build single location schema
+	$schema_data = ekwa_build_schema_location($location_data, 1, $schema_country, $logo_url, false);
+
+	// Add context
+	$schema_data = array_merge(array('@context' => 'https://schema.org'), $schema_data);
+
+	// Add email
+	$email_address = get_theme_mod('email_address');
+	if ($email_address) {
+		$schema_data['email'] = $email_address;
+	}
+
+	// Add social media links
+	$social_media_links = get_theme_mod('social_media_links', array());
+	$social_urls = array();
+	if ($social_media_links && is_array($social_media_links)) {
+		foreach ($social_media_links as $link) {
+			if (isset($link['social_media_link']) && !empty($link['social_media_link'])) {
+				$social_urls[] = $link['social_media_link'];
+			}
+		}
+	}
+	if (!empty($social_urls)) {
+		$schema_data['sameAs'] = $social_urls;
+	}
+}
+
+// MULTIPLE LOCATIONS
+if ($dept_count > 1) {
+	$schema_data['@context'] = 'https://schema.org';
+	$schema_data['@type'] = 'Organization';
+	$schema_data['name'] = get_theme_mod('practise_name', get_bloginfo('name'));
+	$schema_data['url'] = get_option('siteurl');
+
+	// Add logo
+	if ($logo_url) {
+		$schema_data['logo'] = $logo_url;
+		$schema_data['image'] = $logo_url;
+	}
+
+	// Add email
+	$email_address = get_theme_mod('email_address');
+	if ($email_address) {
+		$schema_data['email'] = $email_address;
+	}
+
+	// Build department list
+	$department_list = array();
+
+	foreach ($departments as $dept_key => $dept_value) {
+		$location_number = $dept_key + 1;
+		$dept_schema = ekwa_build_schema_location($dept_value, $location_number, $schema_country, $logo_url, true);
+		$department_list[] = $dept_schema;
+	}
+
+	$schema_data['department'] = $department_list;
+
+	// Add social media links
+	$social_media_links = get_theme_mod('social_media_links', array());
+	$social_urls = array();
+	if ($social_media_links && is_array($social_media_links)) {
+		foreach ($social_media_links as $link) {
+			if (isset($link['social_media_link']) && !empty($link['social_media_link'])) {
+				$social_urls[] = $link['social_media_link'];
+			}
+		}
+	}
+	if (!empty($social_urls)) {
+		$schema_data['sameAs'] = $social_urls;
+	}
+}
+
+// Output as valid JSON-LD
+echo '<script type="application/ld+json">' . "\n";
+echo wp_json_encode($schema_data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+echo "\n" . '</script>';
 ?>
-"email": "<?php echo $email_address;?>",
-<?php endif;?>
-"sameAs" : ["<?php $social_media_links = get_theme_mod('social_media_links', null);
-if($social_media_links){
-foreach($social_media_links as $link_k=>$link_val){ echo $link_val['social_media_link']; if($link_k != count($social_media_links)-1) { echo ", "; }}
-}
-?>"]
-}
-</script>
-
-
 

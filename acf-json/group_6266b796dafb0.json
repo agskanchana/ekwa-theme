@@ -18,6 +18,52 @@
             "default_value": "",
             "enable_opacity": 0,
             "return_format": "string"
+        },
+        {
+            "key": "field_67d6d72606ee5",
+            "label": "Location Number",
+            "name": "location_number",
+            "type": "number",
+            "instructions": "Which location's working hours to display (1 for first location, 2 for second, etc.)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "min": 1,
+            "max": "",
+            "step": 1,
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_67d6d72606ee6",
+            "label": "Display Format",
+            "name": "display_format",
+            "type": "select",
+            "instructions": "Choose how to display the working hours",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "normal": "Normal - Show each day separately",
+                "group_consecutive": "Group Consecutive - Group days with same hours that are next to each other (e.g., Monday - Wednesday: 8am - 5pm)",
+                "group_all": "Group All - Group all days with same hours together (e.g., Monday, Tuesday, Friday: 8am - 5pm)"
+            },
+            "default_value": "normal",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
         }
     ],
     "location": [
@@ -38,5 +84,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1650898869
+    "modified": 1742228850
 }

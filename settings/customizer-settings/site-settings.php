@@ -37,12 +37,7 @@
 ) );
 
 
- Kirki::add_section( 'working_hours', array(
-    'title'          => esc_html__( 'Working Hours', 'kirki' ),
-    'description'    => esc_html__( '', 'kirki' ),
-    'panel'          => 'site_settings',
-    'priority'       => 1,
-) );
+
 
 Kirki::add_section( 'popup_settings', array(
     'title'          => esc_html__( 'Popup Settings', 'kirki' ),
@@ -335,8 +330,8 @@ Kirki::add_field( 'theme_config_id', [
 
         'working_hours_data' => [
             'type'        => 'code',
-            'label'       => esc_html__( 'Working Hours (JSON)', 'kirki' ),
-            'description' => esc_html__( 'Click "Edit Working Hours" button below to manage hours', 'kirki' ),
+            'label'       => esc_html__( 'Working Hours', 'kirki' ),
+            'description' => esc_html__( 'Click "Edit Working Hours" button to manage hours', 'kirki' ),
             'default'     => '[]',
             'choices'     => [
                 'language' => 'json',
@@ -349,117 +344,4 @@ Kirki::add_field( 'theme_config_id', [
 
 
 
-  /*############################ WORKING HOURS  SECTION FIELDS ###########################*/
 
-
-  Kirki::add_field( 'theme_config_id', [
-	'type'        => 'repeater',
-	'label'       => esc_html__( 'Working hours ', 'kirki' ),
-	'section'     => 'working_hours',
-	'priority'    => 30,
-	'row_label' => [
-		'type'  => 'text',
-		'value' => esc_html__( 'Day', 'kirki' ),
-	],
-	'button_label' => esc_html__('Add New', 'kirki' ),
-	'settings'     => 'working_hrs',
-	'fields' => [
-        'day' => [
-            'type'        => 'select',
-            'label'       => esc_html__( 'Day', 'kirki' ),
-            'description' => esc_html__( '', 'kirki' ),
-            'default'     => '',
-            'choices'     => [
-                'Select Day' => esc_html__( 'Select Day', 'kirki' ),
-                'Monday' => esc_html__( 'Monday', 'kirki' ),
-                'Tuesday' => esc_html__( 'Tuesday', 'kirki' ),
-                'Wednesday' => esc_html__( 'Wednesday', 'kirki' ),
-                'Thursday' => esc_html__( 'Thursday', 'kirki' ),
-                'Friday' => esc_html__( 'Friday', 'kirki' ),
-                'Saturday' => esc_html__( 'Saturday', 'kirki' ),
-                'Sunday' => esc_html__( 'Sunday', 'kirki' ),
-            ],
-        ],
-
-        'closed' => [
-            'type'        => 'checkbox',
-            'label'       => esc_html__( 'Closed ?', 'kirki' ),
-            'description' => esc_html__( '', 'kirki' ),
-            'default'     => false,
-        ],
-
-        'opening' => [
-            'type'        => 'text',
-            'label'       => esc_html__( 'Opening', 'kirki' ),
-            'description' => esc_html__( '', 'kirki' ),
-            'default'     => '',
-        ],
-
-        'closing' => [
-            'type'        => 'text',
-            'label'       => esc_html__( 'Closing', 'kirki' ),
-            'description' => '',
-            'default'     => '',
-        ],
-
-        'extra_text' => [
-            'type'        => 'text',
-            'label'       => esc_html__( 'Extra text', 'kirki' ),
-            'description' => '',
-            'default'     => '',
-        ],
-
-
-	],
-
-] );
-
-
-
-/*###################################  Popup Seetings #################################*/
-
-
-Kirki::add_field( 'theme_config_id', [
-	'type'        => 'checkbox',
-	'settings'    => 'show_popup',
-	'label'       => esc_html__( 'Show popup', 'kirki' ),
-	'description' => esc_html__( '' ),
-	'section'     => 'popup_settings',
-	'default'     => '',
-] );
-
-Kirki::add_field( 'theme_config_id', [
-	'type'        => 'select',
-	'settings'    => 'select_popup',
-	'label'       => esc_html__( 'Select a popup', 'kirki' ),
-	'section'     => 'popup_settings',
-	'default'     => 'custom',
-	'placeholder' => esc_html__( 'Select a popup', 'kirki' ),
-	'priority'    => 10,
-	'multiple'    => 1,
-	'choices'     => Kirki_Helper::get_posts(
-                    array(
-                        'numberposts' => -1,
-                        'post_type'   => 'popup',
-                      )
-
-    ),
-] );
-
-Kirki::add_field( 'theme_config_id', [
-	'type'        => 'select',
-	'settings'    => 'select_mobile_popup',
-	'label'       => esc_html__( 'Select Mobile popup', 'kirki' ),
-	'section'     => 'popup_settings',
-	'default'     => 'custom',
-	'placeholder' => esc_html__( 'Select Mobile popup', 'kirki' ),
-	'priority'    => 10,
-	'multiple'    => 1,
-	'choices'     => Kirki_Helper::get_posts(
-                    array(
-                        'numberposts' => -1,
-                        'post_type'   => 'popup_mobile',
-                      )
-
-    ),
-] );
