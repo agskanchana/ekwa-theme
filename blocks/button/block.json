@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "acf/ekwa-button",
+	"title": "EKWA Button",
+	"description": "A customizable button with icon support and phone number integration",
+	"category": "ekwa-blocks",
+	"icon": "button",
+	"keywords": ["button", "link", "cta", "call to action", "phone"],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "block.php"
+	},
+	"supports": {
+		"align": ["left", "center", "right", "wide", "full"],
+		"anchor": true,
+		"className": true
+	},
+	"example": {
+		"attributes": {
+			"mode": "preview",
+			"data": {
+				"text": "Click Here"
+			}
+		}
+	}
+}

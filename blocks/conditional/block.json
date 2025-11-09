@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-conditional",
+  "title": "EKWA Conditional Block",
+  "description": "Show or hide content based on conditions like pages, posts, device type, and Yoast settings",
+  "category": "ekwa-blocks",
+  "icon": "visibility",
+  "keywords": ["conditional", "hide", "show", "visibility", "display"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "className": true,
+    "jsx": true
+  }
+}

@@ -196,6 +196,9 @@ require get_template_directory() . '/settings/theme-functions.php';
 require get_template_directory() . '/settings/customizer.php';
 require get_template_directory() . '/settings/acf.php';
 
+// ACF Icon Picker Field
+require get_template_directory() . '/settings/acf-icon-picker/acf-icon-picker-field.php';
+
 /**
  * ACF JSON Save Point - Save to parent theme
  */

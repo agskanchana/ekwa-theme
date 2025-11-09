@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-address-dropdown",
+  "title": "EKWA Address Dropdown",
+  "description": "Display all locations in a dropdown with direction links",
+  "category": "ekwa-blocks",
+  "icon": "location-alt",
+  "keywords": ["address", "directions", "location", "dropdown", "map"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["left", "center", "right"],
+    "anchor": true,
+    "className": true
+  }
+}

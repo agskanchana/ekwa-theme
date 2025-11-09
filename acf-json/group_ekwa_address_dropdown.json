@@ -1,10 +1,10 @@
 {
-    "key": "group_620dbd7aa3632",
-    "title": "EKWA Address Block",
+    "key": "group_ekwa_address_dropdown",
+    "title": "EKWA Address Dropdown Block",
     "fields": [
         {
-            "key": "field_direction_accordion_settings",
-            "label": "Settings",
+            "key": "field_address_dropdown_accordion_trigger",
+            "label": "Trigger Button",
             "name": "",
             "type": "accordion",
             "instructions": "",
@@ -20,11 +20,11 @@
             "endpoint": 0
         },
         {
-            "key": "field_620dbd8c51a36",
-            "label": "Mode",
-            "name": "mode",
-            "type": "select",
-            "instructions": "Choose how to display the address",
+            "key": "field_trigger_bg_color",
+            "label": "Background Color",
+            "name": "trigger_bg_color",
+            "type": "color_picker",
+            "instructions": "Choose the background color for the trigger button",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -32,25 +32,16 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "icon": "Icon only",
-                "text": "Icon + Text",
-                "address": "Icon + Address"
-            },
-            "default_value": "icon",
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "ajax": 0,
-            "return_format": "value",
-            "placeholder": ""
+            "default_value": "#1e73be",
+            "enable_opacity": 0,
+            "return_format": "string"
         },
         {
-            "key": "field_634ea1626d2c0",
-            "label": "Location",
-            "name": "location",
-            "type": "number",
-            "instructions": "Enter location number (1, 2, 3, etc.)",
+            "key": "field_trigger_text_color",
+            "label": "Text Color",
+            "name": "trigger_text_color",
+            "type": "color_picker",
+            "instructions": "Choose the text color for the trigger button",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -58,16 +49,12 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 1,
-            "min": 1,
-            "max": "",
-            "placeholder": "",
-            "step": 1,
-            "prepend": "",
-            "append": ""
+            "default_value": "#ffffff",
+            "enable_opacity": 0,
+            "return_format": "string"
         },
         {
-            "key": "field_direction_accordion_end_settings",
+            "key": "field_address_dropdown_accordion_end_trigger",
             "label": "Accordion End",
             "name": "",
             "type": "accordion",
@@ -84,21 +71,13 @@
             "endpoint": 1
         },
         {
-            "key": "field_direction_accordion_colors",
-            "label": "Colors",
+            "key": "field_address_dropdown_accordion_dropdown",
+            "label": "Dropdown",
             "name": "",
             "type": "accordion",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_620dbd8c51a36",
-                        "operator": "!=",
-                        "value": "icon"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -109,21 +88,30 @@
             "endpoint": 0
         },
         {
-            "key": "field_6266b317b9e78",
-            "label": "Text color",
-            "name": "text_color",
+            "key": "field_dropdown_bg_color",
+            "label": "Background Color",
+            "name": "dropdown_bg_color",
             "type": "color_picker",
-            "instructions": "Choose the color for the text",
+            "instructions": "Choose the background color for the dropdown",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_620dbd8c51a36",
-                        "operator": "!=",
-                        "value": "icon"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ffffff",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_dropdown_text_color",
+            "label": "Text Color",
+            "name": "dropdown_text_color",
+            "type": "color_picker",
+            "instructions": "Choose the text color for the dropdown",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -134,21 +122,13 @@
             "return_format": "string"
         },
         {
-            "key": "field_6266b31fb9e79",
-            "label": "Icon color",
-            "name": "icon_color",
+            "key": "field_dropdown_link_color",
+            "label": "Link Color",
+            "name": "dropdown_link_color",
             "type": "color_picker",
-            "instructions": "Choose the color for the map icon",
+            "instructions": "Choose the color for address links",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_620dbd8c51a36",
-                        "operator": "!=",
-                        "value": "icon"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -159,21 +139,13 @@
             "return_format": "string"
         },
         {
-            "key": "field_direction_accordion_end_colors",
+            "key": "field_address_dropdown_accordion_end_dropdown",
             "label": "Accordion End",
             "name": "",
             "type": "accordion",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_620dbd8c51a36",
-                        "operator": "!=",
-                        "value": "icon"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -189,7 +161,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/ekwa-address"
+                "value": "acf\/ekwa-address-dropdown"
             }
         ]
     ],
@@ -200,7 +172,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Display location address with direction link",
+    "description": "Display all locations in a dropdown with direction links",
     "show_in_rest": 0,
     "modified": 1730998800
 }

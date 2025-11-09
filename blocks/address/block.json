@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-address",
+  "title": "EKWA Address Block",
+  "description": "Display location address with direction link to Google Maps",
+  "category": "ekwa-blocks",
+  "icon": "location-alt",
+  "keywords": ["address", "direction", "location", "map", "directions"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["left", "center", "right"],
+    "anchor": true,
+    "className": true
+  }
+}

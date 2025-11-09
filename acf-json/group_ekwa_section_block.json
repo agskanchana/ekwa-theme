@@ -1,0 +1,348 @@
+{
+    "key": "group_ekwa_section_block",
+    "title": "EKWA Section Block",
+    "fields": [
+        {
+            "key": "field_section_accordion_background",
+            "label": "Background",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_section_background_color",
+            "label": "Background color",
+            "name": "background_color",
+            "type": "color_picker",
+            "instructions": "Choose a background color for this section",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "enable_opacity": 1,
+            "return_format": "string"
+        },
+        {
+            "key": "field_section_background_image",
+            "label": "Image",
+            "name": "background_image",
+            "type": "image",
+            "instructions": "Upload or select a background image",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_section_background_size",
+            "label": "Background size",
+            "name": "background_size",
+            "type": "select",
+            "instructions": "How the background image should be sized",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_section_background_image",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "auto": "auto",
+                "cover": "cover",
+                "contain": "contain",
+                "initial": "initial",
+                "inherit": "inherit"
+            },
+            "default_value": "cover",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_section_background_position",
+            "label": "Background position",
+            "name": "background_position",
+            "type": "select",
+            "instructions": "Position of the background image",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_section_background_image",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "center top": "center top",
+                "center center": "center center",
+                "center bottom": "center bottom",
+                "left top": "left top",
+                "left center": "left center",
+                "left bottom": "left bottom",
+                "right top": "right top",
+                "right center": "right center",
+                "right bottom": "right bottom"
+            },
+            "default_value": "center center",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_section_background_repeat",
+            "label": "Background repeat",
+            "name": "background_repeat",
+            "type": "select",
+            "instructions": "How the background image repeats",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_section_background_image",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "no-repeat": "no-repeat",
+                "repeat": "repeat",
+                "repeat-x": "repeat-x",
+                "repeat-y": "repeat-y"
+            },
+            "default_value": "no-repeat",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_section_background_attachment",
+            "label": "Background attachment",
+            "name": "background_attachment",
+            "type": "select",
+            "instructions": "How the background image behaves when scrolling",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_section_background_image",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "scroll": "scroll",
+                "fixed": "fixed",
+                "local": "local"
+            },
+            "default_value": "scroll",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_section_lazyload",
+            "label": "Lazyload",
+            "name": "lazyload",
+            "type": "true_false",
+            "instructions": "Enable lazy loading for the background image (improves page load speed)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_section_background_image",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_section_accordion_end_background",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_section_accordion_other",
+            "label": "Other",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_section_html_element",
+            "label": "HTML Element",
+            "name": "html_element",
+            "type": "select",
+            "instructions": "Choose the semantic HTML element for this section",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "section": "section",
+                "aside": "aside",
+                "main": "main",
+                "article": "article"
+            },
+            "default_value": "section",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_section_custom_css",
+            "label": "Custom css",
+            "name": "custom_css",
+            "type": "codemirror",
+            "instructions": "Add custom CSS for this section (advanced users only)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "/* Your custom CSS here */\n#block-id {\n    /* styles */\n}",
+            "mode": "css",
+            "theme": "monokai",
+            "line_numbers": 1,
+            "line_wrapping": 1,
+            "height": "300px"
+        },
+        {
+            "key": "field_section_accordion_end_other",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/ekwa-section"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Settings for EKWA Section block",
+    "show_in_rest": 0
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-iframe",
+  "title": "EKWA Iframe Block",
+  "description": "Embed external content with iframe (maps, videos, forms, etc.)",
+  "category": "ekwa-blocks",
+  "icon": "embed-generic",
+  "keywords": ["iframe", "embed", "map", "video", "form", "external"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "className": true
+  }
+}

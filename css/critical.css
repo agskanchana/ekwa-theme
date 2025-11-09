@@ -214,3 +214,425 @@ h2{
       margin-left: 0 !important;
     }
 }
+
+/* ============================================
+   EKWA Section Block - Base Styles
+   ============================================ */
+.ekwa-section {
+    position: relative;
+    background-color: transparent;
+}
+
+.ekwa-section__inner {
+    position: relative;
+    z-index: 1;
+}
+
+/* Full width sections */
+body.ekwa-body .ekwa-section {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+/* Lazyload sections */
+.ekwa-section.lazyload {
+    background-color: #f5f5f5;
+}
+
+.ekwa-section.lazyload.lazyloaded {
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.3s ease-in-out;
+}
+
+/* Alignment support */
+.ekwa-section.alignwide {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ekwa-section.alignfull {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+/* Editor styles */
+.wp-block-ekwa-section {
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    min-height: 100px;
+}
+/* ============================================
+   EKWA Button Block - Base Styles
+   ============================================ */
+.ekwa-button-wrapper {
+    display: block;
+    padding: 10px 0;
+}
+
+.ekwa-button-wrapper.align-left { text-align: left; }
+.ekwa-button-wrapper.align-center { text-align: center; }
+.ekwa-button-wrapper.align-right { text-align: right; }
+
+.ekwa-button {
+    display: inline-block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.ekwa-button i { margin-left: 8px; }
+
+.wp-block-ekwa-button {
+    padding: 10px;
+    border: 1px dashed #e0e0e0;
+}
+
+/* ============================================
+   EKWA Call Button Block - Base Styles
+   ============================================ */
+.ekwa-call-button {
+    position: relative;
+    display: inline-block;
+    max-width: 300px;
+    cursor: pointer;
+}
+
+.ekwa-call-button__trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    transition: opacity 0.3s ease;
+}
+
+.ekwa-call-button__trigger:hover {
+    opacity: 0.8;
+}
+
+.ekwa-call-button__trigger i {
+    font-size: 1.1em;
+}
+
+.ekwa-call-button__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 300px;
+    width: max-content;
+    max-width: 400px;
+    text-align: left;
+    padding: 1.5rem 1rem;
+    display: none;
+    z-index: 150;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ekwa-call-button:hover .ekwa-call-button__dropdown {
+    display: block;
+}
+
+.ekwa-call-button__location-group {
+    margin-bottom: 1.5rem;
+}
+
+.ekwa-call-button__location-group:last-child {
+    margin-bottom: 0;
+}
+
+.ekwa-call-button__location-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ekwa-call-button__location-header i {
+    font-size: 1em;
+}
+
+.ekwa-call-button__city {
+    font-weight: 700;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ekwa-call-button__item {
+    margin-bottom: 1rem;
+}
+
+.ekwa-call-button__location-group .ekwa-call-button__item:last-child {
+    margin-bottom: 0;
+}
+
+.ekwa-call-button__item a {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.ekwa-call-button__item a:hover {
+    opacity: 0.8;
+}
+
+.ekwa-call-button__item i {
+    font-size: 1.2em;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.ekwa-call-button__details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ekwa-call-button__label {
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.ekwa-call-button__number {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.ekwa-call-button__simple {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.ekwa-call-button__simple:hover {
+    opacity: 0.8;
+}
+
+.ekwa-call-button__simple i {
+    font-size: 1.1em;
+}
+
+/* Editor styles */
+.wp-block-ekwa-call-button {
+    padding: 15px;
+    border: 1px dashed #e0e0e0;
+}
+
+/* EKWA Copyright Block - Base Styles */
+.ekwa-copyright {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 15px 0;
+}
+
+.ekwa-copyright.alignleft {
+    text-align: left;
+}
+
+.ekwa-copyright.aligncenter {
+    text-align: center;
+}
+
+.ekwa-copyright.alignright {
+    text-align: right;
+}
+
+.ekwa-copyright a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.ekwa-copyright a:hover {
+    text-decoration: underline;
+}
+
+/* =============================================
+   EKWA Address Block
+   ============================================= */
+.ekwa-address {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.ekwa-address:hover {
+    opacity: 0.8;
+}
+
+.ekwa-address__icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}
+
+/* Icon only mode - round button */
+.ekwa-address--icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.ekwa-address--icon:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.ekwa-address--icon .ekwa-address__icon {
+    color: #1e73be;
+}
+
+/* Text mode - icon + "Directions" */
+.ekwa-address--text {
+    font-weight: 500;
+}
+
+/* Address mode - icon + full address */
+
+.ekwa-address--address {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.ekwa-address--address .ekwa-address__icon {
+    margin-right: 6px;
+}
+
+/* =============================================
+   EKWA Address Dropdown Block
+   ============================================= */
+.ekwa-address-dropdown {
+    position: relative;
+    display: inline-block;
+    max-width: 400px;
+}
+
+.ekwa-address-dropdown__trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    font-weight: 500;
+}
+
+.ekwa-address-dropdown__trigger:hover {
+    opacity: 0.9;
+}
+
+.ekwa-address-dropdown__icon {
+    flex-shrink: 0;
+}
+
+.ekwa-address-dropdown__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 320px;
+    width: max-content;
+    max-width: 500px;
+    margin-top: 8px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 100;
+}
+
+.ekwa-address-dropdown:hover .ekwa-address-dropdown__dropdown {
+    display: block;
+}
+
+.ekwa-address-dropdown__location {
+    margin-bottom: 1.5rem;
+}
+
+.ekwa-address-dropdown__location:last-child {
+    margin-bottom: 0;
+}
+
+.ekwa-address-dropdown__city {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ekwa-address-dropdown__city-icon {
+    flex-shrink: 0;
+}
+
+.ekwa-address-dropdown__link {
+    display: block;
+    padding-left: 22px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    line-height: 1.5;
+}
+
+.ekwa-address-dropdown__link:hover {
+    text-decoration: underline;
+}
+
+/* =============================================
+   EKWA Icon Block
+   ============================================= */
+.ekwa-icon {
+    display: inline-block;
+    line-height: 1;
+    transition: opacity 0.3s ease;
+}
+
+.ekwa-icon.alignleft {
+    text-align: left;
+}
+
+.ekwa-icon.aligncenter {
+    text-align: center;
+    display: block;
+}
+
+.ekwa-icon.alignright {
+    text-align: right;
+    display: block;
+}
+
+.ekwa-icon:hover {
+    opacity: 0.8;
+}
+
+.ekwa-icon i {
+    line-height: 1;
+    display: inline-block;
+}
+
+.ekwa-icon__svg {
+    display: inline-block;
+    line-height: 1;
+}
+
+.ekwa-icon__svg svg {
+    display: block;
+}
+

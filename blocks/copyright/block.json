@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-copyright",
+  "title": "EKWA Copyright",
+  "description": "Copyright notice with powered by EKWA branding",
+  "category": "ekwa-blocks",
+  "icon": "admin-site",
+  "keywords": ["copyright", "footer", "powered by", "ekwa"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["left", "center", "right", "wide", "full"],
+    "anchor": true,
+    "className": true
+  }
+}

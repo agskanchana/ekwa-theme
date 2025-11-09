@@ -1,12 +1,12 @@
 {
     "key": "group_6266ba61b893b",
-    "title": "Copyright powered by",
+    "title": "EKWA Copyright Block",
     "fields": [
         {
-            "key": "field_6266ba70caddb",
-            "label": "Text color",
-            "name": "text_color",
-            "type": "color_picker",
+            "key": "field_copyright_accordion_colors",
+            "label": "Colors",
+            "name": "",
+            "type": "accordion",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,7 +15,24 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6266ba70caddb",
+            "label": "Text color",
+            "name": "text_color",
+            "type": "color_picker",
+            "instructions": "Choose the color for the copyright text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#000000",
             "enable_opacity": 0,
             "return_format": "string"
         },
@@ -24,7 +41,7 @@
             "label": "Link color",
             "name": "link_color",
             "type": "color_picker",
-            "instructions": "",
+            "instructions": "Choose the color for the EKWA link",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -32,15 +49,32 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "#1e73be",
             "enable_opacity": 0,
             "return_format": "string"
         },
         {
             "key": "field_6266ba84caddd",
-            "label": "Link color hover",
+            "label": "Link hover color",
             "name": "link_color_hover",
             "type": "color_picker",
+            "instructions": "Choose the hover color for the EKWA link",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#0d5aa7",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_copyright_accordion_end",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -49,9 +83,9 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "enable_opacity": 0,
-            "return_format": "string"
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -59,7 +93,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/copyright-poweredby"
+                "value": "acf\/ekwa-copyright"
             }
         ]
     ],
@@ -70,7 +104,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
+    "description": "Copyright notice with EKWA branding",
     "show_in_rest": 0,
-    "modified": 1650899602
+    "modified": 1730995200
 }

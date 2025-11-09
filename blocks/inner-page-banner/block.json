@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-inner-page-banner",
+  "title": "EKWA Inner Page Banner",
+  "description": "Display page header with title, breadcrumbs, and featured image or custom banner",
+  "category": "ekwa-blocks",
+  "icon": "cover-image",
+  "keywords": ["banner", "header", "breadcrumb", "page title", "hero"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "className": true
+  }
+}

@@ -1,0 +1,287 @@
+{
+    "key": "group_ekwa_phone_number",
+    "title": "EKWA Phone Number Block",
+    "fields": [
+        {
+            "key": "field_ekwa_phone_accordion_settings",
+            "label": "Phone Settings",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6249cf02b33b1",
+            "label": "Phone Type",
+            "name": "type",
+            "type": "select",
+            "instructions": "Select which phone number to display",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "phone": "New Patients",
+                "phone_ex": "Existing Patients"
+            },
+            "default_value": "phone",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_634e9ce32bc91",
+            "label": "Location",
+            "name": "location",
+            "type": "number",
+            "instructions": "Select location ID for multi-location setups (1 = primary location)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "min": 1,
+            "max": "",
+            "step": 1,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6249cf64b33b2",
+            "label": "Prefix Text",
+            "name": "text",
+            "type": "text",
+            "instructions": "Optional text before phone number (e.g., \"Call Us:\", \"Contact:\"). Leave empty to use default based on phone type.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "New Patients:",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_ekwa_phone_accordion_settings_end",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_ekwa_phone_accordion_icon",
+            "label": "Icon Settings",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_ekwa_phone_show_icon",
+            "label": "Show Icon",
+            "name": "show_icon",
+            "type": "true_false",
+            "instructions": "Display phone icon before the number",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Show phone icon",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_ekwa_phone_icon_style",
+            "label": "Icon Style",
+            "name": "icon_style",
+            "type": "select",
+            "instructions": "Select Font Awesome icon style",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ekwa_phone_show_icon",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "fas fa-phone-alt": "Phone Alt (Default)",
+                "fas fa-phone": "Phone",
+                "fas fa-mobile-alt": "Mobile",
+                "fas fa-phone-volume": "Phone Volume",
+                "fas fa-phone-square": "Phone Square"
+            },
+            "default_value": "fas fa-phone-alt",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6266b01ef786b",
+            "label": "Icon Color",
+            "name": "icon_color",
+            "type": "color_picker",
+            "instructions": "Color for the phone icon",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ekwa_phone_show_icon",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#000000",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_ekwa_phone_accordion_icon_end",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_ekwa_phone_accordion_colors",
+            "label": "Text Color",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6266b00ff786a",
+            "label": "Text Color",
+            "name": "text_color",
+            "type": "color_picker",
+            "instructions": "Color for the phone number and prefix text",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#000000",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_ekwa_phone_accordion_colors_end",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/ekwa-phone-number"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Display clickable phone number with icon and custom text",
+    "show_in_rest": 0,
+    "modified": 1731187200
+}

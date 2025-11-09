@@ -1,15 +1,56 @@
 {
     "key": "group_62c6f42b8c231",
-    "title": "Conditional Block",
+    "title": "EKWA Conditional Block",
     "fields": [
         {
-            "key": "field_62c6f4374a66b",
-            "label": "Pages to hide",
-            "name": "pages_to_hide",
-            "type": "post_object",
-            "instructions": "",
+            "key": "field_ekwa_display_mode",
+            "label": "Display Mode",
+            "name": "display_mode",
+            "type": "select",
+            "instructions": "Choose how to show or hide this block",
             "required": 0,
             "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "show_everywhere": "Show Everywhere (default)",
+                "show_on_pages": "Show Only on Selected Pages",
+                "hide_on_pages": "Hide on Selected Pages"
+            },
+            "default_value": "show_everywhere",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_ekwa_selected_pages",
+            "label": "Select Pages",
+            "name": "selected_pages",
+            "type": "post_object",
+            "instructions": "Choose which pages to show or hide this content on",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ekwa_display_mode",
+                        "operator": "==",
+                        "value": "show_on_pages"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_ekwa_display_mode",
+                        "operator": "==",
+                        "value": "hide_on_pages"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -23,6 +64,79 @@
             "multiple": 1,
             "return_format": "id",
             "ui": 1
+        },
+        {
+            "key": "field_ekwa_content_type",
+            "label": "Content Type",
+            "name": "content_type",
+            "type": "select",
+            "instructions": "Control visibility on posts vs pages",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "all": "Show on Posts & Pages",
+                "posts_only": "Show Only on Posts",
+                "pages_only": "Show Only on Pages",
+                "hide_on_posts": "Hide on Posts",
+                "hide_on_pages": "Hide on Pages"
+            },
+            "default_value": "all",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_ekwa_device_type",
+            "label": "Device Type",
+            "name": "device_type",
+            "type": "select",
+            "instructions": "Control visibility by device",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "all": "All Devices",
+                "mobile_only": "Mobile Only",
+                "desktop_only": "Desktop Only"
+            },
+            "default_value": "all",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_ekwa_yoast_cornerstone",
+            "label": "Yoast Cornerstone Content and Posts Only",
+            "name": "yoast_cornerstone_only",
+            "type": "true_false",
+            "instructions": "Show only on pages/posts marked as cornerstone content in Yoast SEO",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Show only on Yoast cornerstone content and posts",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
         }
     ],
     "location": [
@@ -30,7 +144,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/conditional-block"
+                "value": "acf\/ekwa-conditional"
             }
         ]
     ],
@@ -41,7 +155,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
+    "description": "Control content visibility based on pages, posts, devices, and Yoast settings",
     "show_in_rest": 0,
-    "modified": 1657205869
+    "modified": 1730822400
 }

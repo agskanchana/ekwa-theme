@@ -1,0 +1,276 @@
+/* EKWA Icon Picker Styles */
+
+.ekwa-icon-picker-wrap {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+/* Icon Preview */
+.ekwa-icon-preview {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    min-height: 80px;
+}
+
+.ekwa-icon-preview i {
+    font-size: 48px;
+    color: #2271b1;
+}
+
+.ekwa-icon-svg-preview {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ekwa-icon-svg-preview svg {
+    width: 100%;
+    height: 100%;
+    fill: #2271b1;
+}
+
+.ekwa-icon-class {
+    font-size: 14px;
+    color: #666;
+    font-family: monospace;
+}
+
+/* Custom SVG Section */
+.ekwa-custom-svg-section {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.ekwa-svg-input {
+    width: 100%;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.ekwa-svg-input:focus {
+    border-color: #2271b1;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Tabs (kept for backward compatibility but hidden) */
+.ekwa-icon-picker-tabs {
+    display: none;
+}
+
+.ekwa-tab-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.ekwa-tab-btn:hover {
+    background: #f5f5f5;
+}
+
+.ekwa-tab-btn.active {
+    background: #2271b1;
+    color: #fff;
+}
+
+.ekwa-tab-btn i {
+    margin-right: 5px;
+}
+
+/* Tab Panels */
+.ekwa-tab-panel {
+    display: none;
+}
+
+.ekwa-tab-panel.active {
+    display: block;
+}
+
+/* Modal */
+.ekwa-icon-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ekwa-icon-modal-content {
+    background: #fff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 900px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.ekwa-icon-modal-header {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.ekwa-icon-search {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.ekwa-modal-close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.ekwa-modal-close:hover {
+    background: #f5f5f5;
+    color: #000;
+}
+
+/* Categories */
+.ekwa-icon-categories {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.ekwa-cat-btn {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.ekwa-cat-btn:hover {
+    background: #e5e5e5;
+}
+
+.ekwa-cat-btn.active {
+    background: #2271b1;
+    color: #fff;
+    border-color: #2271b1;
+}
+
+/* Icon Grid */
+.ekwa-icon-grid {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    align-content: start;
+}
+
+.ekwa-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    min-height: 90px;
+}
+
+.ekwa-icon-item:hover {
+    background: #f0f6fc;
+    border-color: #2271b1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ekwa-icon-item i {
+    font-size: 28px;
+    color: #2271b1;
+    margin-bottom: 8px;
+}
+
+.ekwa-icon-item span {
+    font-size: 11px;
+    color: #666;
+    word-break: break-word;
+}
+
+.ekwa-loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.ekwa-loading i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.ekwa-no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ekwa-icon-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+    }
+
+    .ekwa-icon-item {
+        padding: 12px 8px;
+        min-height: 80px;
+    }
+
+    .ekwa-icon-item i {
+        font-size: 24px;
+    }
+}

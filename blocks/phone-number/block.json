@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-phone-number",
+  "title": "EKWA Phone Number",
+  "description": "Display clickable phone number with icon and custom text",
+  "category": "ekwa-blocks",
+  "icon": "phone",
+  "keywords": ["phone", "call", "contact", "telephone", "number"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["left", "center", "right"],
+    "anchor": true,
+    "className": true
+  }
+}

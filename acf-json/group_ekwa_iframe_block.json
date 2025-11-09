@@ -1,0 +1,389 @@
+{
+    "key": "group_ekwa_iframe_block",
+    "title": "EKWA Iframe Block",
+    "fields": [
+        {
+            "key": "field_ekwa_iframe_accordion_content",
+            "label": "Content Settings",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_ekwa_iframe_source",
+            "label": "Iframe Source URL",
+            "name": "iframe_source",
+            "type": "url",
+            "instructions": "Enter the URL of the content to embed (e.g., Google Maps embed URL, YouTube embed URL, form URL, etc.)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "https://www.google.com/maps/embed?pb=..."
+        },
+        {
+            "key": "field_ekwa_iframe_title",
+            "label": "Iframe Title",
+            "name": "iframe_title",
+            "type": "text",
+            "instructions": "Descriptive title for accessibility (screen readers). Example: 'Office location map', 'Product video', etc.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Embedded content",
+            "placeholder": "Office location map",
+            "maxlength": ""
+        },
+        {
+            "key": "field_ekwa_iframe_accordion_content_end",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_ekwa_iframe_accordion_dimensions",
+            "label": "Dimensions",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_ekwa_iframe_width_type",
+            "label": "Width Type",
+            "name": "width_type",
+            "type": "select",
+            "instructions": "Choose how the iframe width should be calculated",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "responsive": "Responsive (100%)",
+                "custom": "Custom Width"
+            },
+            "default_value": "responsive",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_ekwa_iframe_custom_width",
+            "label": "Custom Width",
+            "name": "custom_width",
+            "type": "text",
+            "instructions": "Enter custom width (e.g., 800px, 80%, 50rem)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ekwa_iframe_width_type",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "100%",
+            "placeholder": "800px",
+            "maxlength": ""
+        },
+        {
+            "key": "field_ekwa_iframe_height_type",
+            "label": "Height Type",
+            "name": "height_type",
+            "type": "select",
+            "instructions": "Choose how the iframe height should be calculated",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "aspect_ratio": "Aspect Ratio (Responsive)",
+                "custom": "Custom Height"
+            },
+            "default_value": "aspect_ratio",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_ekwa_iframe_aspect_ratio",
+            "label": "Aspect Ratio",
+            "name": "aspect_ratio",
+            "type": "select",
+            "instructions": "Select aspect ratio for responsive height",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ekwa_iframe_height_type",
+                        "operator": "==",
+                        "value": "aspect_ratio"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "16:9": "16:9 (Widescreen - YouTube, Maps)",
+                "4:3": "4:3 (Standard - Classic)",
+                "21:9": "21:9 (Ultra Wide)",
+                "1:1": "1:1 (Square)",
+                "3:2": "3:2 (Photo)",
+                "custom": "Custom"
+            },
+            "default_value": "16:9",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_ekwa_iframe_custom_height",
+            "label": "Custom Height",
+            "name": "custom_height",
+            "type": "text",
+            "instructions": "Enter custom height (e.g., 450px, 30vh, 20rem)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ekwa_iframe_height_type",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "450px",
+            "placeholder": "450px",
+            "maxlength": ""
+        },
+        {
+            "key": "field_ekwa_iframe_accordion_dimensions_end",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_ekwa_iframe_accordion_options",
+            "label": "Display Options",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_ekwa_iframe_lazy_load",
+            "label": "Lazy Load",
+            "name": "lazy_load",
+            "type": "true_false",
+            "instructions": "Enable lazy loading to improve page performance (recommended for iframes below the fold)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Enable lazy loading",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_ekwa_iframe_border",
+            "label": "Show Border",
+            "name": "border",
+            "type": "true_false",
+            "instructions": "Show or hide the iframe border",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Show border",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_ekwa_iframe_fullscreen",
+            "label": "Allow Fullscreen",
+            "name": "allow_fullscreen",
+            "type": "true_false",
+            "instructions": "Allow users to view the iframe in fullscreen mode (recommended for videos)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Allow fullscreen",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_ekwa_iframe_loading_placeholder",
+            "label": "Loading Placeholder",
+            "name": "loading_placeholder",
+            "type": "select",
+            "instructions": "Choose what to display while the iframe is loading",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ekwa_iframe_lazy_load",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Default (gray background)",
+                "spinner": "Spinner animation",
+                "text": "Loading text",
+                "none": "None"
+            },
+            "default_value": "default",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_ekwa_iframe_accordion_options_end",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/ekwa-iframe"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Enhanced iframe embed block with responsive sizing, lazy loading, and accessibility features",
+    "show_in_rest": 0,
+    "modified": 1730937600
+}

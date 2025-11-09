@@ -1,9 +1,9 @@
 {
-    "key": "group_606da0a2c9613",
-    "title": "Inner page Header",
+    "key": "group_ekwa_inner_page_banner",
+    "title": "EKWA Inner Page Banner",
     "fields": [
         {
-            "key": "field_inner_banner_content_accordion",
+            "key": "field_ekwa_banner_accordion_content",
             "label": "Content Settings",
             "name": "",
             "type": "accordion",
@@ -20,11 +20,28 @@
             "endpoint": 0
         },
         {
-            "key": "field_inner_banner_show_breadcrumbs",
+            "key": "field_ekwa_banner_custom_heading",
+            "label": "Custom Heading",
+            "name": "custom_heading",
+            "type": "text",
+            "instructions": "Override the default page title. Leave empty to use page title automatically.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Enter custom heading",
+            "maxlength": ""
+        },
+        {
+            "key": "field_ekwa_banner_show_breadcrumbs",
             "label": "Show Breadcrumbs",
             "name": "show_breadcrumbs",
             "type": "true_false",
-            "instructions": "Display Yoast breadcrumbs below the page title",
+            "instructions": "Display Yoast breadcrumbs below the heading",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -39,7 +56,7 @@
             "ui_off_text": "No"
         },
         {
-            "key": "field_inner_banner_content_accordion_end",
+            "key": "field_ekwa_banner_accordion_content_end",
             "label": "Accordion End",
             "name": "",
             "type": "accordion",
@@ -56,7 +73,7 @@
             "endpoint": 1
         },
         {
-            "key": "field_inner_banner_background_accordion",
+            "key": "field_ekwa_banner_accordion_background",
             "label": "Background Settings",
             "name": "",
             "type": "accordion",
@@ -73,11 +90,11 @@
             "endpoint": 0
         },
         {
-            "key": "field_6077f0e594bdf",
+            "key": "field_ekwa_banner_common_banner",
             "label": "Banner Image",
             "name": "common_banner",
             "type": "image",
-            "instructions": "Upload a custom banner image. Falls back to featured image if not set.",
+            "instructions": "Upload a custom banner image. If not set, the featured image will be used. If neither exists, a text-only banner will be displayed.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -86,7 +103,7 @@
                 "id": ""
             },
             "return_format": "array",
-            "preview_size": "medium",
+            "preview_size": "large",
             "library": "all",
             "min_width": "",
             "min_height": "",
@@ -94,14 +111,14 @@
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": ""
+            "mime_types": "jpg,jpeg,png,webp"
         },
         {
-            "key": "field_606da0bc51e90",
+            "key": "field_ekwa_banner_background_color",
             "label": "Overlay Background Color",
             "name": "background_color",
             "type": "color_picker",
-            "instructions": "Color used for overlay on image banners, or background for text-only banners",
+            "instructions": "Color for the overlay layer on top of the banner image",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -114,11 +131,11 @@
             "return_format": "string"
         },
         {
-            "key": "field_6078097e5342d",
+            "key": "field_ekwa_banner_overlay_opacity",
             "label": "Overlay Opacity",
             "name": "overlay_opacity",
             "type": "range",
-            "instructions": "Opacity level for the overlay (1-9, where 9 is darkest)",
+            "instructions": "Opacity of the overlay (1-9, where 1 is lightest and 9 is darkest)",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -130,15 +147,15 @@
             "min": 1,
             "max": 9,
             "step": 1,
-            "prepend": "",
-            "append": ""
+            "prepend": "Light",
+            "append": "Dark"
         },
         {
-            "key": "field_606daaf429ae3",
-            "label": "Padding",
+            "key": "field_ekwa_banner_padding",
+            "label": "Padding (Text-Only Banner)",
             "name": "padding_top_bottom",
             "type": "range",
-            "instructions": "Vertical padding in pixels (for text-only banners without images)",
+            "instructions": "Top and bottom padding when no image is used (in pixels)",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -150,11 +167,11 @@
             "min": 100,
             "max": 300,
             "step": 10,
-            "prepend": "",
-            "append": "px"
+            "prepend": "100px",
+            "append": "300px"
         },
         {
-            "key": "field_inner_banner_background_accordion_end",
+            "key": "field_ekwa_banner_accordion_background_end",
             "label": "Accordion End",
             "name": "",
             "type": "accordion",
@@ -171,7 +188,7 @@
             "endpoint": 1
         },
         {
-            "key": "field_inner_banner_colors_accordion",
+            "key": "field_ekwa_banner_accordion_colors",
             "label": "Text Colors",
             "name": "",
             "type": "accordion",
@@ -188,11 +205,11 @@
             "endpoint": 0
         },
         {
-            "key": "field_606da4a53d4cc",
+            "key": "field_ekwa_banner_heading_color",
             "label": "Heading Color",
             "name": "heading_color",
             "type": "color_picker",
-            "instructions": "Color for the page title heading",
+            "instructions": "Color for the page heading text",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -205,11 +222,11 @@
             "return_format": "string"
         },
         {
-            "key": "field_606da4bf3d4cd",
+            "key": "field_ekwa_banner_breadcrumb_color",
             "label": "Breadcrumb Color",
             "name": "breadcrumb_color",
             "type": "color_picker",
-            "instructions": "Color for breadcrumb navigation text and links",
+            "instructions": "Color for the breadcrumb navigation",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -222,7 +239,7 @@
             "return_format": "string"
         },
         {
-            "key": "field_inner_banner_colors_accordion_end",
+            "key": "field_ekwa_banner_accordion_colors_end",
             "label": "Accordion End",
             "name": "",
             "type": "accordion",
@@ -239,7 +256,7 @@
             "endpoint": 1
         },
         {
-            "key": "field_inner_banner_advanced_accordion",
+            "key": "field_ekwa_banner_accordion_advanced",
             "label": "Advanced",
             "name": "",
             "type": "accordion",
@@ -256,11 +273,11 @@
             "endpoint": 0
         },
         {
-            "key": "field_inner_banner_custom_css",
+            "key": "field_ekwa_banner_custom_css",
             "label": "Custom CSS",
             "name": "custom_css",
             "type": "codemirror",
-            "instructions": "Add custom CSS for this banner block (advanced users only)",
+            "instructions": "Add custom CSS for this banner (advanced users only)",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -269,7 +286,7 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "/* Your custom CSS here */\n#ekwa-banner-123 .ekwa-banner__title {\n    font-weight: 700;\n}",
+            "placeholder": "/* Your custom CSS here */\n#ekwa-banner-id .ekwa-banner__title {\n    font-weight: 700;\n}",
             "mode": "css",
             "theme": "monokai",
             "line_numbers": 1,
@@ -277,7 +294,7 @@
             "height": "300px"
         },
         {
-            "key": "field_inner_banner_advanced_accordion_end",
+            "key": "field_ekwa_banner_accordion_advanced_end",
             "label": "Accordion End",
             "name": "",
             "type": "accordion",
@@ -299,7 +316,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/inner-page-header"
+                "value": "acf\/ekwa-inner-page-banner"
             }
         ]
     ],
@@ -312,5 +329,5 @@
     "active": true,
     "description": "Display page header with title, breadcrumbs, and featured image or custom banner",
     "show_in_rest": 0,
-    "modified": 1731187200
+    "modified": 1731024000
 }

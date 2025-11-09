@@ -403,7 +403,8 @@ add_action('widgets_init', 'unregister_default_widgets', 11);
 
 require get_template_directory() . '/inc/ekwa-widgets/index.php';
 
-require get_template_directory(). '/settings/acf-code-field/acf-code-field.php';
+// Include ACF CodeMirror Field
+require_once get_template_directory() . '/acf-fields/acf-codemirror/acf-codemirror.php';
 
 
 
@@ -687,9 +688,11 @@ function get_menu_label_by_post_id($post_id, $menu) {
 }
 
 
-function ekwa_the_title($pageID){
-        if(!is_front_page()){
-			$menu_name = get_menu_label_by_post_id($pageID, 'main-menu');
+function ekwa_the_title($pageID, $menu_location = 'main-menu'){
+	if(!is_front_page()){
+			$locations = get_nav_menu_locations();
+			$menu = isset($locations[$menu_location]) ? $locations[$menu_location] : '';
+			$menu_name = get_menu_label_by_post_id($pageID, $menu);
 			$title = get_the_title();
 			if($menu_name!=$title){
 				echo  '<h1>'.get_the_title().'</h1>';
@@ -697,14 +700,15 @@ function ekwa_the_title($pageID){
 		}
 }
 
-function inner_page_heading($pageID){
-
-	$menu_name = get_menu_label_by_post_id($pageID, 'main-menu');
-    $title = get_the_title();
+function inner_page_heading($pageID, $menu_location = 'main-menu'){
+	$locations = get_nav_menu_locations();
+	$menu = isset($locations[$menu_location]) ? $locations[$menu_location] : '';
+	$menu_name = get_menu_label_by_post_id($pageID, $menu);
+	$title = get_the_title();
 	if($menu_name==$title){
 		echo  '<h1>'.get_the_title().'</h1>';
 	}else{
-		echo '<span class="inner-caption-heading"> '.get_menu_label_by_post_id($pageID, 'main-menu').'</span>';
+		echo '<span class="inner-caption-heading"> '.get_menu_label_by_post_id($pageID, $menu).'</span>';
 	}
 }
 
@@ -788,6 +792,9 @@ add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
 
 
 include(get_template_directory()."/settings/short-codes-post-types.php");
+
+// Include EKWA Custom Blocks
+require_once get_template_directory() . '/blocks/ekwa-blocks.php';
 
 
 
@@ -897,7 +904,7 @@ function encryptString($plainText, $key, $cipherMethod) {
     return base64_encode($iv . $encryptedText);
 }
 
-
+/*
 add_action('init', 'my_acf_init_block_types',999);
 function my_acf_init_block_types() {
 
@@ -909,7 +916,7 @@ function my_acf_init_block_types() {
 
     }
 }
-
+*/
 
 // Close comments on the front-end
 
@@ -941,23 +948,7 @@ function ekwa_content($content){
 	return  $content;
 }
 
-/*
-add_filter('the_content', function ($content) {
-	//-- Change src to data attributes.
-	$content = preg_replace("/<img(.*?)(src=)(.*?)>/i", '<img$1data-$2$3>', $content);
 
-    	//-- Change srcset to data attributes.
-    	$content = preg_replace("/<img(.*?)(srcset=)(.*?)>/i", '<img$1data-$2$3>', $content);
-
-	//-- Add .lazy-load class to each image that already has a class.
-	$content = preg_replace('/<img(.*?)class=\"(.*?)\"(.*?)>/i', '<img$1class="$2 lazyload"$3>', $content);
-
-	//-- Add .lazy-load class to each image that doesn't already have a class.
-	$content = preg_replace('/<img((.(?!class=))*)\/?>/i', '<img class="lazyload"$1>', $content);
-
-	return $content;
-});
-*/
 
 
 // Add this to your theme's functions.php file
@@ -1019,7 +1010,7 @@ function my_wp_nav_menu_objects( $items, $args ) {
 
 
 
-include(get_template_directory()."/settings/acf-common-block-styles.php");
+// include(get_template_directory()."/settings/acf-common-block-styles.php");
 
 
 add_action( 'after_setup_theme', 'enable_woocommerce_support' );

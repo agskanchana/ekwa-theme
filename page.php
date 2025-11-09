@@ -1,12 +1,11 @@
 <?php get_header(); ?>
-<section class="main-content">
-<div class="container">
+<main class="main-content">
+
 	<?php
 		while ( have_posts() ) : the_post();
 			get_template_part( 'template-parts/content', 'page' );
 		endwhile; // End of the loop.
 
 	?>
-</div>
-</section>
+</main>
 <?php get_footer();

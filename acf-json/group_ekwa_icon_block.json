@@ -1,0 +1,225 @@
+{
+    "key": "group_ekwa_icon_block",
+    "title": "EKWA Icon Block",
+    "fields": [
+        {
+            "key": "field_icon_accordion_type",
+            "label": "Icon Selection",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_icon_picker",
+            "label": "Icon",
+            "name": "icon_data",
+            "type": "ekwa_icon_svg",
+            "instructions": "Search and select an icon or paste custom SVG code",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_icon_accordion_end_type",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_icon_accordion_style",
+            "label": "Icon Style",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_icon_size",
+            "label": "Icon Size (px)",
+            "name": "icon_size",
+            "type": "number",
+            "instructions": "Set the icon size in pixels",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 48,
+            "placeholder": "",
+            "prepend": "",
+            "append": "px",
+            "min": 16,
+            "max": 200,
+            "step": 1
+        },
+        {
+            "key": "field_icon_color",
+            "label": "Icon Color",
+            "name": "icon_color",
+            "type": "color_picker",
+            "instructions": "Choose the icon color",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#1e73be",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_icon_accordion_end_style",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_icon_accordion_link",
+            "label": "Link Settings",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_link_type",
+            "label": "Link Type",
+            "name": "link_type",
+            "type": "button_group",
+            "instructions": "Choose the type of link for this icon",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "No Link",
+                "link": "Custom Link",
+                "phone": "Phone Number"
+            },
+            "default_value": "none",
+            "allow_null": 0,
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_custom_link",
+            "label": "Custom Link",
+            "name": "custom_link",
+            "type": "link",
+            "instructions": "Set the URL, title, and target for the link",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_link_type",
+                        "operator": "==",
+                        "value": "link"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_icon_accordion_end_link",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/ekwa-icon"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Display an icon with optional link or phone number",
+    "show_in_rest": 0,
+    "modified": 1762527187
+}
