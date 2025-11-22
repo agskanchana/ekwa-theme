@@ -10,6 +10,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Exit if ACF is not available
+if (!class_exists('acf_field')) {
+    return;
+}
+
 class EKWA_ACF_Icon_Picker_Field extends acf_field {
 
     /**

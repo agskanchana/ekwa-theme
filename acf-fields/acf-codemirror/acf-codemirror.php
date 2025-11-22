@@ -13,6 +13,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Exit if ACF is not available
+if (!class_exists('acf_field')) {
+    return;
+}
+
 class ACF_Field_CodeMirror extends acf_field {
 
     /**

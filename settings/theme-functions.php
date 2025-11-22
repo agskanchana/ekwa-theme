@@ -403,8 +403,10 @@ add_action('widgets_init', 'unregister_default_widgets', 11);
 
 require get_template_directory() . '/inc/ekwa-widgets/index.php';
 
-// Include ACF CodeMirror Field
-require_once get_template_directory() . '/acf-fields/acf-codemirror/acf-codemirror.php';
+// Include ACF CodeMirror Field only if ACF is active
+if (class_exists('ACF')) {
+    require_once get_template_directory() . '/acf-fields/acf-codemirror/acf-codemirror.php';
+}
 
 
 
