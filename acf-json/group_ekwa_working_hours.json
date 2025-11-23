@@ -1,0 +1,210 @@
+{
+    "key": "group_ekwa_working_hours",
+    "title": "EKWA Working Hours Block",
+    "fields": [
+        {
+            "key": "field_working_hours_accordion_settings",
+            "label": "Settings",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_working_hours_location",
+            "label": "Location",
+            "name": "location",
+            "type": "number",
+            "instructions": "Select which location's working hours to display",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "min": 1,
+            "max": "",
+            "step": 1,
+            "placeholder": ""
+        },
+        {
+            "key": "field_working_hours_show_closed",
+            "label": "Show Closed Days",
+            "name": "show_closed",
+            "type": "true_false",
+            "instructions": "Display days when the location is closed",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Show",
+            "ui_off_text": "Hide"
+        },
+        {
+            "key": "field_working_hours_short_format",
+            "label": "Short Day Format",
+            "name": "short_format",
+            "type": "true_false",
+            "instructions": "Use abbreviated day names (Mon, Tue, etc.)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Short",
+            "ui_off_text": "Full"
+        },
+        {
+            "key": "field_working_hours_group_format",
+            "label": "Grouping Format",
+            "name": "group_format",
+            "type": "select",
+            "instructions": "How to group days with identical hours",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "No Grouping - Show each day separately",
+                "consecutive": "Group Consecutive Days - e.g., Monday to Friday: 8:00 AM - 5:00 PM",
+                "all": "Group All Matching - e.g., Monday, Wednesday, Friday: 8:00 AM - 5:00 PM"
+            },
+            "default_value": "none",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_working_hours_accordion_end_settings",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        },
+        {
+            "key": "field_working_hours_accordion_styling",
+            "label": "Styling",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_working_hours_text_color",
+            "label": "Day Text Color",
+            "name": "text_color",
+            "type": "color_picker",
+            "instructions": "Choose the color for day names",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#000000",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_working_hours_time_color",
+            "label": "Time Text Color",
+            "name": "time_color",
+            "type": "color_picker",
+            "instructions": "Choose the color for time display",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#666666",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_working_hours_accordion_end_styling",
+            "label": "Accordion End",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/ekwa-working-hours"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Display location working hours with flexible formatting options",
+    "show_in_rest": 0,
+    "modified": 1732320000
+}

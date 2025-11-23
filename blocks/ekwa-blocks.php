@@ -57,6 +57,9 @@ function ekwa_register_acf_blocks() {
 
     // Register EKWA Phone Number Block
     register_block_type(get_template_directory() . '/blocks/phone-number');
+
+    // Register EKWA Working Hours Block
+    register_block_type(get_template_directory() . '/blocks/working-hours');
 }
 add_action('acf/init', 'ekwa_register_acf_blocks');
 

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-working-hours",
+  "title": "EKWA Working Hours",
+  "description": "Display location working hours with flexible formatting options",
+  "category": "ekwa-blocks",
+  "icon": "clock",
+  "keywords": ["hours", "working", "open", "schedule", "time", "business hours"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["left", "center", "right", "wide", "full"],
+    "anchor": true,
+    "className": true
+  }
+}
