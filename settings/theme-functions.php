@@ -421,7 +421,7 @@ function ekwa_customizer_control_scripts() {
     wp_enqueue_style('ekwa-customizer-styles',get_template_directory_uri().'/settings/customizer-settings/css/style.css',array(),'1.0.0','all');
 }
 
-add_image_size( 'featured_mobile', 360, 200, false );
+add_image_size( 'featured_mobile', 360, 9999, false );
 
 function ekwa_print_styles($slug, $property){
    if(get_field($slug)){
@@ -741,6 +741,96 @@ function add_webp_mime_type( $mimes ) {
     return $mimes;
 }
 add_filter( 'upload_mimes', 'add_webp_mime_type' );
+
+/**
+ * Generate WebP version of an image
+ * 
+ * @param string $image_path Full path to the original image
+ * @return string|false Path to WebP image or false on failure
+ */
+function ekwa_generate_webp_image($image_path) {
+    // Check if file exists
+    if (!file_exists($image_path)) {
+        return false;
+    }
+
+    // Generate WebP path
+    $webp_path = preg_replace('/\.(jpe?g|png)$/i', '.webp', $image_path);
+
+    // If WebP already exists and is newer than original, return it
+    if (file_exists($webp_path) && filemtime($webp_path) >= filemtime($image_path)) {
+        return $webp_path;
+    }
+
+    // Get image info
+    $image_info = getimagesize($image_path);
+    if (!$image_info) {
+        return false;
+    }
+
+    $mime_type = $image_info['mime'];
+
+    // Create image resource based on type
+    $image = false;
+    switch ($mime_type) {
+        case 'image/jpeg':
+            $image = @imagecreatefromjpeg($image_path);
+            break;
+        case 'image/png':
+            $image = @imagecreatefrompng($image_path);
+            // Preserve transparency
+            if ($image) {
+                imagealphablending($image, true);
+                imagesavealpha($image, true);
+            }
+            break;
+    }
+
+    if (!$image) {
+        return false;
+    }
+
+    // Convert to WebP
+    $result = @imagewebp($image, $webp_path, 85); // 85 quality
+
+    // Free memory
+    imagedestroy($image);
+
+    return $result ? $webp_path : false;
+}
+
+/**
+ * Get WebP URL for an attachment image
+ * 
+ * @param int $attachment_id Attachment ID
+ * @param string $size Image size
+ * @return string|false WebP URL or false on failure
+ */
+function ekwa_get_webp_image_url($attachment_id, $size = 'full') {
+    // Get original image path and URL
+    $image_data = wp_get_attachment_image_src($attachment_id, $size);
+    if (!$image_data) {
+        return false;
+    }
+
+    $image_url = $image_data[0];
+    $upload_dir = wp_upload_dir();
+    
+    // Convert URL to path
+    $image_path = str_replace($upload_dir['baseurl'], $upload_dir['basedir'], $image_url);
+
+    // Generate WebP
+    $webp_path = ekwa_generate_webp_image($image_path);
+    
+    if (!$webp_path) {
+        return false;
+    }
+
+    // Convert path back to URL
+    $webp_url = str_replace($upload_dir['basedir'], $upload_dir['baseurl'], $webp_path);
+    
+    return $webp_url;
+}
 
 // print css variables if available
 

@@ -20,23 +20,6 @@
             "endpoint": 0
         },
         {
-            "key": "field_ekwa_banner_custom_heading",
-            "label": "Custom Heading",
-            "name": "custom_heading",
-            "type": "text",
-            "instructions": "Override the default page title. Leave empty to use page title automatically.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "Enter custom heading",
-            "maxlength": ""
-        },
-        {
             "key": "field_ekwa_banner_show_breadcrumbs",
             "label": "Show Breadcrumbs",
             "name": "show_breadcrumbs",

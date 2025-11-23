@@ -12,6 +12,11 @@
  * @param   array $context The context provided to the block by the post or it's parent block.
  */
 
+// Only display on pages (not front page, not blog posts, not single posts)
+if (!$is_preview && (!is_page() || is_front_page())) {
+    return;
+}
+
 // Create id attribute allowing for custom "anchor" value
 $block_id = 'ekwa-banner-' . $block['id'];
 if (!empty($block['anchor'])) {
@@ -51,17 +56,9 @@ if (has_post_thumbnail($post_id)) {
     $has_image = true;
     $attachment_id = get_post_thumbnail_id($post_id);
 
-    // Determine image size based on device detection
-    $image_size = 'full';
-    if (function_exists('is_mobile') && is_mobile()) {
-        // Use mobile-specific size if available
-        $image_size = 'featured_mobile';
-    }
-
     // Get image data for more control
     $banner_image_data = [
         'id' => $attachment_id,
-        'size' => $image_size,
         'alt' => get_post_meta($attachment_id, '_wp_attachment_image_alt', true) ?: get_the_title($post_id),
         'source' => 'featured'
     ];
@@ -71,7 +68,6 @@ if (has_post_thumbnail($post_id)) {
     $has_image = true;
     $banner_image_data = [
         'id' => $common_banner['ID'],
-        'size' => 'full',
         'alt' => $common_banner['alt'] ?: get_the_title($post_id),
         'source' => 'custom'
     ];
@@ -86,19 +82,15 @@ if ($has_image) {
 
 /**
  * Generate Page Heading
- * Uses custom heading or theme function or falls back to page title
+ * Uses theme function or falls back to page title
  */
 $page_heading_html = '';
 
-if ($custom_heading) {
-    // Custom heading override
-    $page_heading_html = '<h1 class="ekwa-banner__title">' . esc_html($custom_heading) . '</h1>';
-} elseif (function_exists('inner_page_heading')) {
+if (function_exists('inner_page_heading')) {
     // Theme function if available
     ob_start();
     inner_page_heading($post_id);
     $page_heading_html = ob_get_clean();
-
 } else {
     // Default fallback
     $page_heading_html = '<h1 class="ekwa-banner__title">' . esc_html(get_the_title($post_id)) . '</h1>';
@@ -135,6 +127,12 @@ if (!is_admin() && !$is_preview) {
     }
 
     // Image styling
+    $banner_css .= "#" . $block_id . " .ekwa-banner__picture {\n";
+    $banner_css .= "  display: block;\n";
+    $banner_css .= "  width: 100%;\n";
+    $banner_css .= "  line-height: 0;\n";
+    $banner_css .= "}\n\n";
+
     $banner_css .= "#" . $block_id . " .ekwa-banner__image {\n";
     $banner_css .= "  width: 100%;\n";
     $banner_css .= "  height: auto;\n";
@@ -179,6 +177,14 @@ if (!is_admin() && !$is_preview) {
     $banner_css .= "  color: " . esc_attr($heading_color) . ";\n";
     $banner_css .= "}\n\n";
 
+    $banner_css .= "#" . $block_id . " .ekwa-banner__container h1 {\n";
+    $banner_css .= "  color: #fff;\n";
+    $banner_css .= "}\n\n";
+
+    $banner_css .= "#" . $block_id . " .ekwa-banner__container .inner-caption-heading {\n";
+    $banner_css .= "  font-size: 36px;\n";
+    $banner_css .= "}\n\n";
+
     $banner_css .= "#" . $block_id . " .ekwa-banner__breadcrumbs,\n";
     $banner_css .= "#" . $block_id . " .ekwa-banner__breadcrumbs a {\n";
     $banner_css .= "  color: " . esc_attr($breadcrumb_color) . ";\n";
@@ -211,21 +217,77 @@ if (!is_admin() && !$is_preview) {
 <section id="<?php echo esc_attr($block_id); ?>" class="<?php echo esc_attr($class_name); ?>" <?php if ($has_image): ?>role="banner"<?php endif; ?>>
     <?php if ($has_image && $banner_image_data): ?>
         <?php
-        // Generate responsive image with proper attributes
-        $image_attrs = [
-            'class' => 'ekwa-banner__image',
-            'alt' => esc_attr($banner_image_data['alt']),
-            'loading' => 'eager', // Banner images should load immediately
-        ];
-
-        // Use wp_get_attachment_image for proper srcset and sizes
-        echo wp_get_attachment_image(
-            $banner_image_data['id'],
-            $banner_image_data['size'],
-            false,
-            $image_attrs
-        );
+        $image_id = $banner_image_data['id'];
+        $image_alt = esc_attr($banner_image_data['alt']);
+        
+        // Get image URLs for different formats and sizes
+        // Desktop (full size)
+        $desktop_full = wp_get_attachment_image_src($image_id, 'full');
+        
+        // Mobile (cropped to 360px)
+        $mobile_full = wp_get_attachment_image_src($image_id, 'featured_mobile');
+        
+        // Get original mime type
+        $mime_type = get_post_mime_type($image_id);
+        $is_webp = ($mime_type === 'image/webp');
+        
+        // Generate WebP URLs if not already WebP
+        $desktop_webp = false;
+        $mobile_webp = false;
+        
+        if (!$is_webp && function_exists('ekwa_get_webp_image_url')) {
+            $desktop_webp = ekwa_get_webp_image_url($image_id, 'full');
+            $mobile_webp = ekwa_get_webp_image_url($image_id, 'featured_mobile');
+        }
         ?>
+        
+        <picture class="ekwa-banner__picture">
+            <?php if ($mobile_full): ?>
+                <?php if ($mobile_webp): ?>
+                    <!-- Mobile WebP -->
+                    <source 
+                        media="(max-width: 500px)" 
+                        srcset="<?php echo esc_url($mobile_webp); ?>" 
+                        type="image/webp"
+                    />
+                <?php endif; ?>
+                
+                <!-- Mobile Original Format (jpg/png fallback) -->
+                <source 
+                    media="(max-width: 500px)" 
+                    srcset="<?php echo esc_url($mobile_full[0]); ?>" 
+                    type="<?php echo esc_attr($mime_type); ?>"
+                />
+            <?php endif; ?>
+            
+            <?php if ($desktop_full): ?>
+                <?php if ($desktop_webp): ?>
+                    <!-- Desktop WebP -->
+                    <source 
+                        media="(min-width: 501px)" 
+                        srcset="<?php echo esc_url($desktop_webp); ?>" 
+                        type="image/webp"
+                    />
+                <?php endif; ?>
+                
+                <!-- Desktop Original Format (jpg/png fallback) -->
+                <source 
+                    media="(min-width: 501px)" 
+                    srcset="<?php echo esc_url($desktop_full[0]); ?>" 
+                    type="<?php echo esc_attr($mime_type); ?>"
+                />
+            <?php endif; ?>
+            
+            <!-- Fallback img tag -->
+            <img 
+                src="<?php echo esc_url($desktop_full[0]); ?>" 
+                alt="<?php echo $image_alt; ?>" 
+                class="ekwa-banner__image"
+                loading="eager"
+                width="<?php echo esc_attr($desktop_full[1]); ?>"
+                height="<?php echo esc_attr($desktop_full[2]); ?>"
+            />
+        </picture>
     <?php endif; ?>
 
     <div class="container ekwa-banner__container">
@@ -266,6 +328,12 @@ if ($is_preview): ?>
     }
     <?php endif; ?>
 
+    #<?php echo esc_attr($block_id); ?> .ekwa-banner__picture {
+        display: block;
+        width: 100%;
+        line-height: 0;
+    }
+
     #<?php echo esc_attr($block_id); ?> .ekwa-banner__image {
         width: 100%;
         height: auto;
@@ -304,6 +372,14 @@ if ($is_preview): ?>
     #<?php echo esc_attr($block_id); ?> .ekwa-banner__container,
     #<?php echo esc_attr($block_id); ?> .ekwa-banner__title {
         color: <?php echo esc_attr($heading_color); ?>;
+    }
+
+    #<?php echo esc_attr($block_id); ?> .ekwa-banner__container h1 {
+        color: #fff;
+    }
+
+    #<?php echo esc_attr($block_id); ?> .ekwa-banner__container .inner-caption-heading {
+        font-size: 36px;
     }
 
     #<?php echo esc_attr($block_id); ?> .ekwa-banner__title {
