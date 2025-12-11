@@ -408,6 +408,24 @@ if (!is_admin() && !$is_preview) {
     $menu_css .= "#" . $block_id . " .mobile-nav-menu ul,\n";
     $menu_css .= "#" . $block_id . " .mobile-menu-panel ul ul {\n";
     $menu_css .= "  display: none !important;\n";
+    $menu_css .= "}\n\n";
+    
+    // Hide menu icons on desktop
+    $menu_css .= "@media (min-width: " . (intval($breakpoint) + 1) . "px) {\n";
+    $menu_css .= "  #" . $block_id . " .main-menu-wrapper .menu-icon { display: none; }\n";
+    $menu_css .= "}\n\n";
+    
+    // Show menu icons on mobile
+    $menu_css .= "@media (max-width: " . intval($breakpoint) . "px) {\n";
+    $menu_css .= "  #" . $block_id . " .mobile-nav-menu .menu-icon {\n";
+    $menu_css .= "    display: inline-block;\n";
+    $menu_css .= "    margin-right: 10px;\n";
+    $menu_css .= "  }\n";
+    $menu_css .= "  #" . $block_id . " .mobile-nav-menu .menu-icon i {\n";
+    $menu_css .= "    font-size: 18px;\n";
+    $menu_css .= "    width: 20px;\n";
+    $menu_css .= "    text-align: center;\n";
+    $menu_css .= "  }\n";
     $menu_css .= "}\n";
 
     $ekwa_section_head_styles[$block_id] = $menu_css;
@@ -445,11 +463,19 @@ if (!class_exists('EKWA_Menu_Walker')) {
         
         $title = apply_filters('the_title', $item->title, $item->ID);
         
-        // Add icon if set
+        // Add icon if set (FontAwesome Icon Picker field)
         $icon = get_field('menu_icon', $item);
         $icon_html = '';
         if ($icon) {
-            $icon_html = '<span><i class="fas fa-' . esc_attr($icon) . '"></i></span> ';
+            // Check if it's an array (from FontAwesome picker)
+            if (is_array($icon) && !empty($icon['html'])) {
+                $icon_html = '<span class="menu-icon">' . $icon['html'] . '</span> ';
+            } elseif (is_array($icon) && !empty($icon['class'])) {
+                $icon_html = '<span class="menu-icon"><i class="' . esc_attr($icon['class']) . '"></i></span> ';
+            } elseif (is_string($icon) && !empty($icon)) {
+                // Fallback for old text field format
+                $icon_html = '<span class="menu-icon"><i class="fas fa-' . esc_attr($icon) . '"></i></span> ';
+            }
         }
         
         $item_output = $args->before;
@@ -586,10 +612,25 @@ $script_js = "(function() {
             }
             
             var itemId = itemIdCounter++;
+            
+            // Extract title and icon HTML separately
+            var titleText = '';
+            var iconHTML = '';
+            if (link) {
+                var iconSpan = link.querySelector('.menu-icon');
+                if (iconSpan) {
+                    iconHTML = iconSpan.outerHTML;
+                    titleText = link.textContent.trim();
+                } else {
+                    titleText = link.textContent.trim();
+                }
+            }
+            
             var item = {
                 id: itemId,
                 parentId: parentId,
-                title: link ? link.textContent.trim() : '',
+                title: titleText,
+                iconHTML: iconHTML,
                 href: link ? link.getAttribute('href') : '#',
                 classes: li.className,
                 hasChildren: !!submenu,
@@ -649,7 +690,11 @@ $script_js = "(function() {
                 
                 var link = document.createElement('a');
                 link.href = item.href;
-                link.textContent = item.title;
+                if (item.iconHTML) {
+                    link.innerHTML = item.iconHTML + ' ' + item.title;
+                } else {
+                    link.textContent = item.title;
+                }
                 wrapper.appendChild(link);
                 
                 var arrowBtn = document.createElement('button');
@@ -692,7 +737,11 @@ $script_js = "(function() {
             } else {
                 var link = document.createElement('a');
                 link.href = item.href;
-                link.textContent = item.title;
+                if (item.iconHTML) {
+                    link.innerHTML = item.iconHTML + ' ' + item.title;
+                } else {
+                    link.textContent = item.title;
+                }
                 li.appendChild(link);
             }
             

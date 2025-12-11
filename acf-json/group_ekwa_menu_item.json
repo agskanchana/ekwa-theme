@@ -6,10 +6,18 @@
             "key": "field_menu_icon",
             "label": "Icon",
             "name": "menu_icon",
-            "type": "text",
-            "instructions": "Font Awesome icon name (without 'fa-' prefix). Example: home, phone, envelope",
+            "type": "fontawesome",
+            "instructions": "Select a FontAwesome icon for this menu item",
             "required": 0,
-            "placeholder": "home"
+            "output_format": "html",
+            "icon_style": "solid",
+            "allow_styles": [
+                "solid",
+                "regular",
+                "light",
+                "brands"
+            ],
+            "return_format": "array"
         },
         {
             "key": "field_menu_visibility",

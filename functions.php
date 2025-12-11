@@ -201,6 +201,13 @@ if (class_exists('ACF')) {
     require get_template_directory() . '/settings/acf-icon-picker/acf-icon-picker-field.php';
 }
 
+// ACF FontAwesome Icon Picker Field - Load only if ACF is active
+if (class_exists('ACF')) {
+    if (file_exists(get_template_directory() . '/acf-fields/acf-fontawesome/acf-fontawesome.php')) {
+        require get_template_directory() . '/acf-fields/acf-fontawesome/acf-fontawesome.php';
+    }
+}
+
 /**
  * ACF JSON Save Point - Save to parent theme
  */

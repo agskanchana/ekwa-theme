@@ -1,0 +1,238 @@
+/* ACF FontAwesome Icon Picker Styles */
+
+.acf-fontawesome-picker {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.acf-fa-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.acf-fa-selected-preview {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+}
+
+.acf-fa-selected-preview i {
+    color: #333;
+}
+
+.acf-fa-info {
+    flex: 1;
+}
+
+.acf-fa-search {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.acf-fa-selected-text {
+    font-size: 13px;
+    color: #666;
+}
+
+.acf-fa-selected-text strong {
+    color: #333;
+}
+
+.acf-fa-browse-btn,
+.acf-fa-clear-btn {
+    flex-shrink: 0;
+}
+
+.acf-fa-clear-btn {
+    background: #f44336;
+    color: white;
+    border-color: #d32f2f;
+}
+
+.acf-fa-clear-btn:hover {
+    background: #d32f2f;
+    border-color: #c62828;
+    color: white;
+}
+
+.acf-fa-style-selector {
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+}
+
+.acf-fa-style-selector > label {
+    font-weight: 600;
+    margin-right: 15px;
+}
+
+.acf-fa-style-option {
+    display: inline-block;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.acf-fa-style-option input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Modal Styles */
+.acf-fa-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+}
+
+.acf-fa-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.acf-fa-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 900px;
+    max-height: 80vh;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.acf-fa-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+.acf-fa-modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.acf-fa-modal-search {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.acf-fa-modal-close {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.acf-fa-modal-close:hover {
+    background: #e0e0e0;
+}
+
+.acf-fa-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    position: relative;
+}
+
+.acf-fa-icons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+}
+
+.acf-fa-icon-item {
+    padding: 15px;
+    text-align: center;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+}
+
+.acf-fa-icon-item:hover {
+    border-color: #2271b1;
+    background: #f0f6fc;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.acf-fa-icon-item i {
+    font-size: 28px;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.acf-fa-icon-item span {
+    display: block;
+    font-size: 11px;
+    color: #666;
+    word-break: break-word;
+}
+
+.acf-fa-loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 16px;
+}
+
+.acf-fa-no-results {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .acf-fa-controls {
+        flex-wrap: wrap;
+    }
+
+    .acf-fa-icons-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    }
+
+    .acf-fa-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+}
