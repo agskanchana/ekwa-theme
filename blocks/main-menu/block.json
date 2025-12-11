@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-main-menu",
+  "title": "EKWA Main Menu",
+  "description": "Responsive main navigation menu with desktop dropdown and mobile mmenu",
+  "category": "ekwa-blocks",
+  "icon": "menu",
+  "keywords": ["menu", "navigation", "nav", "main menu", "dropdown", "mobile menu"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "className": true
+  }
+}

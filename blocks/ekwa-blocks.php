@@ -60,6 +60,9 @@ function ekwa_register_acf_blocks() {
 
     // Register EKWA Working Hours Block
     register_block_type(get_template_directory() . '/blocks/working-hours');
+
+    // Register EKWA Main Menu Block
+    register_block_type(get_template_directory() . '/blocks/main-menu');
 }
 add_action('acf/init', 'ekwa_register_acf_blocks');
 

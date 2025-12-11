@@ -1,0 +1,50 @@
+{
+    "key": "group_ekwa_menu_item",
+    "title": "Menu Item Settings",
+    "fields": [
+        {
+            "key": "field_menu_icon",
+            "label": "Icon",
+            "name": "menu_icon",
+            "type": "text",
+            "instructions": "Font Awesome icon name (without 'fa-' prefix). Example: home, phone, envelope",
+            "required": 0,
+            "placeholder": "home"
+        },
+        {
+            "key": "field_menu_visibility",
+            "label": "Visibility",
+            "name": "menu_visibility",
+            "type": "select",
+            "instructions": "Control where this menu item appears",
+            "required": 0,
+            "choices": {
+                "both": "Both Desktop & Mobile",
+                "desktop": "Desktop Only",
+                "mobile": "Mobile Only"
+            },
+            "default_value": "both",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "return_format": "value"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "nav_menu_item",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Custom fields for individual menu items"
+}

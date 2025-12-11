@@ -1,0 +1,235 @@
+{
+    "key": "group_ekwa_main_menu",
+    "title": "EKWA Main Menu Settings",
+    "fields": [
+        {
+            "key": "field_breakpoint",
+            "label": "Mobile Breakpoint (px)",
+            "name": "breakpoint",
+            "type": "number",
+            "instructions": "Width below which mobile menu is shown (default: 1154px)",
+            "required": 0,
+            "default_value": 1154,
+            "min": 320,
+            "max": 1920,
+            "step": 1
+        },
+        {
+            "key": "field_show_icons",
+            "label": "Show Dropdown Icons",
+            "name": "show_icons",
+            "type": "true_false",
+            "instructions": "Show arrow icons next to menu items with submenus",
+            "required": 0,
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_two_columns",
+            "label": "Two Column Submenu",
+            "name": "two_columns",
+            "type": "true_false",
+            "instructions": "Display submenu in two columns (requires Sub Menu Class if only specific items)",
+            "required": 0,
+            "default_value": 0,
+            "ui": 1
+        },
+        {
+            "key": "field_sub_menu_class",
+            "label": "Sub Menu Class",
+            "name": "sub_menu_class",
+            "type": "text",
+            "instructions": "CSS class for parent items that should have two-column submenus (leave empty for all)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_two_columns",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ]
+        },
+        {
+            "key": "field_tab_desktop",
+            "label": "Desktop Styling",
+            "name": "",
+            "type": "accordion",
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_background",
+            "label": "Link Background",
+            "name": "background",
+            "type": "text",
+            "instructions": "Background color or 'none' for top-level links",
+            "default_value": "none"
+        },
+        {
+            "key": "field_text_color",
+            "label": "Link Text Color",
+            "name": "text_color",
+            "type": "text",
+            "instructions": "Text color for top-level links",
+            "default_value": "inherit"
+        },
+        {
+            "key": "field_hover_background",
+            "label": "Link Hover Background",
+            "name": "hover_background",
+            "type": "text",
+            "instructions": "Background color on hover",
+            "default_value": "none"
+        },
+        {
+            "key": "field_hover_text_color",
+            "label": "Link Hover Text Color",
+            "name": "hover_text_color",
+            "type": "text",
+            "instructions": "Text color on hover",
+            "default_value": "inherit"
+        },
+        {
+            "key": "field_padding",
+            "label": "Link Padding X (px)",
+            "name": "padding",
+            "type": "number",
+            "instructions": "Horizontal padding for top-level links",
+            "default_value": 0,
+            "min": 0,
+            "step": 1
+        },
+        {
+            "key": "field_padding_y",
+            "label": "Link Padding Y (px)",
+            "name": "padding_y",
+            "type": "number",
+            "instructions": "Vertical padding for top-level links",
+            "default_value": 0,
+            "min": 0,
+            "step": 1
+        },
+        {
+            "key": "field_gap",
+            "label": "Gap Between Links (px)",
+            "name": "gap",
+            "type": "number",
+            "instructions": "Space between top-level menu items",
+            "default_value": 0,
+            "min": 0,
+            "step": 1
+        },
+        {
+            "key": "field_tab_submenu",
+            "label": "Submenu Styling",
+            "name": "",
+            "type": "accordion",
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_width",
+            "label": "Submenu Width (px)",
+            "name": "width",
+            "type": "number",
+            "instructions": "Minimum width of dropdown submenus",
+            "default_value": 200,
+            "min": 100,
+            "step": 10
+        },
+        {
+            "key": "field_sub_menu_background",
+            "label": "Submenu Container Background",
+            "name": "sub_menu_background",
+            "type": "text",
+            "instructions": "Background color of submenu container",
+            "default_value": "#ffffff"
+        },
+        {
+            "key": "field_sub_menu_link_background",
+            "label": "Submenu Link Background",
+            "name": "sub_menu_link_background",
+            "type": "text",
+            "instructions": "Background color for submenu links",
+            "default_value": "none"
+        },
+        {
+            "key": "field_sub_menu_link_text_color",
+            "label": "Submenu Link Text Color",
+            "name": "sub_menu_link_text_color",
+            "type": "text",
+            "instructions": "Text color for submenu links",
+            "default_value": "inherit"
+        },
+        {
+            "key": "field_sub_menu_link_background_hover",
+            "label": "Submenu Link Hover Background",
+            "name": "sub_menu_link_background_hover",
+            "type": "text",
+            "instructions": "Background color on hover",
+            "default_value": "none"
+        },
+        {
+            "key": "field_submenu_link_text_color_hover",
+            "label": "Submenu Link Hover Text Color",
+            "name": "submenu_link_text_color_hover",
+            "type": "text",
+            "instructions": "Text color on hover",
+            "default_value": "inherit"
+        },
+        {
+            "key": "field_separator",
+            "label": "Submenu Separator Color",
+            "name": "separator",
+            "type": "text",
+            "instructions": "Border color between submenu items",
+            "default_value": "rgba(0, 0, 0, 0.2)"
+        },
+        {
+            "key": "field_tab_mobile",
+            "label": "Mobile Styling",
+            "name": "",
+            "type": "accordion",
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_mobile_trigger_bg",
+            "label": "Menu Button Background",
+            "name": "mobile_trigger_bg",
+            "type": "text",
+            "instructions": "Background color for mobile menu trigger button",
+            "default_value": "#1e73be"
+        },
+        {
+            "key": "field_mobile_trigger_color",
+            "label": "Menu Button Icon Color",
+            "name": "mobile_trigger_color",
+            "type": "text",
+            "instructions": "Icon color for mobile menu and search buttons",
+            "default_value": "#000000"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/ekwa-main-menu"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}
