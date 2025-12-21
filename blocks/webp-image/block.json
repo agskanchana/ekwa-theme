@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-webp-image",
+  "title": "EKWA WebP Image",
+  "description": "Display a WebP image with fallback and optional link",
+  "category": "ekwa-blocks",
+  "icon": "format-image",
+  "keywords": ["image", "webp", "picture", "responsive", "performance"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["left", "center", "right", "wide", "full"],
+    "anchor": true,
+    "className": true
+  }
+}

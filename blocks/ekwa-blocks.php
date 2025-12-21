@@ -75,6 +75,9 @@ function ekwa_register_acf_blocks() {
 
     // Register EKWA Social Media Icons Block
     register_block_type(get_template_directory() . '/blocks/social-media-icons');
+
+    // Register EKWA WebP Image Block
+    register_block_type(get_template_directory() . '/blocks/webp-image');
 }
 add_action('acf/init', 'ekwa_register_acf_blocks');
 
