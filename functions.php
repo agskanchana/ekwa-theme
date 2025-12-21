@@ -208,6 +208,15 @@ if (class_exists('ACF')) {
     }
 }
 
+// Kirki Icon Picker Enhancement - Load scripts for customizer
+add_action('customize_controls_enqueue_scripts', function() {
+    if (class_exists('Kirki')) {
+        wp_enqueue_style('fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1');
+        wp_enqueue_style('kirki-icon-picker', get_template_directory_uri() . '/inc/kirki-controls/icon-picker.css', array(), '1.0.7');
+        wp_enqueue_script('kirki-icon-picker', get_template_directory_uri() . '/inc/kirki-controls/icon-picker.js', array('jquery', 'customize-controls'), '1.0.7', true);
+    }
+}, 20);
+
 /**
  * ACF JSON Save Point - Save to parent theme
  */

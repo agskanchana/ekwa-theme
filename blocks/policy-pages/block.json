@@ -1,0 +1,25 @@
+{
+  "name": "acf/policy-pages",
+  "title": "EKWA Policy Pages",
+  "description": "Display dynamically generated policy pages from EKWA Policies API",
+  "category": "ekwa-blocks",
+  "icon": "media-document",
+  "keywords": ["policy", "privacy", "terms", "legal", "disclaimer"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "customClassName": true
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "policy_page_id": "privacy-policy"
+      }
+    }
+  }
+}

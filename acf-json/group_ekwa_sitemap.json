@@ -1,0 +1,44 @@
+{
+    "key": "group_ekwa_sitemap",
+    "title": "EKWA Sitemap Settings",
+    "fields": [
+        {
+            "key": "field_sitemap_menu_slug",
+            "label": "Menu Location Slug",
+            "name": "menu_slug",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Enter the menu location slug to display (e.g., \"site-map\", \"footer-menu\"). If left empty, defaults to \"site-map\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "site-map",
+            "maxlength": "",
+            "placeholder": "site-map",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/sitemap"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+}

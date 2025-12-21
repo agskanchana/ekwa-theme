@@ -1,0 +1,28 @@
+{
+  "name": "acf/social-media-icons",
+  "title": "EKWA Social Media Icons",
+  "description": "Display social media icons with share functionality",
+  "category": "ekwa-blocks",
+  "icon": "share",
+  "keywords": ["social", "media", "icons", "share", "facebook", "twitter"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["left", "center", "right", "wide", "full"],
+    "anchor": true,
+    "customClassName": true
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "size": 20,
+        "gap": 10,
+        "color": "#000000",
+        "hover_color": "#183153"
+      }
+    }
+  }
+}

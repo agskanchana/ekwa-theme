@@ -63,6 +63,18 @@ function ekwa_register_acf_blocks() {
 
     // Register EKWA Main Menu Block
     register_block_type(get_template_directory() . '/blocks/main-menu');
+
+    // Register EKWA Google Map Block
+    register_block_type(get_template_directory() . '/blocks/google-map');
+
+    // Register EKWA Policy Pages Block
+    register_block_type(get_template_directory() . '/blocks/policy-pages');
+
+    // Register EKWA Sitemap Block
+    register_block_type(get_template_directory() . '/blocks/sitemap');
+
+    // Register EKWA Social Media Icons Block
+    register_block_type(get_template_directory() . '/blocks/social-media-icons');
 }
 add_action('acf/init', 'ekwa_register_acf_blocks');
 

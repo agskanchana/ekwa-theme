@@ -1,0 +1,124 @@
+{
+    "key": "group_ekwa_social_media_icons",
+    "title": "EKWA Social Media Icons Settings",
+    "fields": [
+        {
+            "key": "field_social_media_size",
+            "label": "Icon Size",
+            "name": "size",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Size of the social media icons in pixels",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 20,
+            "min": 10,
+            "max": 100,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_social_media_gap",
+            "label": "Gap Between Icons",
+            "name": "gap",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Space between icons in pixels",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 10,
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_social_media_color",
+            "label": "Icon Color",
+            "name": "color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "Default color for the social media icons",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#000000",
+            "enable_opacity": true,
+            "return_format": "string"
+        },
+        {
+            "key": "field_social_media_hover_color",
+            "label": "Hover Color",
+            "name": "hover_color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "Color when hovering over icons",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#183153",
+            "enable_opacity": true,
+            "return_format": "string"
+        },
+        {
+            "key": "field_social_media_hide_share",
+            "label": "Hide Share Button",
+            "name": "hide_share_icon",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Hide the share button (Facebook, Twitter, Pinterest)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hide share button",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/social-media-icons"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+}

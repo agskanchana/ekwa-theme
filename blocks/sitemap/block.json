@@ -1,0 +1,25 @@
+{
+  "name": "acf/sitemap",
+  "title": "EKWA Sitemap",
+  "description": "Display an interactive sitemap with collapsible tree view navigation",
+  "category": "ekwa-blocks",
+  "icon": "list-view",
+  "keywords": ["sitemap", "navigation", "menu", "tree", "hierarchy"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "customClassName": true
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "menu_slug": "site-map"
+      }
+    }
+  }
+}

@@ -110,6 +110,9 @@ if (!is_admin() && !$is_preview) {
     $menu_css .= "  flex-wrap: wrap;\n";
     $menu_css .= "  align-items: center;\n";
     $menu_css .= "  position: relative;\n";
+    if ($text_color) {
+        $menu_css .= "  color: " . esc_attr($text_color) . ";\n";
+    }
     $menu_css .= "}\n\n";
     
     $menu_css .= "#" . $block_id . " .main-menu-wrapper .menu:only-child { flex-grow: 1; }\n\n";
@@ -786,6 +789,11 @@ if ($is_preview): ?>
         background: #fafafa;
     }
     
+    /* Hide mobile menu elements in editor */
+    #<?php echo esc_attr($block_id); ?> .mobile-menu-overlay {
+        display: none !important;
+    }
+    
     #<?php echo esc_attr($block_id); ?> .mobile-menu-triggers {
         display: flex;
         gap: 15px;
@@ -811,18 +819,27 @@ if ($is_preview): ?>
     }
     
     #<?php echo esc_attr($block_id); ?> .main-menu-wrapper {
-        display: flex;
+        display: flex !important;
         gap: 0.5em;
         flex-wrap: wrap;
         align-items: center;
+        <?php if ($text_color): ?>
+        color: <?php echo esc_attr($text_color); ?>;
+        <?php endif; ?>
     }
     
-    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul {
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper > ul {
         list-style: none;
         padding: 0;
         margin: 0;
         display: flex;
         gap: <?php echo intval($gap); ?>px;
+    }
+    
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul li {
+        position: relative;
+        display: flex;
+        align-items: center;
     }
     
     #<?php echo esc_attr($block_id); ?> .main-menu-wrapper > ul > li > a {
@@ -831,6 +848,62 @@ if ($is_preview): ?>
         padding: <?php echo intval($link_padding_y); ?>px <?php echo intval($link_padding_x); ?>px;
         text-decoration: none;
         display: block;
+    }
+    
+    /* Submenu styles for editor preview */
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul li ul {
+        background-color: <?php echo esc_attr($sub_menu_background); ?>;
+        border: 1px solid rgba(0,0,0,.15);
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .1s linear;
+        left: -1px;
+        top: 100%;
+        min-width: <?php echo intval($sub_menu_width); ?>px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul li:hover > ul {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul li ul li {
+        border-bottom: 1px solid <?php echo esc_attr($separator); ?>;
+        display: block;
+        width: 100%;
+    }
+    
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul li ul li a {
+        display: block;
+        padding: .5em 1em;
+        background: <?php echo esc_attr($sub_menu_link_background); ?>;
+        color: <?php echo esc_attr($sub_menu_link_text_color); ?>;
+        text-decoration: none;
+        transition: all 300ms;
+        width: 100%;
+    }
+    
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul li ul li a:hover {
+        background: <?php echo esc_attr($sub_menu_link_background_hover); ?>;
+        color: <?php echo esc_attr($submenu_link_text_color_hover); ?>;
+    }
+    
+    /* Third level submenu */
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper ul li ul li ul {
+        left: 100%;
+        top: -1px;
+    }
+    
+    /* Hide icons on desktop */
+    #<?php echo esc_attr($block_id); ?> .main-menu-wrapper .menu-icon {
+        display: none;
     }
 </style>
 <?php endif; ?>

@@ -64,33 +64,41 @@
             "key": "field_background",
             "label": "Link Background",
             "name": "background",
-            "type": "text",
-            "instructions": "Background color or 'none' for top-level links",
-            "default_value": "none"
+            "type": "color_picker",
+            "instructions": "Background color or leave empty for transparent",
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_text_color",
             "label": "Link Text Color",
             "name": "text_color",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Text color for top-level links",
-            "default_value": "inherit"
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_hover_background",
             "label": "Link Hover Background",
             "name": "hover_background",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Background color on hover",
-            "default_value": "none"
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_hover_text_color",
             "label": "Link Hover Text Color",
             "name": "hover_text_color",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Text color on hover",
-            "default_value": "inherit"
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_padding",
@@ -145,49 +153,61 @@
             "key": "field_sub_menu_background",
             "label": "Submenu Container Background",
             "name": "sub_menu_background",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Background color of submenu container",
-            "default_value": "#ffffff"
+            "default_value": "#ffffff",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_sub_menu_link_background",
             "label": "Submenu Link Background",
             "name": "sub_menu_link_background",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Background color for submenu links",
-            "default_value": "none"
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_sub_menu_link_text_color",
             "label": "Submenu Link Text Color",
             "name": "sub_menu_link_text_color",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Text color for submenu links",
-            "default_value": "inherit"
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_sub_menu_link_background_hover",
             "label": "Submenu Link Hover Background",
             "name": "sub_menu_link_background_hover",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Background color on hover",
-            "default_value": "none"
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_submenu_link_text_color_hover",
             "label": "Submenu Link Hover Text Color",
             "name": "submenu_link_text_color_hover",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Text color on hover",
-            "default_value": "inherit"
+            "default_value": "",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_separator",
             "label": "Submenu Separator Color",
             "name": "separator",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Border color between submenu items",
-            "default_value": "rgba(0, 0, 0, 0.2)"
+            "default_value": "rgba(0, 0, 0, 0.2)",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_tab_mobile",
@@ -202,17 +222,21 @@
             "key": "field_mobile_trigger_bg",
             "label": "Menu Button Background",
             "name": "mobile_trigger_bg",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Background color for mobile menu trigger button",
-            "default_value": "#1e73be"
+            "default_value": "#1e73be",
+            "enable_opacity": true,
+            "return_format": "string"
         },
         {
             "key": "field_mobile_trigger_color",
             "label": "Menu Button Icon Color",
             "name": "mobile_trigger_color",
-            "type": "text",
+            "type": "color_picker",
             "instructions": "Icon color for mobile menu and search buttons",
-            "default_value": "#000000"
+            "default_value": "#000000",
+            "enable_opacity": true,
+            "return_format": "string"
         }
     ],
     "location": [

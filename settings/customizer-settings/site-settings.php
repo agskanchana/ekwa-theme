@@ -213,7 +213,7 @@ Kirki::add_field( 'theme_config_id', [
         'social_media_icon_font' => [
             'type'        => 'text',
             'label'       => esc_html__( 'Social Media Icon (Font)', 'kirki' ),
-            'description' => esc_html__( '', 'kirki' ),
+            'description' => esc_html__( 'Enter FontAwesome class or click Browse button (e.g., fa-brands fa-facebook-f)', 'kirki' ),
             'default'     => '',
         ],
         'social_media_icon_image' => [
