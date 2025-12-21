@@ -630,6 +630,30 @@ function appointment_page_link(){
 	return $slug;
 }
 
+/**
+ * Get appointment page link - supports both internal pages and external URLs
+ * 
+ * @return string|false Appointment URL or false if not set
+ */
+function get_appointment_link(){
+	$appointment_type = get_theme_mod('appointment_page_type', 'page');
+	
+	if ($appointment_type === 'external') {
+		// Return external URL
+		$external_url = get_theme_mod('appointment_external_url', '');
+		return !empty($external_url) ? esc_url($external_url) : false;
+	} else {
+		// Return internal page permalink
+		$page_id = get_theme_mod('appointment_page', '');
+		if (!empty($page_id)) {
+			$permalink = get_permalink($page_id);
+			return $permalink ? $permalink : false;
+		}
+	}
+	
+	return false;
+}
+
 
 function get_page_slug_by_id($ID){
 	$slug = get_post_field( 'post_name', $ID );

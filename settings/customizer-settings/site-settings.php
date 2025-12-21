@@ -160,11 +160,48 @@ Kirki::add_field( 'theme_config_id', [
 ] );
 
 Kirki::add_field( 'theme_config_id', [
+	'type'        => 'radio',
+	'settings'    => 'appointment_page_type',
+	'label'       => esc_html__( 'Appointment Page Type', 'kirki' ),
+	'section'     => 'general_settings',
+	'default'     => 'page',
+	'priority'    => 10,
+	'choices'     => [
+		'page' => esc_html__( 'Select Existing Page', 'kirki' ),
+		'external' => esc_html__( 'External URL', 'kirki' ),
+	],
+] );
+
+Kirki::add_field( 'theme_config_id', [
 	'type'        => 'dropdown-pages',
 	'settings'    => 'appointment_page',
 	'label'       => esc_html__( 'Appointment Page', 'kirki' ),
 	'section'     => 'general_settings',
 	'priority'    => 10,
+	'active_callback' => [
+		[
+			'setting'  => 'appointment_page_type',
+			'operator' => '==',
+			'value'    => 'page',
+		],
+	],
+] );
+
+Kirki::add_field( 'theme_config_id', [
+	'type'        => 'url',
+	'settings'    => 'appointment_external_url',
+	'label'       => esc_html__( 'Appointment External URL', 'kirki' ),
+	'description' => esc_html__( 'Enter the full URL including https://', 'kirki' ),
+	'section'     => 'general_settings',
+	'default'     => '',
+	'priority'    => 10,
+	'active_callback' => [
+		[
+			'setting'  => 'appointment_page_type',
+			'operator' => '==',
+			'value'    => 'external',
+		],
+	],
 ] );
 
 Kirki::add_field( 'theme_config_id', [
