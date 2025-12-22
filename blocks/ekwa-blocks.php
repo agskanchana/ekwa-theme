@@ -78,6 +78,9 @@ function ekwa_register_acf_blocks() {
 
     // Register EKWA WebP Image Block
     register_block_type(get_template_directory() . '/blocks/webp-image');
+
+    // Register EKWA Mobile Icon Menu Block
+    register_block_type(get_template_directory() . '/blocks/mobile-icon-menu');
 }
 add_action('acf/init', 'ekwa_register_acf_blocks');
 

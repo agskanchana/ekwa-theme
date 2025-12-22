@@ -698,6 +698,29 @@ $script_js = "(function() {
                 } else {
                     link.textContent = item.title;
                 }
+                
+                var targetPanelIdx = panelMap[item.id];
+                var targetTitle = item.title;
+                
+                // If link is just #, make the link itself open submenu
+                if (item.href === '#' || item.href === '' || !item.href) {
+                    link.href = '#';
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        panelHistoryStack.push({
+                            index: currentPanelIndex,
+                            title: titleElement.textContent
+                        });
+                        
+                        currentPanelIndex = targetPanelIdx;
+                        panelsContainer.style.transform = 'translateX(-' + (targetPanelIdx * 100) + '%)';
+                        backBtn.classList.add('visible');
+                        titleElement.textContent = targetTitle;
+                    });
+                }
+                
                 wrapper.appendChild(link);
                 
                 var arrowBtn = document.createElement('button');
@@ -713,9 +736,8 @@ $script_js = "(function() {
                 svg.appendChild(path);
                 arrowBtn.appendChild(svg);
                 
-                var targetPanelIdx = panelMap[item.id];
                 arrowBtn.dataset.targetPanel = targetPanelIdx;
-                arrowBtn.dataset.title = item.title;
+                arrowBtn.dataset.title = targetTitle;
                 
                 arrowBtn.addEventListener('click', function(e) {
                     e.preventDefault();

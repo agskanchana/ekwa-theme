@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "acf/ekwa-mobile-icon-menu",
+  "title": "EKWA Mobile Icon Menu",
+  "description": "Sticky bottom mobile menu with call, appointment, scroll up, treatments, and find us icons",
+  "category": "ekwa-blocks",
+  "icon": "menu",
+  "keywords": ["mobile", "menu", "icon", "sticky", "footer"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "block.php"
+  },
+  "supports": {
+    "anchor": true,
+    "className": true,
+    "align": false
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview"
+    }
+  }
+}

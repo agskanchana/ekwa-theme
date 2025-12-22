@@ -623,12 +623,7 @@ function get_address($which_location = 1){
 	}
 }
 
-function appointment_page_link(){
-	$postID = get_theme_mod("appointment_page", '');
-	$slug = get_post_field( 'post_name', $postID );
-	$slug = get_option( 'siteurl' )."/".$slug;
-	return $slug;
-}
+
 
 /**
  * Get appointment page link - supports both internal pages and external URLs
@@ -905,6 +900,43 @@ if ($handle !== 'loadcss') {
 
 }
 add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
+
+/**
+ * Enable CSS Classes field by default in nav menu screen options
+ */
+function ekwa_enable_nav_menu_css_classes() {
+    $screen = get_current_screen();
+    if ($screen && $screen->id === 'nav-menus') {
+        $user_id = get_current_user_id();
+        $hidden = get_user_meta($user_id, 'managenav-menuscolumnshidden', true);
+        
+        if (!is_array($hidden)) {
+            $hidden = array();
+        }
+        
+        // Remove css-classes from hidden columns
+        $hidden = array_diff($hidden, array('css-classes'));
+        update_user_meta($user_id, 'managenav-menuscolumnshidden', $hidden);
+    }
+}
+add_action('admin_head-nav-menus.php', 'ekwa_enable_nav_menu_css_classes');
+
+/**
+ * Add JavaScript to auto-check CSS Classes checkbox
+ */
+function ekwa_nav_menu_css_classes_js() {
+    ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        var cssClassesCheckbox = $('#css-classes-hide');
+        if (cssClassesCheckbox.length && !cssClassesCheckbox.is(':checked')) {
+            cssClassesCheckbox.prop('checked', true).trigger('change');
+        }
+    });
+    </script>
+    <?php
+}
+add_action('admin_footer-nav-menus.php', 'ekwa_nav_menu_css_classes_js');
 
 
 include(get_template_directory()."/settings/short-codes-post-types.php");

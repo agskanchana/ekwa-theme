@@ -1,0 +1,113 @@
+{
+    "key": "group_ekwa_mobile_icon_menu",
+    "title": "EKWA Mobile Icon Menu Settings",
+    "fields": [
+        {
+            "key": "field_mobile_icon_breakpoint",
+            "label": "Breakpoint (Show below this width)",
+            "name": "breakpoint",
+            "type": "number",
+            "instructions": "Menu will display on screens smaller than this width (in pixels). Appointment link is configured in Customizer > Practice Information.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1024,
+            "placeholder": "",
+            "prepend": "",
+            "append": "px",
+            "min": "",
+            "max": "",
+            "step": ""
+        },
+        {
+            "key": "field_mobile_icon_menu_background",
+            "label": "Menu Background Color",
+            "name": "menu_background",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ffffff",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_mobile_icon_icon_color",
+            "label": "Icon Color",
+            "name": "icon_color",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#333333",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_mobile_icon_text_color",
+            "label": "Text Color",
+            "name": "text_color",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#333333",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_mobile_icon_active_color",
+            "label": "Active Color",
+            "name": "active_color",
+            "type": "color_picker",
+            "instructions": "Color for active\/hover state and links",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#1e73be",
+            "enable_opacity": 0,
+            "return_format": "string"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/ekwa-mobile-icon-menu"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+}
