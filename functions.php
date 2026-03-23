@@ -135,7 +135,7 @@ function ekwa_scripts() {
 
     // Removing default style sheet
 
-	//wp_enqueue_style( 'ekwa-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'ekwa-style', get_stylesheet_uri(), array(), '2.0.0' );
 
      // Remove Default navigation.js
 
@@ -248,6 +248,11 @@ function ekwa_acf_json_load_point( $paths ) {
 
     return $paths;
 }
+
+/**
+ * Customizer front-end CSS variable output (hooked to wp_head priority 1).
+ */
+require get_template_directory() . '/settings/customizer-font-end/index.php';
 
 
 

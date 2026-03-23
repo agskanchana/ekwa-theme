@@ -93,7 +93,7 @@ add_shortcode('phone', function ($atts = 1) {
 
 add_shortcode('fa_icon', function($atts){
     ?>
-    <i class="<?php echo $atts['class'];?>"></i>
+    <i class="<?php echo esc_attr($atts['class']);?>"></i>
     <?php
 });
 

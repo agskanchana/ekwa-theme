@@ -254,45 +254,8 @@ Kirki::add_field( 'theme_config_id', [
 	] );
    
    
-   
-      
-/* h2*/
 
 
-
-   
-  Kirki::add_field( 'theme_config_id', [
-	'type'        => 'color',
-	'settings'    => 'headings_h2_color',
-	'label'       => __( 'Color Control (hex-only)', 'kirki' ),
-	'section'     => 'typo_headings_h2',
-	'default'     => '#000000',
-    'css_vars'        => array(
-            array( '--heading_h2_color', '$', 'font-color' ),
-            
-        ),
-		'transport'       => 'postMessage',
-] );
- 
-   
-Kirki::add_field( 'theme_config_id', [
-		'type'        => 'slider',
-		'settings'    => 'font_size_h2',
-		'label'       => esc_html__( 'Heading H2 Font-Size'),
-		'section'     => 'typo_headings_h2',
-		'default'     => 24,
-		'priority'    => 60,
-		'choices'     => [
-			'min'    => 18,
-			'max'    => 80,
-			'step'   => 1,
-		],
-	] );
-   
-   
-   
-
-     
 /* h3*/
 
 

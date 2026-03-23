@@ -152,7 +152,7 @@ function get_common_block_styles($block_id){
                 ekwa_acf('position', 'position');
                 }
                 
-                if(get_field('position') != 'initial' || get_field('position') != 'static'){
+                if(get_field('position') != 'initial' && get_field('position') != 'static'){
 
                 ekwa_positioning('top');
                 ekwa_positioning('right');

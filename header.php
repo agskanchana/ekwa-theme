@@ -1,6 +1,12 @@
 <?php
  if(isset($_GET['ads'])){
-	setcookie("adward_number", "1", strtotime( '+14 days' ));
+	setcookie("adward_number", "1", [
+		'expires'  => strtotime('+14 days'),
+		'path'     => '/',
+		'secure'   => is_ssl(),
+		'httponly' => true,
+		'samesite' => 'Lax',
+	]);
  }
 ?>
 <!doctype html>
@@ -13,12 +19,12 @@
 	<?php if (is_paged() ): ?>
 		<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 	<?php endif?>
-    <?php require get_template_directory() . '/settings/customizer-font-end/index.php'; ?>
+
 	<?php if(is_ie()):?>
-	<script src="<?php echo get_template_directory_uri(); ?>/js/ie-11-fix.js"></script>
+	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/ie-11-fix.js"></script>
 	<?php endif;?>
      <script type="text/javascript">
-        var TEMPDIR = '<?php echo get_template_directory_uri(); ?>';
+        var TEMPDIR = '<?php echo esc_js( get_template_directory_uri() ); ?>';
 		<?php if(is_mobile()):?>
 		var mobileDevice = true;
 		<?php else:?>

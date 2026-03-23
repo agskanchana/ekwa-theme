@@ -22,25 +22,472 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
-# Normalize
-# Typography
-# Elements
-# Forms
-# Navigation
-	## Links
-	## Menus
-# Accessibility
-# Alignments
-# Clearings
-# Widgets
-# Content
-	## Posts and pages
-	## Comments
-# Infinite scroll
-# Media
-	## Captions
-	## Galleries
+# Reset & Base
+# Global Typography (applies CSS variables to elements)
+# Utility Classes
+# Layout
+# Buttons
+# Block Base Styles
 --------------------------------------------------------------*/
+
+/* ============================================================
+   # Reset & Base
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+img, .img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================================
+   # Global Typography
+   CSS variables are declared by ekwa_output_theme_css_variables()
+   (priority 1 in wp_head) so they are always available here.
+   ============================================================ */
+
+body.ekwa-body {
+    font-family: var(--mobile_body, Helvetica, sans-serif);
+    font-weight: var(--mobile_variant, normal);
+    font-style: var(--mobile_style, normal);
+    font-size: var(--body-font-size, 16px);
+    color: var(--body-color, #404040);
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+    color: var(--color_link, #1b315e);
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: var(--color_link_hover, #000000);
+}
+
+.ekwa-body h1 {
+    color: var(--heading_h1_color, #000000);
+    font-size: var(--heading-h1-size, 36px);
+}
+
+.ekwa-body h2 {
+    color: var(--heading_h2_color, #000000);
+    font-size: var(--heading-h2-size, 24px);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.ekwa-body h3 {
+    color: var(--heading_h3_color, #000000);
+    font-size: var(--heading-h3-size, 20px);
+}
+
+/* Desktop: switch to configured body/heading fonts */
+@media screen and (min-width: 767px) {
+    body.ekwa-body {
+        font-family: var(--font_body, Helvetica, sans-serif);
+        font-weight: var(--body_variant, normal);
+        font-style: var(--body_style, normal);
+    }
+
+    .ekwa-body h1 {
+        font-family: var(--heading_h1, inherit);
+        font-weight: var(--heading_h1_variant, bold);
+        font-style: var(--heading_h1_style, normal);
+    }
+
+    .ekwa-body h2 {
+        font-family: var(--heading_h2, inherit);
+        font-weight: var(--heading_h2_variant, bold);
+        font-style: var(--heading_h2_style, normal);
+    }
+
+    .ekwa-body h3 {
+        font-family: var(--heading_h3, inherit);
+        font-weight: var(--heading_h3_variant, bold);
+        font-style: var(--heading_h3_style, normal);
+    }
+}
+
+/* Editor: block editor typography base */
+.editor-styles-wrapper .ekawa-theme-header ul {
+    list-style: none !important;
+}
+
+/* ============================================================
+   # Utility Classes
+   ============================================================ */
+
+.clearfix::before,
+.clearfix::after {
+    display: table;
+    content: " ";
+}
+.clearfix::after {
+    clear: both;
+}
+
+.hide-from-mobile  { display: none; }
+.invisible         { opacity: 0; }
+.no-margin-top     { margin-top: 0 !important; }
+.no-margin-bottom  { margin-bottom: 0 !important; }
+.no-margin-left    { margin-left: 0 !important; }
+.reset-margin-bottom { margin-bottom: 0 !important; }
+
+.center-vertically {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.center-horizontal {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-right {
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.img-left {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 1024px) {
+    .hide-from-mobile { display: block; }
+}
+
+/* ============================================================
+   # Layout
+   ============================================================ */
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.inner-page {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.inner-page h1 {
+    color: var(--color_three);
+    font-size: var(--heading-h1-size, 36px);
+    text-transform: uppercase;
+    margin-bottom: 36px;
+}
+
+@media screen and (min-width: 767px) {
+    .inner-page-banner {
+        font-family: var(--heading_h1, inherit);
+    }
+}
+
+h2.ekwa-section-heading {
+    text-align: center;
+}
+
+h2 {
+    color: var(--color_three);
+}
+
+.home-page p {
+    line-height: 30px;
+}
+
+/* Gutenberg column fix */
+.no-gutter.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column:not(:first-child) {
+    margin-left: 0 !important;
+}
+
+@media screen and (max-width: 991px) {
+    .wp-col-lg.wp-block-columns { display: block; }
+    .wp-col-lg.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column:not(:first-child) {
+        margin-left: 0 !important;
+    }
+}
+
+/* ============================================================
+   # Buttons
+   ============================================================ */
+
+.btn {
+    background: var(--color_three);
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: var(--color_two);
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: 300ms all;
+    text-transform: none;
+    border-radius: 5px;
+}
+
+.btn-full { max-width: none; }
+
+.btn:hover {
+    background: var(--color_two);
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn.btn-secondary {
+    background: var(--color_two);
+    border: 1px solid var(--color_two);
+}
+
+.btn.btn-secondary:hover {
+    background: var(--color_three);
+}
+
+@media screen and (min-width: 767px) {
+    .btn {
+        font-family: var(--heading_h1, inherit);
+        font-weight: bold;
+    }
+}
+
+/* ============================================================
+   # Block Base Styles
+   ============================================================ */
+
+/* --- Section Block --- */
+.ekwa-section {
+    position: relative;
+    background-color: transparent;
+}
+
+.ekwa-section__inner {
+    position: relative;
+    z-index: 1;
+}
+
+body.ekwa-body .ekwa-section {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+.ekwa-section.lazyload             { background-color: #f5f5f5; }
+.ekwa-section.lazyload.lazyloaded  { background-position: center; background-repeat: no-repeat; transition: background-image 0.3s ease-in-out; }
+.ekwa-section.alignwide            { max-width: 1300px; margin-left: auto; margin-right: auto; }
+.ekwa-section.alignfull            { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+
+.wp-block-ekwa-section {
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    min-height: 100px;
+}
+
+/* --- Button Block --- */
+.ekwa-button-wrapper              { display: block; padding: 10px 0; }
+.ekwa-button-wrapper.align-left   { text-align: left; }
+.ekwa-button-wrapper.align-center { text-align: center; }
+.ekwa-button-wrapper.align-right  { text-align: right; }
+.ekwa-button                      { display: inline-block; text-decoration: none; transition: all 0.3s ease; }
+.ekwa-button i                    { margin-left: 8px; }
+.wp-block-ekwa-button             { padding: 10px; border: 1px dashed #e0e0e0; }
+
+/* --- Call Button Block --- */
+.ekwa-call-button {
+    position: relative;
+    display: inline-block;
+    max-width: 300px;
+    cursor: pointer;
+}
+.ekwa-call-button__trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    transition: opacity 0.3s ease;
+}
+.ekwa-call-button__trigger:hover { opacity: 0.8; }
+.ekwa-call-button__trigger i      { font-size: 1.1em; }
+
+.ekwa-call-button__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 300px;
+    width: max-content;
+    max-width: 400px;
+    text-align: left;
+    padding: 1.5rem 1rem;
+    display: none;
+    z-index: 150;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.ekwa-call-button:hover .ekwa-call-button__dropdown { display: block; }
+
+.ekwa-call-button__location-group            { margin-bottom: 1.5rem; }
+.ekwa-call-button__location-group:last-child { margin-bottom: 0; }
+
+.ekwa-call-button__location-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ekwa-call-button__city {
+    font-weight: 700;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ekwa-call-button__item          { margin-bottom: 1rem; }
+.ekwa-call-button__item:last-child { margin-bottom: 0; }
+.ekwa-call-button__item a        { display: flex; align-items: flex-start; gap: 12px; text-decoration: none; transition: opacity 0.3s ease; }
+.ekwa-call-button__item a:hover  { opacity: 0.8; }
+.ekwa-call-button__item i        { font-size: 1.2em; margin-top: 2px; flex-shrink: 0; }
+.ekwa-call-button__details       { display: flex; flex-direction: column; gap: 4px; }
+.ekwa-call-button__label         { font-weight: 600; font-size: 0.95em; }
+.ekwa-call-button__number        { font-size: 1.1em; font-weight: 700; }
+
+.ekwa-call-button__simple {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+.ekwa-call-button__simple:hover { opacity: 0.8; }
+.ekwa-call-button__simple i     { font-size: 1.1em; }
+
+.wp-block-ekwa-call-button { padding: 15px; border: 1px dashed #e0e0e0; }
+
+/* --- Copyright Block --- */
+.ekwa-copyright           { font-size: 14px; line-height: 1.6; padding: 15px 0; }
+.ekwa-copyright.alignleft  { text-align: left; }
+.ekwa-copyright.aligncenter { text-align: center; }
+.ekwa-copyright.alignright { text-align: right; }
+.ekwa-copyright a          { text-decoration: none; transition: all 0.3s ease; }
+.ekwa-copyright a:hover    { text-decoration: underline; }
+
+/* --- Address Block --- */
+.ekwa-address {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+.ekwa-address:hover         { opacity: 0.8; }
+.ekwa-address__icon         { width: 24px; height: 24px; flex-shrink: 0; transition: color 0.2s ease; }
+.ekwa-address--icon         { width: 50px; height: 50px; border-radius: 50%; background-color: #f5f5f5; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.ekwa-address--icon:hover   { box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+.ekwa-address--icon .ekwa-address__icon { color: #1e73be; }
+.ekwa-address--text         { font-weight: 500; }
+.ekwa-address--address      { flex-direction: row; align-items: center; gap: 8px; }
+.ekwa-address--address .ekwa-address__icon { margin-right: 6px; }
+
+/* --- Address Dropdown Block --- */
+.ekwa-address-dropdown {
+    position: relative;
+    display: inline-block;
+    max-width: 400px;
+}
+.ekwa-address-dropdown__trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    font-weight: 500;
+}
+.ekwa-address-dropdown__trigger:hover { opacity: 0.9; }
+.ekwa-address-dropdown__icon          { flex-shrink: 0; }
+.ekwa-address-dropdown__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 320px;
+    width: max-content;
+    max-width: 500px;
+    margin-top: 8px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 100;
+}
+.ekwa-address-dropdown:hover .ekwa-address-dropdown__dropdown { display: block; }
+.ekwa-address-dropdown__location          { margin-bottom: 1.5rem; }
+.ekwa-address-dropdown__location:last-child { margin-bottom: 0; }
+.ekwa-address-dropdown__city {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.ekwa-address-dropdown__city-icon { flex-shrink: 0; }
+.ekwa-address-dropdown__link      { display: block; padding-left: 22px; text-decoration: none; transition: color 0.2s ease; line-height: 1.5; }
+.ekwa-address-dropdown__link:hover { text-decoration: underline; }
+
+/* --- Icon Block --- */
+.ekwa-icon              { display: inline-block; line-height: 1; transition: opacity 0.3s ease; }
+.ekwa-icon.alignleft    { text-align: left; }
+.ekwa-icon.aligncenter  { text-align: center; display: block; }
+.ekwa-icon.alignright   { text-align: right; display: block; }
+.ekwa-icon:hover        { opacity: 0.8; }
+.ekwa-icon i            { line-height: 1; display: inline-block; }
+.ekwa-icon__svg         { display: inline-block; line-height: 1; }
+.ekwa-icon__svg svg     { display: block; }
 /*--------------------------------------------------------------
 # Normalize
 --------------------------------------------------------------*/

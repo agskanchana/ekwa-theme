@@ -2,7 +2,7 @@
 // Ensure your dynamic practice name is URL-encoded in PHP.
 $practice_name = get_theme_mod('practise_name');
 $encoded_practice_name = urlencode($practice_name);
-$site_domain = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+$site_domain = home_url();
 $address = urlencode(get_location('street_address'));
 $city = urlencode(get_location('city'));
 $state = urlencode(get_location('state'));
@@ -31,21 +31,21 @@ var requestOptions = {
 };
 
 // PHP dynamically inserted values into JavaScript
-var practiceName = "<?php echo $encoded_practice_name; ?>";
-var siteDomain = "<?php echo $site_domain; ?>";
-var address = "<?php echo $address; ?>";
-var city = "<?php echo $city; ?>";
-var state = "<?php echo $state; ?>";
-var zip = "<?php echo $zip; ?>";
-var email = "<?php echo $email; ?>";
-var phoneNum = "<?php echo $phone_num; ?>";
+var practiceName = "<?php echo esc_js($encoded_practice_name); ?>";
+var siteDomain = "<?php echo esc_js($site_domain); ?>";
+var address = "<?php echo esc_js($address); ?>";
+var city = "<?php echo esc_js($city); ?>";
+var state = "<?php echo esc_js($state); ?>";
+var zip = "<?php echo esc_js($zip); ?>";
+var email = "<?php echo esc_js($email); ?>";
+var phoneNum = "<?php echo esc_js($phone_num); ?>";
 
 // Constructing the URL dynamically with encoded parameters
 var url = "https://policies.ekwa.com/wp-json/ws/v1/policy_page?" +
-  "id=<?php echo get_field('select-policy-page'); ?>" +
+  "id=<?php echo intval(get_field('select-policy-page')); ?>" +
   "&bussiness_name=" + encodeURIComponent(practiceName) +
   "&phone=" + encodeURIComponent(phoneNum) +
-  "&country=<?php echo get_theme_mod('country'); ?>" +
+  "&country=<?php echo esc_js(get_theme_mod('country')); ?>" +
   "&domain=" + encodeURIComponent(siteDomain) +
   "&address=" + encodeURIComponent(address) +
   "&city=" + encodeURIComponent(city) +

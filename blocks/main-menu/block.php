@@ -472,7 +472,7 @@ if (!class_exists('EKWA_Menu_Walker')) {
         if ($icon) {
             // Check if it's an array (from FontAwesome picker)
             if (is_array($icon) && !empty($icon['html'])) {
-                $icon_html = '<span class="menu-icon">' . $icon['html'] . '</span> ';
+                $icon_html = '<span class="menu-icon">' . wp_kses_post( $icon['html'] ) . '</span> ';
             } elseif (is_array($icon) && !empty($icon['class'])) {
                 $icon_html = '<span class="menu-icon"><i class="' . esc_attr($icon['class']) . '"></i></span> ';
             } elseif (is_string($icon) && !empty($icon)) {
@@ -548,7 +548,7 @@ if (!class_exists('EKWA_Menu_Walker')) {
 
 <?php
 // Output JavaScript using base64 to completely bypass WordPress filters
-$menu_id_json = json_encode($menu_id);
+$menu_id_json = wp_json_encode($menu_id);
 
 $script_js = "(function() {
     var menuId = {$menu_id_json};

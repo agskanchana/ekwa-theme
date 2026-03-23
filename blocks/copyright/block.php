@@ -31,7 +31,7 @@ $link_color_hover = get_field('link_color_hover') ?: '#0d5aa7';
 
 // Get practice name from theme settings
 $practice_name = get_theme_mod('practise_name', get_bloginfo('name'));
-$current_year = date('Y');
+$current_year = wp_date('Y');
 
 // Collect custom CSS for consolidated output
 if (!is_admin() && !$is_preview) {

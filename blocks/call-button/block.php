@@ -77,14 +77,6 @@ if (!is_admin() && !$is_preview) {
                 <!-- Multiple Locations - Each with New/Existing Patient Numbers -->
                 <?php foreach ($location_rows as $index => $location): ?>
                     <?php
-                    // Debug: Log location data (remove after testing)
-                    if ($is_preview) {
-                        echo "<!-- Location " . ($index + 1) . " Debug: ";
-                        echo "phone=" . (isset($location['phone']) ? $location['phone'] : 'NOT SET') . ", ";
-                        echo "phone_ex=" . (isset($location['phone_ex']) ? $location['phone_ex'] : 'NOT SET');
-                        echo " -->\n";
-                    }
-
                     $new_patient_phone = !empty($location['phone']) ? $location['phone'] : '';
                     $existing_patient_phone = !empty($location['phone_ex']) ? $location['phone_ex'] : '';
                     $city_name = !empty($location['city']) ? $location['city'] : (!empty($location['location_title']) ? $location['location_title'] : 'Location ' . ($index + 1));

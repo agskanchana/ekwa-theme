@@ -261,13 +261,8 @@ add_action('wp_head', function(){
 });*/
 
 
-function hook_critical_css() {
-	// $critical_css = get_content_curl(get_template_directory(). '/css/critical.css' );
-	echo '<style>';
-	include(get_template_directory()."/css/critical.css");
-	echo '</style>';
-}
-add_action('wp_head','hook_critical_css');
+// CSS variables and base styles are now output via ekwa_output_theme_css_variables() (priority 1)
+// and served from style.css (enqueued). See settings/customizer-font-end/index.php.
 
 
 add_action( 'after_setup_theme', function(){
