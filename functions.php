@@ -254,5 +254,201 @@ function ekwa_acf_json_load_point( $paths ) {
  */
 require get_template_directory() . '/settings/customizer-font-end/index.php';
 
+/**
+ * GitHub-based theme updater.
+ *
+ * Set EKWA_GITHUB_TOKEN in wp-config.php for private repo access:
+ *   define( 'EKWA_GITHUB_TOKEN', 'ghp_xxxxxxxxxxxx' );
+ *
+ * Set EKWA_GITHUB_REPO in wp-config.php (or defaults to 'ekwa/ekwa-theme'):
+ *   define( 'EKWA_GITHUB_REPO', 'your-org/ekwa-theme' );
+ */
+require get_template_directory() . '/inc/class-ekwa-theme-updater.php';
 
+if ( defined( 'EKWA_GITHUB_REPO' ) ) {
+	new Ekwa_Theme_Updater( array(
+		'slug'       => basename( get_template_directory() ),
+		'repo'       => EKWA_GITHUB_REPO,
+		'token'      => defined( 'EKWA_GITHUB_TOKEN' ) ? EKWA_GITHUB_TOKEN : '',
+		'theme_file' => get_template_directory() . '/style.css',
+	) );
+}
 
+/**
+ * Theme activation: create default header and footer CPT posts.
+ *
+ * Only runs when no header/footer posts exist yet. Creates one of each
+ * and sets the Customizer theme_mods so the theme renders out of the box.
+ */
+function ekwa_theme_activation_defaults() {
+	// Skip if headers already exist
+	$existing_headers = get_posts( array(
+		'post_type'   => 'ekwa_theme_headers',
+		'numberposts' => 1,
+		'post_status' => 'publish',
+	) );
+
+	if ( empty( $existing_headers ) ) {
+		$header_content = ekwa_get_default_header_content();
+		$header_id = wp_insert_post( array(
+			'post_title'   => 'Default Header',
+			'post_content' => $header_content,
+			'post_status'  => 'publish',
+			'post_type'    => 'ekwa_theme_headers',
+		) );
+		if ( $header_id && ! is_wp_error( $header_id ) ) {
+			set_theme_mod( 'select_header', $header_id );
+		}
+	}
+
+	// Skip if footers already exist
+	$existing_footers = get_posts( array(
+		'post_type'   => 'ekwa_theme_footers',
+		'numberposts' => 1,
+		'post_status' => 'publish',
+	) );
+
+	if ( empty( $existing_footers ) ) {
+		$footer_content = ekwa_get_default_footer_content();
+		$footer_id = wp_insert_post( array(
+			'post_title'   => 'Default Footer',
+			'post_content' => $footer_content,
+			'post_status'  => 'publish',
+			'post_type'    => 'ekwa_theme_footers',
+		) );
+		if ( $footer_id && ! is_wp_error( $footer_id ) ) {
+			set_theme_mod( 'select_footer', $footer_id );
+		}
+	}
+}
+add_action( 'after_switch_theme', 'ekwa_theme_activation_defaults' );
+
+/**
+ * Default header block content (Gutenberg blocks as serialized HTML).
+ */
+function ekwa_get_default_header_content() {
+	ob_start();
+	?>
+<!-- wp:group {"className":"ekwa-default-header hide-from-mobile","layout":{"type":"constrained","contentSize":"1300px"}} -->
+<div class="wp-block-group ekwa-default-header hide-from-mobile">
+
+<!-- wp:columns {"className":"header-top-row","style":{"spacing":{"padding":{"top":"10px","bottom":"10px"}}}} -->
+<div class="wp-block-columns header-top-row" style="padding-top:10px;padding-bottom:10px">
+
+<!-- wp:column {"width":"25%"} -->
+<div class="wp-block-column" style="flex-basis:25%">
+<!-- wp:site-logo {"width":200,"shouldSyncIcon":false} /-->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"50%","className":"header-info-col"} -->
+<div class="wp-block-column header-info-col" style="flex-basis:50%">
+<!-- wp:shortcode -->
+[ekwa_address]
+<!-- /wp:shortcode -->
+<!-- wp:shortcode -->
+[phone]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"25%","className":"header-cta-col"} -->
+<div class="wp-block-column header-cta-col" style="flex-basis:25%">
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"className":"header-cta-btn"} -->
+<div class="wp-block-button header-cta-btn"><a class="wp-block-button__link wp-element-button" href="/contact/">Request Appointment</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search...","buttonText":"Search","buttonPosition":"button-inside","className":"header-search"} /-->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:group {"className":"header-nav-row","style":{"spacing":{"padding":{"top":"0","bottom":"0"}}}} -->
+<div class="wp-block-group header-nav-row" style="padding-top:0;padding-bottom:0">
+<!-- wp:shortcode -->
+[ekwa_nav_menu location="main-menu" class="header-desktop-nav"]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:group -->
+	<?php
+	return trim( ob_get_clean() );
+}
+
+/**
+ * Default footer block content (Gutenberg blocks as serialized HTML).
+ */
+function ekwa_get_default_footer_content() {
+	ob_start();
+	?>
+<!-- wp:group {"className":"ekwa-default-footer","style":{"spacing":{"padding":{"top":"40px","bottom":"20px"}}},"layout":{"type":"constrained","contentSize":"1300px"}} -->
+<div class="wp-block-group ekwa-default-footer" style="padding-top:40px;padding-bottom:20px">
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Contact Us</h3>
+<!-- /wp:heading -->
+<!-- wp:shortcode -->
+[ekwa_address]
+<!-- /wp:shortcode -->
+<!-- wp:shortcode -->
+[phone]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Office Hours</h3>
+<!-- /wp:heading -->
+<!-- wp:shortcode -->
+[ekwa_working_hours format="list"]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Quick Links</h3>
+<!-- /wp:heading -->
+<!-- wp:shortcode -->
+[ekwa_nav_menu location="footer-menu" class="footer-nav"]
+<!-- /wp:shortcode -->
+</div>
+<!-- /wp:column -->
+
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:separator {"className":"is-style-wide"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity is-style-wide"/>
+<!-- /wp:separator -->
+
+<!-- wp:group {"className":"footer-bottom","layout":{"type":"flex","justifyContent":"space-between"}} -->
+<div class="wp-block-group footer-bottom">
+
+<!-- wp:acf/ekwa-copyright {"name":"acf/ekwa-copyright"} /-->
+
+<!-- wp:acf/ekwa-social-media-icons {"name":"acf/ekwa-social-media-icons"} /-->
+
+</div>
+<!-- /wp:group -->
+
+</div>
+<!-- /wp:group -->
+	<?php
+	return trim( ob_get_clean() );
+}

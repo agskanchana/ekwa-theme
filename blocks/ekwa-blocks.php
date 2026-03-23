@@ -14,6 +14,26 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Get the path for a block, checking child theme first
+ *
+ * If a child theme provides blocks/{name}/block.json, that version is used.
+ * Otherwise falls back to the parent theme block.
+ *
+ * @param string $block_name Block directory name (e.g. 'button')
+ * @return string Full path to the block directory
+ */
+function ekwa_get_block_path( $block_name ) {
+    // Check child theme first (only if active child theme differs from parent)
+    if ( get_stylesheet_directory() !== get_template_directory() ) {
+        $child_path = get_stylesheet_directory() . '/blocks/' . $block_name;
+        if ( file_exists( $child_path . '/block.json' ) ) {
+            return $child_path;
+        }
+    }
+    return get_template_directory() . '/blocks/' . $block_name;
+}
+
+/**
  * Register EKWA custom blocks
  */
 function ekwa_register_acf_blocks() {
@@ -25,62 +45,32 @@ function ekwa_register_acf_blocks() {
     // Register custom block category
     add_filter('block_categories_all', 'ekwa_block_categories', 10, 2);
 
-    // Register EKWA Section Block
-    // register_block_type(get_template_directory() . '/blocks/section');
+    // Active blocks — child theme can override any by providing blocks/{name}/block.json
+    $active_blocks = array(
+        'button',
+        'call-button',
+        'conditional',
+        'copyright',
+        'address',
+        'address-dropdown',
+        'icon',
+        'iframe',
+        'inner-page-banner',
+        'phone-number',
+        'working-hours',
+        'google-map',
+        'policy-pages',
+        'sitemap',
+        'social-media-icons',
+        'mobile-icon-menu',
+    );
 
-    // Register EKWA Button Block
-    register_block_type(get_template_directory() . '/blocks/button');
+    // Inactive blocks (kept for reference, not registered):
+    // 'section', 'main-menu', 'webp-image'
 
-    // Register EKWA Call Button Block
-    register_block_type(get_template_directory() . '/blocks/call-button');
-
-    // Register EKWA Conditional Block
-    register_block_type(get_template_directory() . '/blocks/conditional');
-
-    // Register EKWA Copyright Block
-    register_block_type(get_template_directory() . '/blocks/copyright');
-
-    // Register EKWA Address Block
-    register_block_type(get_template_directory() . '/blocks/address');
-
-    // Register EKWA Address Dropdown Block
-    register_block_type(get_template_directory() . '/blocks/address-dropdown');
-
-    // Register EKWA Icon Block
-    register_block_type(get_template_directory() . '/blocks/icon');
-
-    // Register EKWA Iframe Block
-    register_block_type(get_template_directory() . '/blocks/iframe');
-
-    // Register EKWA Inner Page Banner Block
-    register_block_type(get_template_directory() . '/blocks/inner-page-banner');
-
-    // Register EKWA Phone Number Block
-    register_block_type(get_template_directory() . '/blocks/phone-number');
-
-    // Register EKWA Working Hours Block
-    register_block_type(get_template_directory() . '/blocks/working-hours');
-
-    // Register EKWA Main Menu Block
-    // register_block_type(get_template_directory() . '/blocks/main-menu');
-
-    // Register EKWA Google Map Block
-    register_block_type(get_template_directory() . '/blocks/google-map');
-
-    // Register EKWA Policy Pages Block
-    register_block_type(get_template_directory() . '/blocks/policy-pages');
-
-    // Register EKWA Sitemap Block
-    register_block_type(get_template_directory() . '/blocks/sitemap');
-
-    // Register EKWA Social Media Icons Block
-    register_block_type(get_template_directory() . '/blocks/social-media-icons');
-
-    // Register EKWA WebP Image Block
-    // register_block_type(get_template_directory() . '/blocks/webp-image');
-
-    // Register EKWA Mobile Icon Menu Block
-    register_block_type(get_template_directory() . '/blocks/mobile-icon-menu');
+    foreach ( $active_blocks as $block_name ) {
+        register_block_type( ekwa_get_block_path( $block_name ) );
+    }
 }
 add_action('acf/init', 'ekwa_register_acf_blocks');
 

@@ -1,7 +1,30 @@
 # EKWA Theme — Copilot Instructions
 
 ## Project Overview
-WordPress theme for dental/medical practice websites managed by EKWA Marketing. Built on the Underscores (`_s`) starter theme. No build step — all CSS/JS are hand-authored flat files.
+WordPress **parent theme** for dental/medical practice websites managed by EKWA Marketing. Built on the Underscores (`_s`) starter theme. No build step — all CSS/JS are hand-authored flat files. Client sites use a **child theme** for customizations; this base theme is updatable via GitHub releases.
+
+## Child Theme Architecture
+
+This is a **parent theme**. Each client site uses a child theme (cloned from `ekwa-starter-child/`) that:
+- Inherits all blocks, settings, CPTs, and functionality
+- Can override any parent block by placing `blocks/{name}/block.json` + `block.php` in the child
+- Adds client-specific styles in `css/child-styles.css`
+- Gets its own GitHub-based updates independently
+- Contains `html-mockups/` for the AI mockup-to-WordPress conversion workflow
+
+### Block Override System
+`ekwa_get_block_path($block_name)` in [blocks/ekwa-blocks.php](../blocks/ekwa-blocks.php) checks `get_stylesheet_directory()` first, then falls back to `get_template_directory()`. Child themes can override any block by providing the same directory structure.
+
+### GitHub Theme Updater
+`Ekwa_Theme_Updater` class in [inc/class-ekwa-theme-updater.php](../inc/class-ekwa-theme-updater.php) hooks into `pre_set_site_transient_update_themes` and `themes_api` to check GitHub releases. Configure via `wp-config.php`:
+```php
+define( 'EKWA_GITHUB_REPO', 'your-org/ekwa-theme' );       // parent
+define( 'EKWA_CHILD_GITHUB_REPO', 'your-org/client-theme' ); // child
+define( 'EKWA_GITHUB_TOKEN', 'ghp_xxxxxxxxxxxx' );           // private repo access
+```
+
+### Theme Activation Defaults
+On `after_switch_theme`, `ekwa_theme_activation_defaults()` in `functions.php` auto-creates a default Header and Footer CPT post (if none exist) and sets the corresponding theme_mods.
 
 ## Block Architecture
 
@@ -13,7 +36,9 @@ All custom blocks are **ACF Gutenberg blocks** registered on `acf/init` in [bloc
 | `block.php` | Server-side render template |
 | `README.md` | Developer notes |
 
-**Registration:** `register_block_type(get_template_directory() . '/blocks/{name}')` — WordPress reads `block.json` automatically. To add a new block: create the directory with these three files and add a `register_block_type()` call in `ekwa-blocks.php`.
+**Active blocks** are listed in the `$active_blocks` array in `ekwa_register_acf_blocks()`. **Inactive blocks** (section, main-menu, webp-image) have their folders kept but are not registered.
+
+**Registration:** Blocks are registered via a loop: `register_block_type( ekwa_get_block_path( $block_name ) )`. To add a new block: create the directory with the three files and add the name to the `$active_blocks` array.
 
 **`block.json` key fields:**
 ```json
@@ -91,16 +116,31 @@ Dental/medical specific CPTs registered in [settings/theme-functions.php](../set
 
 ## Coding Standards
 
-PHPCS with `WordPress` ruleset defined in [phpcs.xml.dist](../phpcs.xml.dist). Run: `vendor/bin/phpcs` (if Composer deps are installed) — checks `.php` and `.css`, skips JS. **Note:** the text domain in `phpcs.xml.dist` is still set to `_s` (Underscores default) — the correct domain is `ekwa`.
+PHPCS with `WordPress` ruleset defined in [phpcs.xml.dist](../phpcs.xml.dist). Run: `vendor/bin/phpcs` (if Composer deps are installed) — checks `.php` and `.css`, skips JS. Text domain: `ekwa`.
+
+## Shortcodes
+
+Registered in [settings/short-codes-post-types.php](../settings/short-codes-post-types.php):
+
+| Shortcode | Purpose |
+|---|---|
+| `[phone]` / `[phone location="2"]` | Primary phone (ad-tracking aware) |
+| `[phone_ex]` | Existing patients phone |
+| `[mobile_number]` / `[mobile_number_ex]` | tel: formatted numbers |
+| `[ekwa_address]` / `[ekwa_address location="2"]` | Formatted practice address |
+| `[ekwa_working_hours format="list"]` | Working hours (list or table) |
+| `[ekwa_nav_menu location="main-menu" class="x"]` | WordPress nav menu wrapper |
+| `[fa_icon class="fas fa-phone"]` | FontAwesome icon |
 
 ## Key File Map
 
-| Directory | Role |
+| Directory / File | Role |
 |---|---|
 | `blocks/` | ACF block definitions — `block.json` + `block.php` + `README.md` per block |
 | `acf-json/` | ACF field group JSON (auto-synced) |
 | `settings/` | CPTs, Kirki Customizer, ACF PHP groups, shared block style helpers |
-| `inc/` | Underscores core helpers + plugin wizard class |
+| `inc/` | Underscores core helpers, plugin wizard, **theme updater class** |
+| `inc/class-ekwa-theme-updater.php` | GitHub release-based update mechanism |
 | `css/` | Flat CSS — color variables, critical, desktop overrides |
 | `js/` | Flat JS — no bundler/transpiler |
 | `layouts/bootstrap/` | Pre-built Bootstrap assets |

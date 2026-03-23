@@ -636,3 +636,124 @@ body.ekwa-body .ekwa-section {
     display: block;
 }
 
+/* ============================================
+   Desktop Navigation (via [ekwa_nav_menu])
+   ============================================ */
+.ekwa-nav-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.ekwa-nav-menu li {
+    position: relative;
+}
+
+.ekwa-nav-menu li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.ekwa-nav-menu li a:hover,
+.ekwa-nav-menu li.current-menu-item > a,
+.ekwa-nav-menu li.current_page_item > a {
+    color: var(--color_two);
+}
+
+.ekwa-nav-menu li.current-menu-ancestor > a,
+.ekwa-nav-menu li.current_page_ancestor > a {
+    color: var(--color_two);
+}
+
+/* Dropdown */
+.ekwa-nav-menu ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+    flex-direction: column;
+}
+
+.ekwa-nav-menu li:hover > ul {
+    display: flex;
+}
+
+.ekwa-nav-menu ul ul li a {
+    padding: 8px 15px;
+    white-space: nowrap;
+}
+
+/* Sub-sub menus */
+.ekwa-nav-menu ul ul ul {
+    top: 0;
+    left: 100%;
+}
+
+/* Default header layout helpers */
+.ekwa-default-header .header-top-row {
+    align-items: center;
+}
+
+.ekwa-default-header .header-info-col {
+    text-align: center;
+}
+
+.ekwa-default-header .header-cta-col {
+    text-align: right;
+}
+
+.ekwa-default-header .header-nav-row {
+    background: var(--color_one);
+}
+
+.ekwa-default-header .header-nav-row .ekwa-nav-menu ul {
+    justify-content: center;
+}
+
+.ekwa-default-header .header-nav-row .ekwa-nav-menu li a {
+    color: var(--color_invert);
+    padding: 12px 18px;
+}
+
+.ekwa-default-header .header-nav-row .ekwa-nav-menu li a:hover,
+.ekwa-default-header .header-nav-row .ekwa-nav-menu li.current-menu-item > a,
+.ekwa-default-header .header-nav-row .ekwa-nav-menu li.current_page_item > a {
+    background: var(--color_two);
+    color: var(--color_invert);
+}
+
+/* Default footer layout helpers */
+.ekwa-default-footer {
+    background: var(--color_one);
+    color: var(--color_invert);
+}
+
+.ekwa-default-footer a {
+    color: var(--color_invert);
+}
+
+.ekwa-default-footer .footer-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ekwa-default-footer .footer-nav li a {
+    display: block;
+    padding: 4px 0;
+}
+
+.ekwa-default-footer .footer-bottom {
+    padding-top: 15px;
+}
+

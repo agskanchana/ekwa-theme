@@ -137,4 +137,74 @@ add_shortcode('mobile_number_ex',function(){
 });
 
 
+/**
+ * [ekwa_nav_menu] — Renders a WordPress nav menu via wp_nav_menu().
+ *
+ * Attributes:
+ *   location — registered theme_location slug (default: 'main-menu')
+ *   class    — extra CSS class on the wrapper <nav> (default: '')
+ *   depth    — menu depth (default: 0 = unlimited)
+ *
+ * Example: [ekwa_nav_menu location="main-menu" class="header-desktop-nav"]
+ */
+add_shortcode( 'ekwa_nav_menu', function ( $atts ) {
+	$atts = shortcode_atts( array(
+		'location' => 'main-menu',
+		'class'    => '',
+		'depth'    => 0,
+	), $atts, 'ekwa_nav_menu' );
+
+	$class = 'ekwa-nav-menu ekwa-nav-' . sanitize_html_class( $atts['location'] );
+	if ( ! empty( $atts['class'] ) ) {
+		$class .= ' ' . sanitize_html_class( $atts['class'] );
+	}
+
+	return wp_nav_menu( array(
+		'theme_location' => sanitize_key( $atts['location'] ),
+		'container'      => 'nav',
+		'container_class' => $class,
+		'depth'          => absint( $atts['depth'] ),
+		'fallback_cb'    => false,
+		'echo'           => false,
+	) );
+} );
+
+/**
+ * [ekwa_address] — Renders the formatted address for a location.
+ *
+ * Attributes:
+ *   location — 1-based location index (default: 1)
+ *
+ * Example: [ekwa_address location="1"]
+ */
+add_shortcode( 'ekwa_address', function ( $atts ) {
+	$atts = shortcode_atts( array(
+		'location' => 1,
+	), $atts, 'ekwa_address' );
+
+	$address = get_address( absint( $atts['location'] ) );
+	return $address ? '<span class="ekwa-address">' . $address . '</span>' : '';
+} );
+
+/**
+ * [ekwa_working_hours] — Renders working hours for a location.
+ *
+ * Attributes:
+ *   location — 1-based location index (default: 1)
+ *   format   — 'list' or 'table' (default: 'list')
+ *
+ * Example: [ekwa_working_hours format="table" location="1"]
+ */
+add_shortcode( 'ekwa_working_hours', function ( $atts ) {
+	$atts = shortcode_atts( array(
+		'location' => 1,
+		'format'   => 'list',
+	), $atts, 'ekwa_working_hours' );
+
+	$format = in_array( $atts['format'], array( 'list', 'table' ), true ) ? $atts['format'] : 'list';
+
+	ob_start();
+	display_location_working_hours( absint( $atts['location'] ), $format );
+	return ob_get_clean();
+} );
 
