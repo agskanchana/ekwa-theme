@@ -26,7 +26,7 @@ function ekwa_register_acf_blocks() {
     add_filter('block_categories_all', 'ekwa_block_categories', 10, 2);
 
     // Register EKWA Section Block
-    register_block_type(get_template_directory() . '/blocks/section');
+    // register_block_type(get_template_directory() . '/blocks/section');
 
     // Register EKWA Button Block
     register_block_type(get_template_directory() . '/blocks/button');
@@ -62,7 +62,7 @@ function ekwa_register_acf_blocks() {
     register_block_type(get_template_directory() . '/blocks/working-hours');
 
     // Register EKWA Main Menu Block
-    register_block_type(get_template_directory() . '/blocks/main-menu');
+    // register_block_type(get_template_directory() . '/blocks/main-menu');
 
     // Register EKWA Google Map Block
     register_block_type(get_template_directory() . '/blocks/google-map');
@@ -77,7 +77,7 @@ function ekwa_register_acf_blocks() {
     register_block_type(get_template_directory() . '/blocks/social-media-icons');
 
     // Register EKWA WebP Image Block
-    register_block_type(get_template_directory() . '/blocks/webp-image');
+    // register_block_type(get_template_directory() . '/blocks/webp-image');
 
     // Register EKWA Mobile Icon Menu Block
     register_block_type(get_template_directory() . '/blocks/mobile-icon-menu');
