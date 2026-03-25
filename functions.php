@@ -190,10 +190,38 @@ add_action( 'after_setup_theme', function() {
 	}
 } );
 
+/**
+ * Initialize Site Setup Wizard.
+ *
+ * Prompts the user to enter practice details (name, locations, social media,
+ * header/footer selection) after theme activation, once required plugins are
+ * active. Saves everything as Kirki theme_mods.
+ */
+require get_template_directory() . '/inc/class-ekwa-site-setup-wizard.php';
+
+add_action( 'after_setup_theme', function() {
+	if ( is_admin() ) {
+		EKWA_Site_Setup_Wizard::get_instance();
+	}
+} );
+
+// Set redirect transient on theme activation (runs after plugin wizard transient).
+add_action( 'after_switch_theme', 'ekwa_set_site_setup_redirect', 20 );
+function ekwa_set_site_setup_redirect() {
+	if ( ! get_option( 'ekwa_site_setup_completed' ) ) {
+		set_transient( 'ekwa_site_setup_redirect', true, HOUR_IN_SECONDS );
+	}
+}
+
 
 
 require get_template_directory() . '/settings/theme-functions.php';
-require get_template_directory() . '/settings/customizer.php';
+
+// Defer Kirki customizer loading to 'init' to avoid early textdomain loading (WP 6.7+).
+add_action( 'init', function() {
+	require get_template_directory() . '/settings/customizer.php';
+}, 5 );
+
 require get_template_directory() . '/settings/acf.php';
 
 // ACF Icon Picker Field - Load only if ACF is active
@@ -449,6 +477,8 @@ function ekwa_get_default_footer_content() {
 
 </div>
 <!-- /wp:group -->
+
+<!-- wp:acf/ekwa-mobile-icon-menu {"name":"acf/ekwa-mobile-icon-menu"} /-->
 	<?php
 	return trim( ob_get_clean() );
 }

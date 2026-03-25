@@ -1,7 +1,5 @@
 <?php
 
-use Kirki\Field\Color;
-
 include(get_template_directory()."/settings/mobile-detect/Mobile_Detect.php");
 
 

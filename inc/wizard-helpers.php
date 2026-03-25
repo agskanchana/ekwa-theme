@@ -187,3 +187,68 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		}
 	} );
 }
+
+/* =====================================================================
+ * Site Setup Wizard helpers
+ * ===================================================================*/
+
+/**
+ * Check if site setup has been completed.
+ *
+ * @return bool
+ */
+function ekwa_is_site_setup_completed() {
+	return (bool) get_option( 'ekwa_site_setup_completed' );
+}
+
+/**
+ * Reset the site setup wizard so it appears again.
+ */
+function ekwa_reset_site_setup() {
+	delete_option( 'ekwa_site_setup_completed' );
+}
+
+/**
+ * URL to the site setup wizard page.
+ *
+ * @return string
+ */
+function ekwa_get_site_setup_url() {
+	return admin_url( 'themes.php?page=ekwa-site-setup' );
+}
+
+/**
+ * Admin-bar link for quick access.
+ */
+function ekwa_site_setup_admin_bar( $wp_admin_bar ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$wp_admin_bar->add_node( array(
+		'id'     => 'ekwa-site-setup',
+		'parent' => 'appearance',
+		'title'  => __( 'Site Setup Wizard', 'ekwa' ),
+		'href'   => ekwa_get_site_setup_url(),
+	) );
+}
+add_action( 'admin_bar_menu', 'ekwa_site_setup_admin_bar', 101 );
+
+/**
+ * URL-based reset: ?ekwa_reset_site_setup=1
+ */
+function ekwa_handle_site_setup_reset() {
+	if ( ! isset( $_GET['ekwa_reset_site_setup'] ) ) {
+		return;
+	}
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( esc_html__( 'Insufficient permissions.', 'ekwa' ) );
+	}
+	if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'ekwa_reset_site_setup' ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'ekwa' ) );
+	}
+	ekwa_reset_site_setup();
+	wp_safe_redirect( ekwa_get_site_setup_url() );
+	exit;
+}
+add_action( 'admin_init', 'ekwa_handle_site_setup_reset' );

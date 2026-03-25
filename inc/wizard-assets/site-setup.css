@@ -1,0 +1,426 @@
+/**
+ * EKWA Site Setup Wizard — Styles
+ *
+ * Extends the same visual language as the Plugin Wizard.
+ */
+
+/* ===== Wrapper ===== */
+.ekwa-setup-wrap {
+	background: #f1f1f1;
+	min-height: 100vh;
+	padding: 40px 20px;
+}
+
+.ekwa-setup-container {
+	max-width: 960px;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+	overflow: hidden;
+}
+
+/* ===== Header ===== */
+.ekwa-setup-header {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: #fff;
+	padding: 36px 50px;
+	text-align: center;
+}
+.ekwa-setup-header h1 {
+	margin: 0 0 8px;
+	font-size: 30px;
+	font-weight: 600;
+	color: #fff;
+}
+.ekwa-setup-header p {
+	margin: 0;
+	font-size: 15px;
+	opacity: 0.9;
+}
+
+/* ===== Step indicators ===== */
+.ekwa-setup-steps {
+	display: flex;
+	justify-content: space-around;
+	padding: 24px 30px;
+	background: #f9f9f9;
+	border-bottom: 1px solid #e5e5e5;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+.ekwa-setup-step {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	opacity: 0.45;
+	transition: opacity 0.3s;
+}
+.ekwa-setup-step.active {
+	opacity: 1;
+}
+.ekwa-setup-step.completed {
+	opacity: 1;
+}
+.step-num {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: #ccc;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	font-size: 16px;
+	transition: background 0.3s;
+}
+.ekwa-setup-step.active .step-num {
+	background: #2271b1;
+}
+.ekwa-setup-step.completed .step-num {
+	background: #46b450;
+}
+.step-label {
+	font-weight: 500;
+	font-size: 13px;
+}
+
+/* ===== Body / step content ===== */
+.ekwa-setup-body {
+	padding: 40px 50px;
+}
+.ekwa-setup-step-content h2 {
+	margin: 0 0 6px;
+	font-size: 22px;
+	color: #23282d;
+}
+.step-desc {
+	margin: 0 0 28px;
+	color: #646970;
+	font-size: 14px;
+}
+
+/* ===== Form grid ===== */
+.ekwa-form-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px 30px;
+	margin-bottom: 30px;
+}
+.ekwa-field {
+	display: flex;
+	flex-direction: column;
+}
+.ekwa-field.ekwa-full-width {
+	grid-column: 1 / -1;
+}
+.ekwa-field label {
+	font-weight: 600;
+	font-size: 13px;
+	margin-bottom: 5px;
+	color: #23282d;
+}
+.ekwa-field label .required {
+	color: #d63638;
+}
+.ekwa-field input[type="text"],
+.ekwa-field input[type="email"],
+.ekwa-field input[type="url"],
+.ekwa-field input[type="tel"],
+.ekwa-field input[type="number"],
+.ekwa-field select,
+.ekwa-field textarea {
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: border-color 0.2s;
+}
+.ekwa-field input:focus,
+.ekwa-field select:focus,
+.ekwa-field textarea:focus {
+	border-color: #2271b1;
+	outline: none;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+.ekwa-field input.field-error,
+.ekwa-field select.field-error {
+	border-color: #d63638;
+	box-shadow: 0 0 0 1px #d63638;
+}
+.field-hint {
+	margin: 4px 0 0;
+	font-size: 12px;
+	color: #646970;
+}
+.field-hint a {
+	color: #2271b1;
+}
+
+/* Radio group */
+.ekwa-radio-group {
+	display: flex;
+	gap: 20px;
+	padding-top: 4px;
+}
+.ekwa-radio-group label {
+	font-weight: 400;
+	cursor: pointer;
+}
+
+/* ===== Location cards ===== */
+.ekwa-location-card {
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.ekwa-location-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 14px 20px;
+	background: #f9f9f9;
+	border-bottom: 1px solid #e5e5e5;
+	cursor: pointer;
+}
+.ekwa-location-card-header h3 {
+	margin: 0;
+	font-size: 15px;
+	color: #23282d;
+}
+.ekwa-location-card-header .toggle-icon {
+	font-size: 18px;
+	color: #646970;
+	transition: transform 0.2s;
+}
+.ekwa-location-card.collapsed .ekwa-location-card-body {
+	display: none;
+}
+.ekwa-location-card.collapsed .toggle-icon {
+	transform: rotate(-90deg);
+}
+.ekwa-location-card-body {
+	padding: 20px;
+}
+.ekwa-location-card-body .ekwa-form-grid {
+	margin-bottom: 20px;
+}
+.remove-location {
+	color: #d63638;
+	cursor: pointer;
+	font-size: 13px;
+	border: none;
+	background: none;
+	padding: 0;
+}
+.remove-location:hover {
+	text-decoration: underline;
+}
+
+/* ===== Working hours table ===== */
+.ekwa-hours-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+.ekwa-hours-table th {
+	text-align: left;
+	padding: 8px 10px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #646970;
+	border-bottom: 2px solid #e5e5e5;
+	text-transform: uppercase;
+}
+.ekwa-hours-table td {
+	padding: 6px 10px;
+	border-bottom: 1px solid #f0f0f1;
+	vertical-align: middle;
+}
+.ekwa-hours-table select {
+	padding: 5px 8px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	font-size: 13px;
+	min-width: 110px;
+}
+.ekwa-hours-table input[type="checkbox"] {
+	width: 18px;
+	height: 18px;
+}
+.ekwa-hours-table .day-name {
+	font-weight: 500;
+	min-width: 90px;
+}
+.ekwa-hours-table tr.day-closed td {
+	opacity: 0.45;
+}
+.ekwa-hours-table tr.day-closed td:first-child,
+.ekwa-hours-table tr.day-closed td:last-child {
+	opacity: 1;
+}
+.hours-heading {
+	font-weight: 600;
+	font-size: 14px;
+	margin: 20px 0 6px;
+	color: #23282d;
+}
+
+/* ===== Social media rows ===== */
+.ekwa-social-list {
+	margin-bottom: 30px;
+}
+.ekwa-social-row {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 12px 16px;
+	border: 1px solid #f0f0f1;
+	border-radius: 4px;
+	margin-bottom: 8px;
+	transition: border-color 0.2s;
+}
+.ekwa-social-row:hover {
+	border-color: #2271b1;
+}
+.social-label {
+	min-width: 130px;
+	font-weight: 500;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.social-label i {
+	font-size: 18px;
+	width: 22px;
+	text-align: center;
+	color: #646970;
+}
+.ekwa-social-row input[type="url"] {
+	flex: 1;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+.ekwa-social-row input[type="url"]:focus {
+	border-color: #2271b1;
+	outline: none;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* ===== Step actions ===== */
+.ekwa-step-actions {
+	display: flex;
+	gap: 12px;
+	justify-content: flex-end;
+	padding-top: 24px;
+	border-top: 1px solid #e5e5e5;
+	margin-top: 10px;
+}
+
+/* ===== Complete step ===== */
+.ekwa-setup-complete {
+	text-align: center;
+	padding: 30px 20px;
+}
+.ekwa-setup-complete .ekwa-complete-icon {
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	background: #46b450;
+	color: #fff;
+	font-size: 52px;
+	line-height: 90px;
+	margin: 0 auto 24px;
+	animation: ekwaScaleIn 0.5s ease-out;
+}
+@keyframes ekwaScaleIn {
+	0%   { transform: scale(0); }
+	50%  { transform: scale(1.12); }
+	100% { transform: scale(1); }
+}
+.ekwa-setup-complete h2 {
+	margin-bottom: 12px;
+}
+.ekwa-setup-complete p {
+	color: #646970;
+	margin-bottom: 10px;
+}
+.ekwa-complete-actions {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+	margin-top: 24px;
+}
+
+/* ===== Footer ===== */
+.ekwa-setup-footer {
+	padding: 18px 50px;
+	background: #f9f9f9;
+	border-top: 1px solid #e5e5e5;
+	text-align: center;
+}
+.ekwa-setup-footer a {
+	color: #646970;
+	text-decoration: none;
+	font-size: 13px;
+}
+.ekwa-setup-footer a:hover {
+	color: #2271b1;
+}
+
+/* ===== Saving / spinner overlay ===== */
+.ekwa-saving-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(255,255,255,0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 100000;
+}
+.ekwa-saving-overlay .spinner {
+	visibility: visible;
+	float: none;
+}
+
+/* ===== Inline messages ===== */
+.ekwa-inline-error {
+	background: #fcf0f1;
+	border-left: 4px solid #d63638;
+	padding: 10px 14px;
+	margin: 12px 0;
+	border-radius: 4px;
+	font-size: 13px;
+	color: #3c434a;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 782px) {
+	.ekwa-setup-body {
+		padding: 24px 20px;
+	}
+	.ekwa-form-grid {
+		grid-template-columns: 1fr;
+	}
+	.ekwa-setup-steps {
+		padding: 16px 10px;
+	}
+	.step-label {
+		display: none;
+	}
+	.ekwa-social-row {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.ekwa-social-row input[type="url"] {
+		width: 100%;
+	}
+	.ekwa-hours-table select {
+		min-width: 90px;
+	}
+}

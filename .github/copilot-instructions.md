@@ -10,7 +10,7 @@ This is a **parent theme**. Each client site uses a child theme (cloned from `ek
 - Can override any parent block by placing `blocks/{name}/block.json` + `block.php` in the child
 - Adds client-specific styles in `css/child-styles.css`
 - Gets its own GitHub-based updates independently
-- Contains `html-mockups/` for the AI mockup-to-WordPress conversion workflow
+- Contains `html-mockups/` for the AI mockup-to-WordPress conversion workflow (HTML files or screenshots in `html-mockups/assets/screenshots/`)
 
 ### Block Override System
 `ekwa_get_block_path($block_name)` in [blocks/ekwa-blocks.php](../blocks/ekwa-blocks.php) checks `get_stylesheet_directory()` first, then falls back to `get_template_directory()`. Child themes can override any block by providing the same directory structure.
@@ -83,7 +83,7 @@ page.php / single.php
   └── get_footer() → footer.php → fetches CPT post content for footer
 ```
 
-Mobile-specific partials: `template-parts/mobile-header.php`, `mobile-menu.php`, `mobile-footer-icons.php`.
+Mobile header partial: `template-parts/mobile-header.php`. The mobile bottom icon bar is rendered via the `acf/ekwa-mobile-icon-menu` block placed inside the Footer CPT post (not a template part).
 
 ## Custom Post Types, Phone Tracking & Multi-Location
 
@@ -100,10 +100,11 @@ Dental/medical specific CPTs registered in [settings/theme-functions.php](../set
 
 ## CSS Architecture
 
-- [css/color-variables.css](../css/color-variables.css) — CSS custom properties populated from Kirki Customizer values, output at `wp_head` priority 1 via `settings/customizer-font-end/index.php`
+- CSS custom properties (`--color_one`, `--font_body`, etc.) are output inline at `wp_head` priority 1 via `settings/customizer-font-end/index.php` with hardcoded defaults. **Child themes override these by defining a `:root {}` block in `css/child-styles.css`** — do not use the Customizer for colors or fonts.
 - [css/critical.css](../css/critical.css) — critical path styles
 - Block styles are inline `<style>` tags inside `block.php` templates, moved to `<head>` via the section head styles mechanism
 - Bootstrap pre-built assets live in `layouts/bootstrap/`
+- `css/color-variables.css` — legacy file written by `update_admin_css()` on Customizer save; **not loaded/enqueued** — ignore it
 
 ## PHP Conventions
 

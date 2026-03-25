@@ -29,8 +29,6 @@ if (class_exists('ACF')) {
       }
    }
 }
-include( get_template_directory().'/template-parts/mobile-footer-icons.php');
-get_template_part( 'template-parts/mobile-menu' );
 get_template_part('template-parts/search');
  wp_footer();
 ?>
